@@ -13,4 +13,5 @@ public class MinecraftVersionModel
         Name = metadata.Name;
         Metadata = metadata;
     }
+
 }

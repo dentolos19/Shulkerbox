@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -75,14 +73,14 @@ public partial class MainPageViewModel : ObservableObject
     {
         if (string.IsNullOrWhiteSpace(Username) && !Regex.IsMatch(Username, @"/^\w+$/i"))
         {
-            await App.AttachDialog("Enter a invalid username!", "Invalid settings!");
+            await App.AttachDialog("Enter a invalid username!");
             return;
         }
         App.Settings.Username = Username;
         App.Settings.Save();
         if (SelectedVersion == null)
         {
-            await App.AttachDialog("Select a valid Minecraft version!", "Invalid settings!");
+            await App.AttachDialog("Select a valid Minecraft version!");
             return;
         }
         LaunchVisibility = Visibility.Visible;
@@ -115,10 +113,7 @@ public partial class MainPageViewModel : ObservableObject
     [ICommand]
     private async Task OpenAbout()
     {
-        await using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("CraftMine.Resources.Raw.About.txt");
-        using var streamReader = new StreamReader(stream);
-        var message = await streamReader.ReadToEndAsync();
-        await App.AttachDialog(message, "About");
+        await App.AttachDialog(new AboutDialog());
     }
 
 }

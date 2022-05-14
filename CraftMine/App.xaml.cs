@@ -26,15 +26,24 @@ public partial class App
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        var frame = new Frame();
-        _mainWindow = new Window { Title = Package.Current.DisplayName, Content = frame };
-        frame.Navigate(typeof(MainPage));
+        _mainWindow = new Window { Title = Package.Current.DisplayName, Content = new Frame() };
+        NavigateFrame(typeof(MainPage));
         _mainWindow.Activate();
+    }
+
+    internal static void NavigateFrame(Type type, object? parameter = null)
+    {
+        if (_mainWindow is not { Content: Frame frame })
+            return;
+        if (parameter == null)
+            frame.Navigate(type);
+        else
+            frame.Navigate(type, parameter);
     }
 
     internal static async Task AttachDialog(string message, string? title = null)
     {
-        var dialog = new ContentDialog { Content = message, PrimaryButtonText = "Close" };
+        var dialog = new ContentDialog { Content = message, CloseButtonText = "Close" };
         if (!string.IsNullOrEmpty(title))
             dialog.Title = title;
         dialog.XamlRoot = _mainWindow.Content.XamlRoot;

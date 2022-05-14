@@ -34,21 +34,21 @@
                 </ComboBox>
                 <Grid ColumnSpacing="4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="0" ToolTipService.ToolTip="Launch" IsEnabled="{Binding IsNotLaunching}" Command="{Binding LaunchGameCommand}">
                         <SymbolIcon Symbol="Play"/>
                     </Button>
-                    <Button Grid.Column="1" ToolTipService.ToolTip="Game Folder"  Command="{Binding OpenFolderCommand}">
+                    <Button Grid.Column="1" ToolTipService.ToolTip="Game Folder" Command="{Binding OpenFolderCommand}">
                         <SymbolIcon Symbol="Folder"/>
                     </Button>
-                    <Button Grid.Column="2" ToolTipService.ToolTip="Settings"  IsEnabled="{Binding IsNotLaunching}" Command="{Binding OpenSettingsCommand}">
+                    <Button Grid.Column="2" ToolTipService.ToolTip="Settings" IsEnabled="{Binding IsNotLaunching}" Command="{Binding OpenSettingsCommand}">
                         <SymbolIcon Symbol="Setting"/>
                     </Button>
-                    <Button Grid.Column="3" ToolTipService.ToolTip="About"  Command="{Binding OpenAboutCommand}">
+                    <Button Grid.Column="3" ToolTipService.ToolTip="About" Command="{Binding OpenAboutCommand}">
                         <SymbolIcon Symbol="More"/>
                     </Button>
                 </Grid>

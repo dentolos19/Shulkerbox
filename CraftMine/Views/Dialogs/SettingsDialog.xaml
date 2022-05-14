@@ -1,15 +1,15 @@
 ﻿<ContentDialog x:Class="CraftMine.Views.Dialogs.SettingsDialog"
-                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:models="using:CraftMine.Models"
-                   Title="Settings"
-                   PrimaryButtonText="Save" CloseButtonText="Cancel"
-                   PrimaryButtonCommand="{Binding SaveCommand}">
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:models="using:CraftMine.Models"
+               Title="Settings"
+               PrimaryButtonText="Save" CloseButtonText="Cancel"
+               PrimaryButtonCommand="{Binding SaveCommand}">
     <ContentDialog.DataContext>
         <models:SettingsDialogViewModel/>
     </ContentDialog.DataContext>
     <StackPanel Spacing="4">
-        <NumberBox Header="Memory Allocation" Value="{Binding MemoryAllocation, Mode=TwoWay}"/>
+        <NumberBox Header="Memory Allocation (MB)" Value="{Binding MemoryAllocation, Mode=TwoWay}"/>
         <CheckBox Content="Show Snapshots" IsChecked="{Binding ShowSnapshots, Mode=TwoWay}"/>
     </StackPanel>
 </ContentDialog>
