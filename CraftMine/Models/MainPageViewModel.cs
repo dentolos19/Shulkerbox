@@ -71,9 +71,10 @@ public partial class MainPageViewModel : ObservableObject
     [ICommand]
     private async Task LaunchGame()
     {
-        if (string.IsNullOrWhiteSpace(Username) && !Regex.IsMatch(Username, @"/^\w+$/i"))
+        Username = Username.Trim();
+        if (string.IsNullOrWhiteSpace(Username) || !Regex.IsMatch(Username, @"^\w+$"))
         {
-            await App.AttachDialog("Enter a invalid username!");
+            await App.AttachDialog("Enter a valid username!");
             return;
         }
         App.Settings.Username = Username;
