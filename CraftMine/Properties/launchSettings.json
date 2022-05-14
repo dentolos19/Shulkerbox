@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CraftMine (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CraftMine (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
