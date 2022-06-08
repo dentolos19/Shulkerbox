@@ -9,7 +9,7 @@ A simple Minecraft Launcher with WinUI!
 * [X] Downloads files from the official Mojang file server
 * [X] Automatically installs the Java runtime
 
-> This feature set has been made possible with [CmlLib.Core](https://github.com/CmlLib/CmlLib.Core)!
+> **Note**: This feature set has been made possible with [CmlLib.Core](https://github.com/CmlLib/CmlLib.Core)!
 
 ## Screenshots
 

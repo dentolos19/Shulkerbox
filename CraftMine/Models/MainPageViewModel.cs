@@ -20,7 +20,6 @@ namespace CraftMine.Models;
 public partial class MainPageViewModel : ObservableObject
 {
 
-    [ObservableProperty] private string _title = Package.Current.DisplayName;
     [ObservableProperty] private string _username = App.Settings.Username;
     [ObservableProperty] private MinecraftVersionModel? _selectedVersion;
     [ObservableProperty] private ObservableCollection<MinecraftVersionModel> _versions = new();

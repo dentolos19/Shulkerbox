@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Windows.ApplicationModel;
-using Windows.Storage;
 using CmlLib.Core;
 using CraftMine.Core;
 using CraftMine.Views.Pages;
@@ -16,8 +14,8 @@ public partial class App
 
     private static Window _mainWindow;
 
+    internal static CMLauncher Launcher { get; } = new(new MinecraftPath());
     internal static Settings Settings { get; } = Settings.Load();
-    internal static CMLauncher Launcher { get; } = new(Path.Combine(ApplicationData.Current.LocalFolder.Path, "game"));
 
     public App()
     {
@@ -26,7 +24,11 @@ public partial class App
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        _mainWindow = new Window { Title = Package.Current.DisplayName, Content = new Frame() };
+        _mainWindow = new Window
+        {
+            Title = "CraftMine",
+            Content = new Frame()
+        };
         NavigateFrame(typeof(MainPage));
         _mainWindow.Activate();
     }

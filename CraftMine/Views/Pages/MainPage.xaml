@@ -22,7 +22,7 @@
             <StackPanel Spacing="8" Margin="24">
                 <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
                     <Image Source="{StaticResource IconImage}" Width="32"/>
-                    <TextBlock Text="{Binding Title}" FontSize="24"/>
+                    <TextBlock Text="CraftMine" FontSize="24"/>
                 </StackPanel>
                 <TextBox Text="{Binding Username, Mode=TwoWay}" PlaceholderText="Username" IsEnabled="{Binding IsNotLaunching}"/>
                 <ComboBox ItemsSource="{Binding Versions}" SelectedItem="{Binding SelectedVersion, Mode=TwoWay}" IsEnabled="{Binding IsNotLaunching}" HorizontalAlignment="Stretch">

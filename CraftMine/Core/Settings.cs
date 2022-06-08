@@ -1,14 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
-using Windows.Storage;
 
 namespace CraftMine.Core;
 
 public class Settings
 {
 
-    private static string FilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "settings.json");
+    private static string FilePath = Path.Combine(App.Launcher.MinecraftPath.BasePath, "settings.json");
 
     public string Username { get; set; } = Environment.UserName;
     public int MemoryAllocation { get; set; } = 4096;
