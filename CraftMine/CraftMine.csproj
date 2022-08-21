@@ -5,14 +5,13 @@
 		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
 		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>CraftMine</RootNamespace>
-		<ApplicationManifest>Properties\App.manifest</ApplicationManifest>
-		<Platforms>x64;arm64</Platforms>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+		<Platforms>x86;x64;arm64</Platforms>
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
 		<UseWinUI>true</UseWinUI>
-		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+		<EnableMsixTooling>true</EnableMsixTooling>
 		<WindowsPackageType>None</WindowsPackageType>
-		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 

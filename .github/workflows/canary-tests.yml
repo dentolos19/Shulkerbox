@@ -1,0 +1,42 @@
+name: Canary (Testing)
+on: [ push, workflow_dispatch ]
+concurrency:
+  group: release
+  cancel-in-progress: true
+env:
+  RELEASE_TAG: Canary
+jobs:
+  main:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+      - name: Setup Dependencies
+        run: |
+          dotnet tool install -g uno.check
+          uno-check --ci --fix --non-interactive --skip wsl --skip androidemulator --verbose
+      - name: Publish Project
+        run: |
+          dotnet publish -c Release -p:Platform=x64 -p:RuntimeIdentifier=win10-x64
+          $artifacts = (Get-ChildItem -Recurse -Path CraftMine/bin/Release/net*-windows*/win10-x64/publish/*).FullName
+          Compress-Archive -Path $artifacts -DestinationPath ${{ github.event.repository.name }}.zip
+      - name: Delete (Existing) Release Tag
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          delete_release: true
+      - name: Deploy Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "${{ github.event.repository.name }}.zip"
+          prerelease: true
+          tag: ${{ env.RELEASE_TAG }}
+          commit: ${{ github.event.repository.default_branch }}
