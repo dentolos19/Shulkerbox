@@ -10,6 +10,7 @@ using CmlLib.Core.Version;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CraftMine.Services;
+using CraftMine.Views;
 
 namespace CraftMine.Models;
 
@@ -68,7 +69,7 @@ public partial class MainPageModel : ObservableObject
         Username = Username.Trim();
         if (string.IsNullOrEmpty(Username))
         {
-            await App.AttachDialog("Please enter a valid username!");
+            await App.AttachDialog("Please enter a valid username.", "Unable to launch!");
             return;
         }
         _settingsService.Username = Username;
@@ -81,7 +82,7 @@ public partial class MainPageModel : ObservableObject
         IsStatusVisible = true;
         var gameProcess = await _gameService.Launcher.CreateProcessAsync(Version.Name, launchOptions);
         IsStatusVisible = false;
-        // gameProcess.Start();
+        gameProcess.Start();
         await ReloadVersionsCommand.ExecuteAsync(null);
     }
 
@@ -94,13 +95,14 @@ public partial class MainPageModel : ObservableObject
     [RelayCommand]
     private async Task OpenAppSettings()
     {
-        await App.AttachDialog("Please use the latest version if possible.", "This function is not implemented yet!");
+        await App.AttachDialog(new SettingsDialog());
+        await ReloadVersionsCommand.ExecuteAsync(null);
     }
 
     [RelayCommand]
     private async Task AboutThisApp()
     {
-        await App.AttachDialog("Please use the latest version if possible.", "This function is not implemented yet!");
+        await App.AttachDialog("Please use the latest version if possible.", "Work-in-progress!");
     }
 
 }

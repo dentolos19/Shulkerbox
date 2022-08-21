@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using CraftMine.Pages;
+using CraftMine.Views;
 using CraftMine.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
@@ -45,13 +45,18 @@ public partial class App
         return (TService?)((App)Current).Services.GetService(typeof(TService));
     }
 
+    public static IAsyncOperation<ContentDialogResult> AttachDialog(ContentDialog dialog)
+    {
+        dialog.XamlRoot = ((App)Current).MainWindow.Content.XamlRoot;
+        return dialog.ShowAsync();
+    }
+
     public static IAsyncOperation<ContentDialogResult> AttachDialog(string message, string? title = null)
     {
         var dialog = new ContentDialog { Content = message, CloseButtonText = "Close" };
         if (!string.IsNullOrEmpty(title))
             dialog.Title = title;
-        dialog.XamlRoot = ((App)Current).MainWindow.Content.XamlRoot;
-        return dialog.ShowAsync();
+        return AttachDialog(dialog);
     }
 
 }

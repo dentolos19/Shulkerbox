@@ -4,7 +4,7 @@
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
       xmlns:models="using:CraftMine.Models"
-      x:Class="CraftMine.Pages.MainPage">
+      x:Class="CraftMine.Views.MainPage">
     <Page.DataContext>
         <models:MainPageModel/>
     </Page.DataContext>
@@ -86,21 +86,25 @@
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="0"
                             Command="{Binding LaunchGameCommand}"
+                            HorizontalAlignment="Stretch"
                             ToolTipService.ToolTip="Launch Game">
                         <SymbolIcon Symbol="Play"/>
                     </Button>
                     <Button Grid.Column="1"
                             Command="{Binding OpenGameDirectoryCommand}"
+                            HorizontalAlignment="Stretch"
                             ToolTipService.ToolTip="Open Game Directory">
                         <SymbolIcon Symbol="Folder"/>
                     </Button>
                     <Button Grid.Column="2"
                             Command="{Binding OpenAppSettingsCommand}"
+                            HorizontalAlignment="Stretch"
                             ToolTipService.ToolTip="Open App Settings">
                         <SymbolIcon Symbol="Setting"/>
                     </Button>
                     <Button Grid.Column="3"
                             Command="{Binding AboutThisAppCommand}"
+                            HorizontalAlignment="Stretch"
                             ToolTipService.ToolTip="About This App">
                         <SymbolIcon Symbol="ContactInfo"/>
                     </Button>

@@ -29,9 +29,9 @@ jobs:
           $x64artifacts = (Get-ChildItem -Recurse -Path build/x64/*).FullName
           $x86artifacts = (Get-ChildItem -Recurse -Path build/x86/*).FullName
           $arm64artifacts = (Get-ChildItem -Recurse -Path build/arm64/*).FullName
-          Compress-Archive -Path $x64artifacts -DestinationPath ${{ github.event.repository.name }}-x64.zip
-          Compress-Archive -Path $x86artifacts -DestinationPath ${{ github.event.repository.name }}-x86.zip
-          Compress-Archive -Path $arm64artifacts -DestinationPath ${{ github.event.repository.name }}-arm64.zip
+          Compress-Archive -Path $x64artifacts -DestinationPath ${{ github.event.repository.name }}_windows-x64.zip
+          Compress-Archive -Path $x86artifacts -DestinationPath ${{ github.event.repository.name }}_windows-x86.zip
+          Compress-Archive -Path $arm64artifacts -DestinationPath ${{ github.event.repository.name }}_windows-arm64.zip
       - name: Delete (Existing) Release Tag
         uses: dev-drprasad/delete-tag-and-release@v0.2.0
         env:
@@ -42,7 +42,7 @@ jobs:
       - name: Deploy Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ github.event.repository.name }}-x64.zip,${{ github.event.repository.name }}-x86.zip,${{ github.event.repository.name }}-arm64.zip"
+          artifacts: "${{ github.event.repository.name }}_windows-x64.zip,${{ github.event.repository.name }}_windows-x86.zip,${{ github.event.repository.name }}_windows-arm64.zip"
           prerelease: true
           tag: ${{ env.RELEASE_TAG }}
           commit: ${{ github.event.repository.default_branch }}

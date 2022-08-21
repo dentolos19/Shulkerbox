@@ -1,4 +1,4 @@
-﻿namespace CraftMine.Pages;
+﻿namespace CraftMine.Views;
 
 public sealed partial class MainPage
 {
