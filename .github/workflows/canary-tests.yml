@@ -19,9 +19,9 @@ jobs:
           dotnet-version: 6.0.x
       - name: Publish Project
         run: |
-          dotnet publish -c Release -p:Platform=x64 -p:RuntimeIdentifier=win10-x64 -o build/x64
-          dotnet publish -c Release -p:Platform=x86 -p:RuntimeIdentifier=win10-x86 -o build/x86
-          dotnet publish -c Release -p:Platform=arm64 -p:RuntimeIdentifier=win10-arm64 -o build/arm64
+          dotnet publish -c Release -p:WindowsPackageType=None -p:Platform=x64 -p:RuntimeIdentifier=win10-x64 -o build/x64
+          dotnet publish -c Release -p:WindowsPackageType=None -p:Platform=x86 -p:RuntimeIdentifier=win10-x86 -o build/x86
+          dotnet publish -c Release -p:WindowsPackageType=None -p:Platform=arm64 -p:RuntimeIdentifier=win10-arm64 -o build/arm64
           $x64artifacts = (Get-ChildItem -Recurse -Path build/x64/*).FullName
           $x86artifacts = (Get-ChildItem -Recurse -Path build/x86/*).FullName
           $arm64artifacts = (Get-ChildItem -Recurse -Path build/arm64/*).FullName

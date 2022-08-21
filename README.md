@@ -10,7 +10,3 @@ A simple Minecraft Launcher with WinUI!
 * [X] Automatically installs the Java runtime
 
 > **Note**: This feature set has been made possible with [CmlLib.Core](https://github.com/CmlLib/CmlLib.Core)!
-
-## Screenshots
-
-![](.github/images/0.png)

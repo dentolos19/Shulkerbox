@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CmlLib.Core;
-using CraftMine.Core;
-using CraftMine.Views.Pages;
+using Windows.Foundation;
+using CraftMine.Pages;
+using CraftMine.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -11,10 +12,8 @@ namespace CraftMine;
 public partial class App
 {
 
-    private static Window _mainWindow;
-
-    internal static CMLauncher Launcher { get; } = new(new MinecraftPath());
-    internal static Settings Settings { get; } = Settings.Load();
+    public IServiceProvider Services { get; private set; }
+    public Window MainWindow { get; private set; }
 
     public App()
     {
@@ -23,38 +22,35 @@ public partial class App
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        _mainWindow = new Window
+        Services = ConfigureServices();
+        MainWindow = new Window
         {
             Title = "CraftMine",
-            Content = new Frame()
+            Content = new Frame { Content = new MainPage() }
         };
-        NavigateFrame(typeof(MainPage));
-        _mainWindow.Activate();
+        MainWindow.Activate();
     }
 
-    internal static void NavigateFrame(Type type, object? parameter = null)
+    private static IServiceProvider ConfigureServices()
     {
-        if (_mainWindow is not { Content: Frame frame })
-            return;
-        if (parameter == null)
-            frame.Navigate(type);
-        else
-            frame.Navigate(type, parameter);
+        var services = new ServiceCollection();
+        services.AddSingleton<GameService>();
+        services.AddSingleton<SettingsService>(SettingsService.Initialize());
+        return services.BuildServiceProvider();
     }
 
-    internal static async Task AttachDialog(string message, string? title = null)
+    public static TService? GetService<TService>()
+    {
+        return (TService?)((App)Current).Services.GetService(typeof(TService));
+    }
+
+    public static IAsyncOperation<ContentDialogResult> AttachDialog(string message, string? title = null)
     {
         var dialog = new ContentDialog { Content = message, CloseButtonText = "Close" };
         if (!string.IsNullOrEmpty(title))
             dialog.Title = title;
-        dialog.XamlRoot = _mainWindow.Content.XamlRoot;
-        await dialog.ShowAsync();
-    }
-
-    internal static async Task AttachDialog(ContentDialog dialog)
-    {
-        dialog.XamlRoot = _mainWindow.Content.XamlRoot;
-        await dialog.ShowAsync();
+        dialog.XamlRoot = ((App)Current).MainWindow.Content.XamlRoot;
+        return dialog.ShowAsync();
     }
 
 }
