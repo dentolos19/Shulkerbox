@@ -1,5 +1,9 @@
-name: Canary (Testing)
-on: [ push, workflow_dispatch ]
+name: Canary
+on:
+  push:
+    paths:
+      - CraftMine/**
+  workflow_dispatch:
 concurrency:
   group: release
   cancel-in-progress: true
@@ -38,7 +42,7 @@ jobs:
       - name: Deploy Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ github.event.repository.name }}-x64.zip"
+          artifacts: "${{ github.event.repository.name }}-x64.zip,${{ github.event.repository.name }}-x86.zip,${{ github.event.repository.name }}-arm64.zip"
           prerelease: true
           tag: ${{ env.RELEASE_TAG }}
           commit: ${{ github.event.repository.default_branch }}
