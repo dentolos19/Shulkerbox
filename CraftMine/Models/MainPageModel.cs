@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,22 +36,25 @@ public partial class MainPageModel : ObservableObject
             args.TotalFileCount
         );
         _gameService.Launcher.ProgressChanged += (_, args) => StatusProgress = args.ProgressPercentage;
-        _ = ReloadVersions();
+        ReloadVersionsCommand.Execute(null);
         Username = _settingsService.Username;
     }
 
+    [RelayCommand]
     private async Task ReloadVersions()
     {
         var versions = await _gameService.Launcher.GetAllVersionsAsync();
+        var versionModels = new List<GameVersionItemModel>();
         foreach (var version in versions)
             switch (version.MType)
             {
                 case MVersionType.Release:
                 case MVersionType.Custom:
                 case MVersionType.Snapshot when _settingsService.ShowSnapshots:
-                    Versions.Add(new GameVersionItemModel(version));
+                    versionModels.Add(new GameVersionItemModel(version));
                     break;
             }
+        Versions = new ObservableCollection<GameVersionItemModel>(versionModels);
         Version = (
             from version in Versions
             where version.Name == _settingsService.LastVersionUsed
@@ -75,8 +79,10 @@ public partial class MainPageModel : ObservableObject
             MaximumRamMb = _settingsService.MemoryAllocation
         };
         IsStatusVisible = true;
-        _ = await _gameService.Launcher.LaunchAsync(Version.Name, launchOptions);
+        var gameProcess = await _gameService.Launcher.CreateProcessAsync(Version.Name, launchOptions);
         IsStatusVisible = false;
+        // gameProcess.Start();
+        await ReloadVersionsCommand.ExecuteAsync(null);
     }
 
     [RelayCommand]

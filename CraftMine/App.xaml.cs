@@ -6,6 +6,7 @@ using CraftMine.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System.Reflection.Metadata;
 
 namespace CraftMine;
 

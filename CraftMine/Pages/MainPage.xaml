@@ -18,6 +18,7 @@
             </Rectangle.Fill>
         </Rectangle>
         <StackPanel x:Name="Status"
+                    Spacing="4"
                     Margin="0,0,0,64"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom">
@@ -51,15 +52,30 @@
                 <StackPanel Spacing="8">
                     <TextBox Text="{Binding Username, Mode=TwoWay}"
                              PlaceholderText="Username"/>
-                    <ComboBox ItemsSource="{Binding Versions}"
-                              SelectedItem="{Binding Version, Mode=TwoWay}"
-                              HorizontalAlignment="Stretch">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate x:DataType="models:GameVersionItemModel">
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                    <Grid ColumnSpacing="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Grid.Column="0"
+                                  ItemsSource="{Binding Versions}"
+                                  SelectedItem="{Binding Version, Mode=TwoWay}"
+                                  HorizontalAlignment="Stretch">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="models:GameVersionItemModel">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <SymbolIcon Symbol="{Binding Icon}"/>
+                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button Grid.Column="1"
+                                Command="{Binding ReloadVersionsCommand}"
+                                ToolTipService.ToolTip="Reload Versions">
+                            <SymbolIcon Symbol="Refresh"/>
+                        </Button>
+                    </Grid>
                 </StackPanel>
                 <Grid ColumnSpacing="4">
                     <Grid.ColumnDefinitions>
