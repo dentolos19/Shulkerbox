@@ -19,9 +19,15 @@ jobs:
           dotnet-version: 6.0.x
       - name: Publish Project
         run: |
-          dotnet publish -c Release -p:Platform=x64 -p:RuntimeIdentifier=win10-x64 -o build
-          $artifacts = (Get-ChildItem -Recurse -Path build/*).FullName
-          Compress-Archive -Path $artifacts -DestinationPath ${{ github.event.repository.name }}.zip
+          dotnet publish -c Release -p:Platform=x64 -p:RuntimeIdentifier=win10-x64 -o build/x64
+          dotnet publish -c Release -p:Platform=x86 -p:RuntimeIdentifier=win10-x86 -o build/x86
+          dotnet publish -c Release -p:Platform=arm64 -p:RuntimeIdentifier=win10-arm64 -o build/arm64
+          $x64artifacts = (Get-ChildItem -Recurse -Path build/x64/*).FullName
+          $x86artifacts = (Get-ChildItem -Recurse -Path build/x86/*).FullName
+          $arm64artifacts = (Get-ChildItem -Recurse -Path build/arm64/*).FullName
+          Compress-Archive -Path $x64artifacts -DestinationPath ${{ github.event.repository.name }}-x64.zip
+          Compress-Archive -Path $x86artifacts -DestinationPath ${{ github.event.repository.name }}-x86.zip
+          Compress-Archive -Path $arm64artifacts -DestinationPath ${{ github.event.repository.name }}-arm64.zip
       - name: Delete (Existing) Release Tag
         uses: dev-drprasad/delete-tag-and-release@v0.2.0
         env:
@@ -32,7 +38,7 @@ jobs:
       - name: Deploy Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ github.event.repository.name }}.zip"
+          artifacts: "${{ github.event.repository.name }}-x64.zip"
           prerelease: true
           tag: ${{ env.RELEASE_TAG }}
           commit: ${{ github.event.repository.default_branch }}
