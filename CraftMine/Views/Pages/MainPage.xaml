@@ -54,10 +54,17 @@
                              PlaceholderText="Username"/>
                     <Grid ColumnSpacing="4">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <ComboBox Grid.Column="0"
+                        <Button Grid.Column="0"
+                                Command="{Binding LaunchGameCommand}"
+                                HorizontalAlignment="Stretch"
+                                ToolTipService.ToolTip="Launch Game">
+                            <SymbolIcon Symbol="Play"/>
+                        </Button>
+                        <ComboBox Grid.Column="1"
                                   ItemsSource="{Binding Versions}"
                                   SelectedItem="{Binding Version, Mode=TwoWay}"
                                   HorizontalAlignment="Stretch">
@@ -70,7 +77,7 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <Button Grid.Column="1"
+                        <Button Grid.Column="2"
                                 Command="{Binding ReloadVersionsCommand}"
                                 ToolTipService.ToolTip="Reload Versions">
                             <SymbolIcon Symbol="Refresh"/>
@@ -82,27 +89,20 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="0"
-                            Command="{Binding LaunchGameCommand}"
-                            HorizontalAlignment="Stretch"
-                            ToolTipService.ToolTip="Launch Game">
-                        <SymbolIcon Symbol="Play"/>
-                    </Button>
-                    <Button Grid.Column="1"
                             Command="{Binding OpenGameDirectoryCommand}"
                             HorizontalAlignment="Stretch"
                             ToolTipService.ToolTip="Open Game Directory">
                         <SymbolIcon Symbol="Folder"/>
                     </Button>
-                    <Button Grid.Column="2"
+                    <Button Grid.Column="1"
                             Command="{Binding OpenAppSettingsCommand}"
                             HorizontalAlignment="Stretch"
                             ToolTipService.ToolTip="Open App Settings">
                         <SymbolIcon Symbol="Setting"/>
                     </Button>
-                    <Button Grid.Column="3"
+                    <Button Grid.Column="2"
                             Command="{Binding AboutThisAppCommand}"
                             HorizontalAlignment="Stretch"
                             ToolTipService.ToolTip="About This App">

@@ -9,7 +9,7 @@
         <models:SettingsDialogModel/>
     </ContentDialog.DataContext>
     <StackPanel Spacing="4">
-        <NumberBox Header="Memory Allocation" Value="{Binding MemoryAllocation, Mode=TwoWay}"/>
+        <NumberBox Header="Memory Allocation (MB)" Value="{Binding MemoryAllocation, Mode=TwoWay}"/>
         <CheckBox Content="Show Snapshots" IsChecked="{Binding ShowSnapshots, Mode=TwoWay}"/>
     </StackPanel>
 </ContentDialog>

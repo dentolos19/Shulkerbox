@@ -102,7 +102,7 @@ public partial class MainPageModel : ObservableObject
     [RelayCommand]
     private async Task AboutThisApp()
     {
-        await App.AttachDialog("Please use the latest version if possible.", "Work-in-progress!");
+        await App.AttachDialog(new AboutDialog());
     }
 
 }

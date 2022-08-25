@@ -1,0 +1,12 @@
+﻿<ContentDialog xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+               xmlns:models="using:CraftMine.Models"
+               x:Class="CraftMine.Views.AboutDialog"
+               Title="About This App"
+               PrimaryButtonText="Close">
+    <ContentDialog.DataContext>
+        <models:AboutDialogModel/>
+    </ContentDialog.DataContext>
+    <controls:MarkdownTextBlock Text="{Binding Text}" IsTextSelectionEnabled="False" LinkClicked="OnLinkClicked"/>
+</ContentDialog>

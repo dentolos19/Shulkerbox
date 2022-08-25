@@ -11,7 +11,7 @@ public class GameVersionItemModel
 
     public GameVersionItemModel(MVersionMetadata version)
     {
-        Icon = version.IsLocalVersion ? Symbol.Play : Symbol.SaveLocal;
+        Icon = version.IsLocalVersion ? Symbol.Accept : Symbol.SaveLocal;
         Name = version.Name;
     }
 
