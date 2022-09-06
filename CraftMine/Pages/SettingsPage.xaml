@@ -1,0 +1,32 @@
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+      xmlns:models="using:CraftMine.Models"
+      x:Class="CraftMine.Pages.SettingsPage"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <models:SettingsPageModel/>
+    </Page.DataContext>
+    <StackPanel Spacing="8" Padding="8">
+        <Expander Header="General"
+                  IsExpanded="True"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Stretch">
+            <StackPanel Spacing="4">
+                <NumberBox Header="Memory Allocation (MB)"
+                           Value="{Binding MemoryAllocation, Mode=TwoWay}"/>
+                <CheckBox Content="Show Snapshots"
+                          IsChecked="{Binding ShowSnapshots, Mode=TwoWay}"/>
+            </StackPanel>
+        </Expander>
+        <Expander Header="About This App"
+                  IsExpanded="True"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Stretch">
+            <controls:MarkdownTextBlock Text="{Binding AboutText}"
+                                        IsTextSelectionEnabled="False"
+                                        Background="Transparent"
+                                        LinkClicked="OnLinkClicked"/>
+        </Expander>
+    </StackPanel>
+</Page>

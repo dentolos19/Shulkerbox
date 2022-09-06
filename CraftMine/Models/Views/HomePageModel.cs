@@ -10,11 +10,10 @@ using CmlLib.Core.Version;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CraftMine.Services;
-using CraftMine.Views;
 
 namespace CraftMine.Models;
 
-public partial class MainPageModel : ObservableObject
+public partial class HomePageModel : ObservableObject
 {
 
     private readonly GameService _gameService = App.GetService<GameService>();
@@ -27,7 +26,7 @@ public partial class MainPageModel : ObservableObject
     [ObservableProperty] private int _statusProgress;
     [ObservableProperty] private bool _isStatusVisible;
 
-    public MainPageModel()
+    public HomePageModel()
     {
         _gameService.Launcher.FileChanged += args => StatusText = string.Format(
             "[{0}] {1} - {2}/{3}",
@@ -37,12 +36,12 @@ public partial class MainPageModel : ObservableObject
             args.TotalFileCount
         );
         _gameService.Launcher.ProgressChanged += (_, args) => StatusProgress = args.ProgressPercentage;
-        ReloadVersionsCommand.Execute(null);
+        ReloadCommand.Execute(null);
         Username = _settingsService.Username;
     }
 
     [RelayCommand]
-    private async Task ReloadVersions()
+    private async Task Reload()
     {
         var versions = await _gameService.Launcher.GetAllVersionsAsync();
         var versionModels = new List<GameVersionItemModel>();
@@ -64,7 +63,7 @@ public partial class MainPageModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task LaunchGame()
+    private async Task Launch()
     {
         Username = Username.Trim();
         if (string.IsNullOrEmpty(Username))
@@ -83,26 +82,13 @@ public partial class MainPageModel : ObservableObject
         var gameProcess = await _gameService.Launcher.CreateProcessAsync(Version.Name, launchOptions);
         IsStatusVisible = false;
         gameProcess.Start();
-        await ReloadVersionsCommand.ExecuteAsync(null);
+        await ReloadCommand.ExecuteAsync(null);
     }
 
     [RelayCommand]
     private async Task OpenGameDirectory()
     {
         await Launcher.LaunchFolderPathAsync(_gameService.Launcher.MinecraftPath.BasePath);
-    }
-
-    [RelayCommand]
-    private async Task OpenAppSettings()
-    {
-        await App.AttachDialog(new SettingsDialog());
-        await ReloadVersionsCommand.ExecuteAsync(null);
-    }
-
-    [RelayCommand]
-    private async Task AboutThisApp()
-    {
-        await App.AttachDialog(new AboutDialog());
     }
 
 }
