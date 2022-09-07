@@ -17,6 +17,12 @@ public sealed partial class MainPage
             Content = "Home",
             Tag = typeof(HomePage)
         });
+        NavigationView.MenuItems.Add(new NavigationViewItem
+        {
+            Icon = new SymbolIcon(Symbol.Contact),
+            Content = "Accounts",
+            Tag = typeof(AccountsPage)
+        });
         NavigationView.SelectedItem = NavigationView.MenuItems.First();
     }
 

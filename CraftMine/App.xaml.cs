@@ -34,8 +34,8 @@ public partial class App
     private static IServiceProvider ConfigureServices()
     {
         var services = new ServiceCollection();
+        services.AddSingleton(SettingsService.Initialize());
         services.AddSingleton<GameService>();
-        services.AddSingleton<SettingsService>(SettingsService.Initialize());
         return services.BuildServiceProvider();
     }
 

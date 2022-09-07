@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,9 +18,10 @@ public partial class HomePageModel : ObservableObject
     private readonly GameService _gameService = App.GetService<GameService>();
     private readonly SettingsService _settingsService = App.GetService<SettingsService>();
 
-    [ObservableProperty] private string _username;
-    [ObservableProperty] private GameVersionItemModel _version;
-    [ObservableProperty] private ObservableCollection<GameVersionItemModel> _versions = new();
+    [ObservableProperty] private AccountItemModel _account;
+    [ObservableProperty] private ObservableCollection<AccountItemModel> _accounts = new();
+    [ObservableProperty] private VersionItemModel _version;
+    [ObservableProperty] private ObservableCollection<VersionItemModel> _versions = new();
     [ObservableProperty] private string _statusText;
     [ObservableProperty] private int _statusProgress;
     [ObservableProperty] private bool _isStatusVisible;
@@ -37,24 +37,30 @@ public partial class HomePageModel : ObservableObject
         );
         _gameService.Launcher.ProgressChanged += (_, args) => StatusProgress = args.ProgressPercentage;
         ReloadCommand.Execute(null);
-        Username = _settingsService.Username;
     }
 
     [RelayCommand]
     private async Task Reload()
     {
+        Accounts.Clear();
+        foreach (var account in _settingsService.Accounts)
+            Accounts.Add(new AccountItemModel(account));
+        Account = (
+            from account in Accounts
+            where account.Username == _settingsService.LastAccountUsed
+            select account
+        ).FirstOrDefault(Accounts.First());
+        Versions.Clear();
         var versions = await _gameService.Launcher.GetAllVersionsAsync();
-        var versionModels = new List<GameVersionItemModel>();
         foreach (var version in versions)
             switch (version.MType)
             {
                 case MVersionType.Release:
                 case MVersionType.Custom:
                 case MVersionType.Snapshot when _settingsService.ShowSnapshots:
-                    versionModels.Add(new GameVersionItemModel(version));
+                    Versions.Add(new VersionItemModel(version));
                     break;
             }
-        Versions = new ObservableCollection<GameVersionItemModel>(versionModels);
         Version = (
             from version in Versions
             where version.Name == _settingsService.LastVersionUsed
@@ -65,21 +71,15 @@ public partial class HomePageModel : ObservableObject
     [RelayCommand]
     private async Task Launch()
     {
-        Username = Username.Trim();
-        if (string.IsNullOrEmpty(Username))
-        {
-            await App.AttachDialog("Please enter a valid username.", "Unable to launch!");
-            return;
-        }
-        _settingsService.Username = Username;
+        _settingsService.LastAccountUsed = Account.Username;
         _settingsService.LastVersionUsed = Version.Name;
         var launchOptions = new MLaunchOption
         {
-            Session = MSession.GetOfflineSession(_settingsService.Username),
+            Session = MSession.GetOfflineSession(_settingsService.LastAccountUsed),
             MaximumRamMb = _settingsService.MemoryAllocation
         };
         IsStatusVisible = true;
-        var gameProcess = await _gameService.Launcher.CreateProcessAsync(Version.Name, launchOptions);
+        var gameProcess = await _gameService.Launcher.CreateProcessAsync(_settingsService.LastVersionUsed, launchOptions);
         IsStatusVisible = false;
         gameProcess.Start();
         await ReloadCommand.ExecuteAsync(null);

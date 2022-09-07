@@ -4,14 +4,11 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CraftMine.Services;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CraftMine.Models;
 
 public partial class SettingsPageModel : ObservableObject
 {
-
-    private static readonly SettingsService _settingsService = App.GetService<SettingsService>();
 
     [ObservableProperty] private int _memoryAllocation;
     [ObservableProperty] private bool _showSnapshots;
@@ -35,16 +32,16 @@ public partial class SettingsPageModel : ObservableObject
     [RelayCommand]
     private Task Load()
     {
-        MemoryAllocation = _settingsService.MemoryAllocation;
-        ShowSnapshots = _settingsService.ShowSnapshots;
+        MemoryAllocation = SettingsService.Instance.MemoryAllocation;
+        ShowSnapshots = SettingsService.Instance.ShowSnapshots;
         return Task.CompletedTask;
     }
 
     [RelayCommand]
     private Task Save()
     {
-        _settingsService.MemoryAllocation = MemoryAllocation;
-        _settingsService.ShowSnapshots = ShowSnapshots;
+        SettingsService.Instance.MemoryAllocation = MemoryAllocation;
+        SettingsService.Instance.ShowSnapshots = ShowSnapshots;
         return Task.CompletedTask;
     }
 

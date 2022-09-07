@@ -3,13 +3,13 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace CraftMine.Models;
 
-public class GameVersionItemModel
+public class VersionItemModel
 {
 
     public Symbol Icon { get; }
     public string Name { get; }
 
-    public GameVersionItemModel(MVersionMetadata version)
+    public VersionItemModel(MVersionMetadata version)
     {
         Icon = version.IsLocalVersion ? Symbol.Accept : Symbol.SaveLocal;
         Name = version.Name;

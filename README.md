@@ -10,9 +10,10 @@ A simple Minecraft Launcher with WinUI!
 
 ## Features
 
-> **Note**: This feature set has been made possible with [CmlLib.Core](https://github.com/CmlLib/CmlLib.Core)!
+> **Note**: Most of this feature set has been made possible with [CmlLib.Core](https://github.com/CmlLib/CmlLib.Core)!
 
 - [X] Supports offline authentication
+- [X] Easily manage your accounts
 - [X] Launch any Minecraft version (tested up to 1.19.2)
 - [X] Downloads files from the official Mojang file server
 - [X] Automatically installs the Java runtime
@@ -20,3 +21,5 @@ A simple Minecraft Launcher with WinUI!
 ## Images
 
 ![](.github/images/0.png)
+![](.github/images/1.png)
+![](.github/images/2.png)

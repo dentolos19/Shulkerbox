@@ -8,7 +8,7 @@
         <models:SettingsPageModel/>
     </Page.DataContext>
     <StackPanel Spacing="8" Padding="8">
-        <Expander Header="General"
+        <Expander Header="General Preferences"
                   IsExpanded="True"
                   HorizontalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch">
