@@ -7,6 +7,6 @@
                     IsBackEnabled="{Binding CanGoBack, ElementName=ContentView}"
                     SelectionChanged="OnNavigateRequested"
                     BackRequested="OnBackRequested">
-        <Frame x:Name="ContentView" Navigating="OnContentNavigating"/>
+        <Frame x:Name="ContentView" CacheSize="5" Navigating="OnContentNavigating"/>
     </NavigationView>
 </Page>

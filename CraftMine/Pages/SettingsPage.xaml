@@ -24,6 +24,12 @@
                             <TextBlock Text="Open Launcher Directory"/>
                         </StackPanel>
                     </Button>
+                    <Button Command="{Binding OpenGameDirectoryCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <SymbolIcon Symbol="Folder"/>
+                            <TextBlock Text="Open Game Directory"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </StackPanel>
         </Expander>

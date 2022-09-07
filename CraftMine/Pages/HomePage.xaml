@@ -4,7 +4,8 @@
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
       xmlns:models="using:CraftMine.Models"
-      x:Class="CraftMine.Pages.HomePage">
+      x:Class="CraftMine.Pages.HomePage"
+      NavigationCacheMode="Required">
     <Page.DataContext>
         <models:HomePageModel/>
     </Page.DataContext>
@@ -44,13 +45,20 @@
                 </interactions:DataTriggerBehavior>
             </interactivity:Interaction.Behaviors>
             <TextBlock Text="{Binding StatusText}"/>
-            <ProgressBar Value="{Binding StatusProgress}" Width="300"/>
+            <ProgressBar Value="{Binding StatusProgress}"
+                         Width="300"
+                         HorizontalAlignment="Left"/>
         </StackPanel>
         <StackPanel Spacing="4"
                     Orientation="Horizontal"
                     Margin="12"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom">
+            <Button Command="{Binding ReloadCommand}"
+                    HorizontalAlignment="Stretch"
+                    ToolTipService.ToolTip="Reload Accounts &amp; Versions">
+                <SymbolIcon Symbol="Refresh"/>
+            </Button>
             <ComboBox ItemsSource="{Binding Accounts}"
                       SelectedItem="{Binding Account, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
@@ -73,16 +81,6 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Command="{Binding ReloadCommand}"
-                    HorizontalAlignment="Stretch"
-                    ToolTipService.ToolTip="Reload Accounts &amp; Versions">
-                <SymbolIcon Symbol="Refresh"/>
-            </Button>
-            <Button Command="{Binding OpenGameDirectoryCommand}"
-                    HorizontalAlignment="Stretch"
-                    ToolTipService.ToolTip="Open Game Directory">
-                <SymbolIcon Symbol="Folder"/>
-            </Button>
             <Button Command="{Binding LaunchCommand}"
                     HorizontalAlignment="Stretch"
                     ToolTipService.ToolTip="Launch Game">

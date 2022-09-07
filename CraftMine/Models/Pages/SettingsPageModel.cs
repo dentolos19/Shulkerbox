@@ -54,4 +54,10 @@ public partial class SettingsPageModel : ObservableObject
         await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder);
     }
 
+    [RelayCommand]
+    private async Task OpenGameDirectory()
+    {
+        await Launcher.LaunchFolderPathAsync(GameService.Instance.Launcher.MinecraftPath.BasePath);
+    }
+
 }
