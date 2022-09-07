@@ -1,8 +1,8 @@
 ﻿using System;
+using Windows.System;
 using CommunityToolkit.WinUI.UI.Controls;
 using CraftMine.Models;
 using Microsoft.UI.Xaml.Navigation;
-using Windows.System;
 
 namespace CraftMine.Pages;
 

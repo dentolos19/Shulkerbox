@@ -1,18 +1,18 @@
-﻿using CmlLib.Core;
-using System;
+﻿using System;
 using System.IO;
 using System.Net.Http;
 using System.Text.Json.Nodes;
 using Windows.Storage;
+using CmlLib.Core;
 
 namespace CraftMine.Services;
 
 public class GameService
 {
 
-    public static GameService Instance => App.GetService<GameService>();
-
     private readonly HttpClient _httpClient;
+
+    public static GameService Instance => App.GetService<GameService>();
 
     public CMLauncher Launcher { get; }
 

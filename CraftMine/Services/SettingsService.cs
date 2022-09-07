@@ -2,15 +2,13 @@
 using System.ComponentModel;
 using System.IO;
 using System.Text.Json;
-using CommunityToolkit.Mvvm.ComponentModel;
 using Windows.Storage;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace CraftMine.Services;
 
 public partial class SettingsService : ObservableObject
 {
-
-    public static SettingsService Instance => App.GetService<SettingsService>();
 
     private static readonly string FilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "settings.json");
 
@@ -19,6 +17,8 @@ public partial class SettingsService : ObservableObject
     [ObservableProperty] private bool _showSnapshots;
     [ObservableProperty] private string? _lastAccountUsed;
     [ObservableProperty] private string? _lastVersionUsed;
+
+    public static SettingsService Instance => App.GetService<SettingsService>();
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs args)
     {

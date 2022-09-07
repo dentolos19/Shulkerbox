@@ -39,11 +39,8 @@ public partial class HomePageModel : ObservableObject
     private async Task Reload()
     {
         Accounts.Clear();
-        foreach (var account in SettingsService.Instance.Accounts)
-        {
-            var item = await Task.Run(() => new AccountItemModel(account));
-            Accounts.Add(item);
-        }
+        var accounts = await Task.Run(() => SettingsService.Instance.Accounts.Select(account => new AccountItemModel(account)));
+        Accounts = new ObservableCollection<AccountItemModel>(accounts);
         Account = (
             from account in Accounts
             where account.Username == SettingsService.Instance.LastAccountUsed
@@ -86,7 +83,7 @@ public partial class HomePageModel : ObservableObject
         {
             VersionType = "CraftMine",
             Session = MSession.GetOfflineSession(SettingsService.Instance.LastAccountUsed),
-            MaximumRamMb = SettingsService.Instance.MemoryAllocation,
+            MaximumRamMb = SettingsService.Instance.MemoryAllocation
         };
         IsStatusVisible = true;
         var gameProcess = await GameService.Instance.Launcher.CreateProcessAsync(SettingsService.Instance.LastVersionUsed, launchOptions);

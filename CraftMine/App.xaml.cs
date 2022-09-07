@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using CraftMine.Pages;
 using CraftMine.Services;

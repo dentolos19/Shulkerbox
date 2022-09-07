@@ -27,7 +27,7 @@ public partial class AccountsPageModel : ObservableObject
             await App.AttachDialog("Enter a username before adding.", "Halt!");
             return;
         }
-        if (SettingsService.Instance.Accounts.Contains(username))
+        if (SettingsService.Instance.Accounts.Contains(username, StringComparer.OrdinalIgnoreCase))
         {
             await App.AttachDialog("Your username already exists.", "Halt!");
             return;
@@ -37,9 +37,10 @@ public partial class AccountsPageModel : ObservableObject
             await App.AttachDialog("Your username is invalid.", "Halt!");
             return;
         }
-        var item = await Task.Run(() => new AccountItemModel(username));
-        Accounts.Add(item);
-        SettingsService.Instance.Accounts = Accounts.Select(account => account.Username).ToArray();
+        var accounts = SettingsService.Instance.Accounts.ToList();
+        accounts.Add(username);
+        SettingsService.Instance.Accounts = accounts.ToArray();
+        await RefreshCommand.ExecuteAsync(null);
     }
 
     [RelayCommand]
@@ -50,19 +51,21 @@ public partial class AccountsPageModel : ObservableObject
             await App.AttachDialog("You must at least have one account available, therefore you can't remove this account.", "Halt!");
             return;
         }
-        Accounts.Remove(item);
-        SettingsService.Instance.Accounts = Accounts.Select(account => account.Username).ToArray();
+        if (SettingsService.Instance.Accounts.Contains(item.Username, StringComparer.OrdinalIgnoreCase))
+        {
+            var accounts = SettingsService.Instance.Accounts.ToList();
+            accounts.Remove(item.Username);
+            SettingsService.Instance.Accounts = accounts.ToArray();
+        }
+        await RefreshCommand.ExecuteAsync(null);
     }
 
     [RelayCommand]
     private async Task Refresh()
     {
         Accounts.Clear();
-        foreach (var account in SettingsService.Instance.Accounts)
-        {
-            var item = await Task.Run(() => new AccountItemModel(account));
-            Accounts.Add(item);
-        }
+        var accounts = await Task.Run(() => SettingsService.Instance.Accounts.Select(account => new AccountItemModel(account)));
+        Accounts = new ObservableCollection<AccountItemModel>(accounts);
     }
 
 }
