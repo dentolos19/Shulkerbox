@@ -13,18 +13,16 @@
         </Grid.RowDefinitions>
         <CommandBar Grid.Row="0" DefaultLabelPosition="Right">
             <AppBarElementContainer VerticalAlignment="Center">
-                <TextBox x:Name="UsernameBox" PlaceholderText="Username" Width="128"/>
+                <TextBox Text="{Binding Username, Mode=TwoWay}" PlaceholderText="Username" Width="128"/>
             </AppBarElementContainer>
             <AppBarButton Label="Add"
-                          Command="{Binding AddCommand}"
-                          CommandParameter="{Binding Text, ElementName=UsernameBox}">
+                          Command="{Binding AddCommand}">
                 <AppBarButton.Icon>
                     <SymbolIcon Symbol="Add"/>
                 </AppBarButton.Icon>
             </AppBarButton>
             <AppBarButton Label="Remove"
-                          Command="{Binding RemoveCommand}"
-                          CommandParameter="{Binding SelectedItem, ElementName=AccountList}">
+                          Command="{Binding RemoveCommand}">
                 <AppBarButton.Icon>
                     <SymbolIcon Symbol="Remove"/>
                 </AppBarButton.Icon>
@@ -36,7 +34,7 @@
                 </AppBarButton.Icon>
             </AppBarButton>
         </CommandBar>
-        <ListView x:Name="AccountList" Grid.Row="1" ItemsSource="{Binding Accounts}">
+        <ListView Grid.Row="1" ItemsSource="{Binding Accounts}" SelectedItem="{Binding Account, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:AccountItemModel">
                     <Grid ColumnSpacing="12" Padding="8" Height="100">
