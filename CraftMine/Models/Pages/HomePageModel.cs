@@ -44,7 +44,10 @@ public partial class HomePageModel : ObservableObject
     {
         Accounts.Clear();
         foreach (var account in _settingsService.Accounts)
-            Accounts.Add(new AccountItemModel(account));
+        {
+            var item = await Task.Run(() => new AccountItemModel(account));
+            Accounts.Add(item);
+        }
         Account = (
             from account in Accounts
             where account.Username == _settingsService.LastAccountUsed

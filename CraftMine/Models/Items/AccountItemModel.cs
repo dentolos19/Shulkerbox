@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using CraftMine.Services;
 
 namespace CraftMine.Models;
@@ -13,7 +12,7 @@ public class AccountItemModel
     public AccountItemModel(string username)
     {
         Username = username;
-        Task.Run(async () => ImageUrl = await GameService.Instance.GetHeadImageUrl(Username));
+        ImageUrl = GameService.Instance.GetHeadImageUrl(Username);
     }
 
 }

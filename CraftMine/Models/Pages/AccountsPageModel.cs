@@ -37,7 +37,8 @@ public partial class AccountsPageModel : ObservableObject
             await App.AttachDialog("Your username is invalid.", "Halt!");
             return;
         }
-        Accounts.Add(new AccountItemModel(username));
+        var item = await Task.Run(() => new AccountItemModel(username));
+        Accounts.Add(item);
         SettingsService.Instance.Accounts = Accounts.Select(account => account.Username).ToArray();
     }
 
@@ -54,12 +55,14 @@ public partial class AccountsPageModel : ObservableObject
     }
 
     [RelayCommand]
-    private Task Refresh()
+    private async Task Refresh()
     {
         Accounts.Clear();
         foreach (var account in SettingsService.Instance.Accounts)
-            Accounts.Add(new AccountItemModel(account));
-        return Task.CompletedTask;
+        {
+            var item = await Task.Run(() => new AccountItemModel(account));
+            Accounts.Add(item);
+        }
     }
 
 }

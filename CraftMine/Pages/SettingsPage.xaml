@@ -17,6 +17,14 @@
                            Value="{Binding MemoryAllocation, Mode=TwoWay}"/>
                 <CheckBox Content="Show Snapshots"
                           IsChecked="{Binding ShowSnapshots, Mode=TwoWay}"/>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Button Command="{Binding OpenLauncherDirectoryCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <SymbolIcon Symbol="Folder"/>
+                            <TextBlock Text="Open Launcher Directory"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </Expander>
         <Expander Header="About This App"

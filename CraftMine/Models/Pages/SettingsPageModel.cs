@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CraftMine.Services;
@@ -43,6 +46,12 @@ public partial class SettingsPageModel : ObservableObject
         SettingsService.Instance.MemoryAllocation = MemoryAllocation;
         SettingsService.Instance.ShowSnapshots = ShowSnapshots;
         return Task.CompletedTask;
+    }
+
+    [RelayCommand]
+    private async Task OpenLauncherDirectory()
+    {
+        await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder);
     }
 
 }

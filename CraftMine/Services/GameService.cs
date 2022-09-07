@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace CraftMine.Services;
@@ -20,21 +19,21 @@ public class GameService
     public GameService()
     {
         _httpClient = new HttpClient();
-        Launcher = new CMLauncher(new MinecraftPath());
+        Launcher = new CMLauncher(new MinecraftPath(Path.Combine(ApplicationData.Current.LocalFolder.Path, "game")));
     }
 
-    public async Task<Uri> GetHeadImageUrl(string username)
+    public Uri GetHeadImageUrl(string username, int size = 128)
     {
-        var headsDirectoryPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Resources", "Heads");
+        var headsDirectoryPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "heads");
         if (!Directory.Exists(headsDirectoryPath))
             Directory.CreateDirectory(headsDirectoryPath);
         var headFilePath = Path.Combine(headsDirectoryPath, $"{username}.png");
         if (!File.Exists(headFilePath))
         {
-            var json = await _httpClient.GetStringAsync($"https://minecraft-api.com/api/skins/{username}/head/0/0/json");
+            var json = _httpClient.GetStringAsync($"https://minecraft-api.com/api/skins/{username}/head/0/0/{size}/json").Result;
             var data = JsonNode.Parse(json)["head"].ToString();
             var bytes = Convert.FromBase64String(data);
-            await File.WriteAllBytesAsync(headFilePath, bytes);
+            File.WriteAllBytes(headFilePath, bytes);
         }
         return new Uri(headFilePath);
     }

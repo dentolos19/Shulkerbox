@@ -19,7 +19,7 @@ public sealed partial class MainPage
         });
         NavigationView.MenuItems.Add(new NavigationViewItem
         {
-            Icon = new SymbolIcon(Symbol.Contact),
+            Icon = new SymbolIcon(Symbol.People),
             Content = "Accounts",
             Tag = typeof(AccountsPage)
         });
