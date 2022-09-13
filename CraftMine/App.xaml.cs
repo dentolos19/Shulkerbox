@@ -1,6 +1,5 @@
 ﻿using System;
 using Windows.Foundation;
-using CraftMine.Pages;
 using CraftMine.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
@@ -22,11 +21,7 @@ public partial class App
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         Services = ConfigureServices();
-        MainWindow = new Window
-        {
-            Title = "CraftMine",
-            Content = new Frame { Content = new MainPage() }
-        };
+        MainWindow = new MainWindow();
         MainWindow.Activate();
     }
 

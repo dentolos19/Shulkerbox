@@ -12,11 +12,9 @@
                   IsExpanded="True"
                   HorizontalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch">
-            <StackPanel Spacing="4">
+            <StackPanel Spacing="8">
                 <NumberBox Header="Memory Allocation (MB)"
                            Value="{Binding MemoryAllocation, Mode=TwoWay}"/>
-                <CheckBox Content="Show Snapshots"
-                          IsChecked="{Binding ShowSnapshots, Mode=TwoWay}"/>
                 <StackPanel Orientation="Horizontal" Spacing="4">
                     <Button Command="{Binding OpenLauncherDirectoryCommand}">
                         <StackPanel Orientation="Horizontal" Spacing="8">

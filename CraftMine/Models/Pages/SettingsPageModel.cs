@@ -14,7 +14,6 @@ public partial class SettingsPageModel : ObservableObject
 {
 
     [ObservableProperty] private int _memoryAllocation;
-    [ObservableProperty] private bool _showSnapshots;
     [ObservableProperty] private string _aboutText;
 
     public SettingsPageModel()
@@ -36,7 +35,6 @@ public partial class SettingsPageModel : ObservableObject
     private Task Load()
     {
         MemoryAllocation = SettingsService.Instance.MemoryAllocation;
-        ShowSnapshots = SettingsService.Instance.ShowSnapshots;
         return Task.CompletedTask;
     }
 
@@ -44,7 +42,6 @@ public partial class SettingsPageModel : ObservableObject
     private Task Save()
     {
         SettingsService.Instance.MemoryAllocation = MemoryAllocation;
-        SettingsService.Instance.ShowSnapshots = ShowSnapshots;
         return Task.CompletedTask;
     }
 

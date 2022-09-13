@@ -14,7 +14,6 @@ public partial class SettingsService : ObservableObject
 
     [ObservableProperty] private string[] _accounts = { Environment.UserName };
     [ObservableProperty] private int _memoryAllocation = 2048;
-    [ObservableProperty] private bool _showSnapshots;
     [ObservableProperty] private string? _lastAccountUsed;
     [ObservableProperty] private string? _lastVersionUsed;
 

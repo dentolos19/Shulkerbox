@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CmlLib.Core;
 using CmlLib.Core.Auth;
-using CmlLib.Core.Version;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CraftMine.Services;
@@ -49,14 +48,7 @@ public partial class HomePageModel : ObservableObject
         Versions.Clear();
         var versions = await GameService.Instance.Launcher.GetAllVersionsAsync();
         foreach (var version in versions)
-            switch (version.MType)
-            {
-                case MVersionType.Release:
-                case MVersionType.Custom:
-                case MVersionType.Snapshot when SettingsService.Instance.ShowSnapshots:
-                    Versions.Add(new VersionItemModel(version));
-                    break;
-            }
+            Versions.Add(new VersionItemModel(version));
         Version = (
             from version in Versions
             where version.Name == SettingsService.Instance.LastVersionUsed

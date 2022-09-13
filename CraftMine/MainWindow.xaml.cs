@@ -1,21 +1,29 @@
 ﻿using System;
 using System.Linq;
+using CraftMine.Pages;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace CraftMine.Pages;
+namespace CraftMine;
 
-public sealed partial class MainPage
+public sealed partial class MainWindow
 {
 
-    public MainPage()
+    public MainWindow()
     {
         InitializeComponent();
+        Title = "CraftMine";
         NavigationView.MenuItems.Add(new NavigationViewItem
         {
             Icon = new SymbolIcon(Symbol.Home),
             Content = "Home",
             Tag = typeof(HomePage)
+        });
+        NavigationView.MenuItems.Add(new NavigationViewItem
+        {
+            Icon = new SymbolIcon(Symbol.AllApps),
+            Content = "Versions",
+            Tag = typeof(VersionsPage)
         });
         NavigationView.MenuItems.Add(new NavigationViewItem
         {
@@ -37,12 +45,6 @@ public sealed partial class MainPage
             if (args.SelectedItem is NavigationViewItem { Tag: Type type })
                 ContentView.Navigate(type);
         }
-    }
-
-    private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
-    {
-        if (ContentView.CanGoBack)
-            ContentView.GoBack();
     }
 
     private void OnContentNavigating(object sender, NavigatingCancelEventArgs args)

@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text.Json.Nodes;
 using Windows.Storage;
 using CmlLib.Core;
+using CmlLib.Core.VersionLoader;
 
 namespace CraftMine.Services;
 
@@ -14,12 +15,17 @@ public class GameService
 
     public static GameService Instance => App.GetService<GameService>();
 
+    public MinecraftPath LauncherPath { get; }
     public CMLauncher Launcher { get; }
 
     public GameService()
     {
         _httpClient = new HttpClient();
-        Launcher = new CMLauncher(new MinecraftPath(Path.Combine(ApplicationData.Current.LocalFolder.Path, "game")));
+        LauncherPath = new MinecraftPath(Path.Combine(ApplicationData.Current.LocalFolder.Path, "game"));
+        Launcher = new CMLauncher(LauncherPath)
+        {
+            VersionLoader = new LocalVersionLoader(LauncherPath)
+        };
     }
 
     public Uri GetHeadImageUrl(string username, int size = 128)

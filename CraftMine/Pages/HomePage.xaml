@@ -74,10 +74,7 @@
                       SelectedItem="{Binding Version, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="models:VersionItemModel">
-                        <StackPanel Orientation="Horizontal" Spacing="8" Height="20">
-                            <SymbolIcon Symbol="{Binding Icon}"/>
-                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
-                        </StackPanel>
+                        <TextBlock Text="{Binding Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
