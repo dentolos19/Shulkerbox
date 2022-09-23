@@ -40,20 +40,12 @@ public partial class HomePageModel : ObservableObject
         Accounts.Clear();
         var accounts = await Task.Run(() => SettingsService.Instance.Accounts.Select(account => new AccountItemModel(account)));
         Accounts = new ObservableCollection<AccountItemModel>(accounts);
-        Account = (
-            from account in Accounts
-            where account.Username == SettingsService.Instance.LastAccountUsed
-            select account
-        ).FirstOrDefault(Accounts.First());
+        Account = Accounts.FirstOrDefault(item => item.Username == SettingsService.Instance.LastAccountUsed);
         Versions.Clear();
         var versions = await GameService.Instance.Launcher.GetAllVersionsAsync();
         foreach (var version in versions)
             Versions.Add(new VersionItemModel(version));
-        Version = (
-            from version in Versions
-            where version.Name == SettingsService.Instance.LastVersionUsed
-            select version
-        ).FirstOrDefault(Versions.First());
+        Version = Versions.FirstOrDefault(item => item.Name == SettingsService.Instance.LastVersionUsed);
     }
 
     [RelayCommand]

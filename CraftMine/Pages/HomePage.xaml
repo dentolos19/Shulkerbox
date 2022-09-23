@@ -60,6 +60,7 @@
                 <SymbolIcon Symbol="Refresh"/>
             </Button>
             <ComboBox ItemsSource="{Binding Accounts}"
+                      PlaceholderText="Select Account"
                       SelectedItem="{Binding Account, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="models:AccountItemModel">
@@ -71,6 +72,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <ComboBox ItemsSource="{Binding Versions}"
+                      PlaceholderText="Select Version"
                       SelectedItem="{Binding Version, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="models:VersionItemModel">
