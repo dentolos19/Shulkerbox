@@ -21,7 +21,7 @@ public sealed partial class MainWindow
         });
         NavigationView.MenuItems.Add(new NavigationViewItem
         {
-            Icon = new SymbolIcon(Symbol.AllApps),
+            Icon = new SymbolIcon(Symbol.Library),
             Content = "Versions",
             Tag = typeof(VersionsPage)
         });
