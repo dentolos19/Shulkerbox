@@ -3,7 +3,8 @@
       xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
       xmlns:models="using:CraftMine.Models"
       x:Class="CraftMine.Pages.SettingsPage"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      NavigationCacheMode="Enabled">
     <Page.DataContext>
         <models:SettingsPageModel/>
     </Page.DataContext>

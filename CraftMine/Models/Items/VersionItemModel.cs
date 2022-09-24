@@ -23,7 +23,7 @@ public partial class VersionItemModel
     private async Task Install()
     {
         await _metadata.SaveAsync(GameService.Instance.LauncherPath);
-        await App.AttachDialog("This version has been saved, launch the game now!", "Done!");
+        await App.AttachDialog("This version has been saved.", "Done!");
     }
 
 }

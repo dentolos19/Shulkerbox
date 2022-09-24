@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using System.Text.Json;
 using Windows.Storage;
@@ -12,7 +11,7 @@ public partial class SettingsService : ObservableObject
 
     private static readonly string FilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "settings.json");
 
-    [ObservableProperty] private string[] _accounts = { Environment.UserName };
+    [ObservableProperty] private string[]? _accounts;
     [ObservableProperty] private int _memoryAllocation = 2048;
     [ObservableProperty] private string? _lastAccountUsed;
     [ObservableProperty] private string? _lastVersionUsed;

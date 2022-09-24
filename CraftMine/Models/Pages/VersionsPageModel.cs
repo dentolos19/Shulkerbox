@@ -20,11 +20,6 @@ public partial class VersionsPageModel : ObservableObject
     [ObservableProperty] private bool _loadFabricVersions;
     [ObservableProperty] private ObservableCollection<VersionItemModel> _versions = new();
 
-    public VersionsPageModel()
-    {
-        RefreshCommand.Execute(null);
-    }
-
     [RelayCommand]
     private async Task Refresh()
     {

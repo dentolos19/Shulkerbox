@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,8 +39,8 @@ public partial class HomePageModel : ObservableObject
     private async Task Reload()
     {
         Accounts.Clear();
-        var accounts = await Task.Run(() => SettingsService.Instance.Accounts.Select(account => new AccountItemModel(account)));
-        Accounts = new ObservableCollection<AccountItemModel>(accounts);
+        var accounts = await Task.Run(() => SettingsService.Instance.Accounts?.Select(account => new AccountItemModel(account)));
+        Accounts = new ObservableCollection<AccountItemModel>(accounts ?? Array.Empty<AccountItemModel>());
         Account = Accounts.FirstOrDefault(item => item.Username == SettingsService.Instance.LastAccountUsed);
         Versions.Clear();
         var versions = await GameService.Instance.Launcher.GetAllVersionsAsync();
@@ -53,12 +54,12 @@ public partial class HomePageModel : ObservableObject
     {
         if (Account is null)
         {
-            await App.AttachDialog("You must select an account.", "Halt!");
+            await App.AttachDialog("Please select an account before launching.", "Halt!");
             return;
         }
         if (Version is null)
         {
-            await App.AttachDialog("You must select a version.", "Halt!");
+            await App.AttachDialog("Please select a version before launching.", "Halt!");
             return;
         }
         SettingsService.Instance.LastAccountUsed = Account.Username;

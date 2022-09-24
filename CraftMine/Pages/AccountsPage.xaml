@@ -2,7 +2,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:models="using:CraftMine.Models"
       x:Class="CraftMine.Pages.AccountsPage"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      NavigationCacheMode="Enabled">
     <Page.DataContext>
         <models:AccountsPageModel/>
     </Page.DataContext>

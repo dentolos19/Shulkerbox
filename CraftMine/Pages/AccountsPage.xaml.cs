@@ -1,11 +1,21 @@
-﻿namespace CraftMine.Pages;
+﻿using CraftMine.Models;
+using Microsoft.UI.Xaml.Navigation;
+
+namespace CraftMine.Pages;
 
 public sealed partial class AccountsPage
 {
 
+    private AccountsPageModel Context => (AccountsPageModel)DataContext;
+
     public AccountsPage()
     {
         InitializeComponent();
+    }
+
+    protected override void OnNavigatedTo(NavigationEventArgs args)
+    {
+        Context.RefreshCommand.Execute(null);
     }
 
 }
