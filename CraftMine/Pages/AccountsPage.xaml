@@ -13,14 +13,29 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <CommandBar Grid.Row="0" DefaultLabelPosition="Right">
-            <AppBarElementContainer VerticalAlignment="Center">
-                <TextBox Text="{Binding Username, Mode=TwoWay}" PlaceholderText="Username" Width="128"/>
-            </AppBarElementContainer>
-            <AppBarButton Label="Add"
-                          Command="{Binding AddCommand}">
+            <AppBarButton Label="Add">
                 <AppBarButton.Icon>
                     <SymbolIcon Symbol="Add"/>
                 </AppBarButton.Icon>
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Microsoft" IsEnabled="False" Command="{Binding AddMicrosoftCommand}">
+                            <MenuFlyoutItem.Icon>
+                                <SymbolIcon Symbol="Globe"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Mojang" IsEnabled="False" Command="{Binding AddMojangCommand}">
+                            <MenuFlyoutItem.Icon>
+                                <SymbolIcon Symbol="Account"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Offline" Command="{Binding AddOfflineCommand}">
+                            <MenuFlyoutItem.Icon>
+                                <SymbolIcon Symbol="DisconnectDrive"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Label="Remove"
                           Command="{Binding RemoveCommand}">
