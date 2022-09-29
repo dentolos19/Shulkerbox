@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using CmlLib.Core;
@@ -13,6 +13,8 @@ namespace CraftMine.Models;
 
 public partial class HomePageModel : ObservableObject
 {
+
+    private Process? _gameProcess;
 
     [ObservableProperty] private AccountItemModel? _account;
     [ObservableProperty] private ObservableCollection<AccountItemModel> _accounts = new();
@@ -52,6 +54,15 @@ public partial class HomePageModel : ObservableObject
     [RelayCommand]
     private async Task Launch()
     {
+        if (_gameProcess is { HasExited: false })
+            if (
+                await App.AttachDialog(
+                    "You already have an instance of Minecraft running, do you want to start another instance?",
+                    "Warning!",
+                    true
+                )
+            )
+                return;
         if (Account is null)
         {
             await App.AttachDialog("Please select an account before launching.", "Halt!");
@@ -71,9 +82,9 @@ public partial class HomePageModel : ObservableObject
             MaximumRamMb = SettingsService.Instance.MemoryAllocation
         };
         IsStatusVisible = true;
-        var gameProcess = await GameService.Instance.Launcher.CreateProcessAsync(SettingsService.Instance.LastVersionUsed, launchOptions);
+        _gameProcess = await GameService.Instance.Launcher.CreateProcessAsync(SettingsService.Instance.LastVersionUsed, launchOptions);
         IsStatusVisible = false;
-        gameProcess.Start();
+        _gameProcess.Start();
         await ReloadCommand.ExecuteAsync(null);
     }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using CraftMine.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,7 @@ public partial class App
 {
 
     public IServiceProvider Services { get; private set; }
-    public Window MainWindow { get; private set; }
+    public MainWindow MainWindow { get; private set; }
 
     public App()
     {
@@ -38,18 +39,23 @@ public partial class App
         return (TService?)((App)Current).Services.GetService(typeof(TService));
     }
 
-    public static IAsyncOperation<ContentDialogResult> AttachDialog(ContentDialog dialog)
+    public static async Task<ContentDialogResult> AttachDialog(ContentDialog dialog)
     {
         dialog.XamlRoot = ((App)Current).MainWindow.Content.XamlRoot;
-        return dialog.ShowAsync();
+        return await dialog.ShowAsync();
     }
 
-    public static IAsyncOperation<ContentDialogResult> AttachDialog(string message, string? title = null)
+    public static async Task<bool> AttachDialog(string message, string? title = null, bool isOption = false)
     {
         var dialog = new ContentDialog { Content = message, CloseButtonText = "Close" };
         if (!string.IsNullOrEmpty(title))
             dialog.Title = title;
-        return AttachDialog(dialog);
+        if (isOption)
+        {
+            dialog.PrimaryButtonText = "Yes";
+            dialog.CloseButtonText = "No";
+        }
+        return await AttachDialog(dialog) == ContentDialogResult.Primary;
     }
 
 }

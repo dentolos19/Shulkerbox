@@ -61,7 +61,8 @@
             </Button>
             <ComboBox ItemsSource="{Binding Accounts}"
                       PlaceholderText="Select Account"
-                      SelectedItem="{Binding Account, Mode=TwoWay}">
+                      SelectedItem="{Binding Account, Mode=TwoWay}"
+                      ToolTipService.ToolTip="Select Account">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="models:AccountItemModel">
                         <StackPanel Orientation="Horizontal" Spacing="8" Height="20">
@@ -73,7 +74,8 @@
             </ComboBox>
             <ComboBox ItemsSource="{Binding Versions}"
                       PlaceholderText="Select Version"
-                      SelectedItem="{Binding Version, Mode=TwoWay}">
+                      SelectedItem="{Binding Version, Mode=TwoWay}"
+                      ToolTipService.ToolTip="Select Version">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="models:VersionItemModel">
                         <TextBlock Text="{Binding Name}"/>
