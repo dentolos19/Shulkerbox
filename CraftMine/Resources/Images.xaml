@@ -2,4 +2,5 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <BitmapImage x:Key="IconImage" UriSource="Images/Icon.png"/>
     <BitmapImage x:Key="BackgroundImage" UriSource="Images/Background.jpg"/>
+    <BitmapImage x:Key="TitleImage" UriSource="Images/Title.png"/>
 </ResourceDictionary>

@@ -18,13 +18,7 @@
                 <media:AcrylicBrush TintColor="Black" TintOpacity="0.4" BlurAmount="8"/>
             </Rectangle.Fill>
         </Rectangle>
-        <StackPanel Spacing="24"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-            <Image Source="{StaticResource IconImage}" Width="64"/>
-            <TextBlock Text="CraftMine" FontFamily="Berlin Sans FB" FontSize="64"/>
-        </StackPanel>
+        <Image Source="{StaticResource TitleImage}" Height="120" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <StackPanel x:Name="Status"
                     Spacing="4"
                     Margin="12"

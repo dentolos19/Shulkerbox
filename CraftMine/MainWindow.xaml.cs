@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using CraftMine.Pages;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
@@ -13,6 +14,7 @@ public sealed partial class MainWindow
     {
         InitializeComponent();
         Title = "CraftMine";
+        NavigationView.RequestedTheme = ElementTheme.Dark;
         NavigationView.MenuItems.Add(new NavigationViewItem
         {
             Icon = new SymbolIcon(Symbol.Home),
