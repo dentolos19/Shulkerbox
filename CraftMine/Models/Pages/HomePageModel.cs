@@ -56,7 +56,7 @@ public partial class HomePageModel : ObservableObject
     {
         if (_gameProcess is { HasExited: false })
             if (
-                await App.AttachDialog(
+                !await App.AttachDialog(
                     "You already have an instance of Minecraft running, do you want to start another instance?",
                     "Warning!",
                     true

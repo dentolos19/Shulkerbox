@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Windows.Foundation;
 using CraftMine.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;

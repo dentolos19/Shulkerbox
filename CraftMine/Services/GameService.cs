@@ -21,7 +21,10 @@ public class GameService
     public GameService()
     {
         _httpClient = new HttpClient();
-        LauncherPath = new MinecraftPath(Path.Combine(ApplicationData.Current.LocalFolder.Path, "game"));
+        LauncherPath = new MinecraftPath(
+            Path.Combine(ApplicationData.Current.LocalFolder.Path, "game", "instances", "default"),
+            Path.Combine(ApplicationData.Current.LocalFolder.Path, "game", "assets")
+        );
         Launcher = new CMLauncher(LauncherPath)
         {
             VersionLoader = new LocalVersionLoader(LauncherPath)
@@ -36,7 +39,8 @@ public class GameService
         var headFilePath = Path.Combine(headsDirectoryPath, $"{username}.png");
         if (!File.Exists(headFilePath))
         {
-            var json = _httpClient.GetStringAsync($"https://minecraft-api.com/api/skins/{username}/head/0/0/{size}/json").Result;
+            var json = _httpClient
+                .GetStringAsync($"https://minecraft-api.com/api/skins/{username}/head/0/0/{size}/json").Result;
             var data = JsonNode.Parse(json)["head"].ToString();
             var bytes = Convert.FromBase64String(data);
             File.WriteAllBytes(headFilePath, bytes);
