@@ -13,7 +13,7 @@ public sealed partial class MainWindow
     public MainWindow()
     {
         InitializeComponent();
-        Title = "CraftMine";
+        Title = "Shulkerbox";
         NavigationView.RequestedTheme = ElementTheme.Dark;
         NavigationView.MenuItems.Add(new NavigationViewItem
         {

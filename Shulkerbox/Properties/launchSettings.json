@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "CraftMine (Package)": {
+    "Shulkerbox (Package)": {
       "commandName": "MsixPackage"
     },
-    "CraftMine (Unpackaged)": {
+    "Shulkerbox (Unpackaged)": {
       "commandName": "Project"
     }
   }

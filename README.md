@@ -1,4 +1,4 @@
-# <img src=".github/icon.png" width="32"/> CraftMine
+# <img src=".github/icon.png" width="32"/> Shulkerbox
 
 A simple Minecraft Launcher with WinUI!
 
