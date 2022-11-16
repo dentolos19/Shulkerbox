@@ -97,8 +97,7 @@ public partial class MainPageModel : ObservableObject
                 case MVersionType.Snapshot when Settings.ShowSnapshots:
                     Versions.Add(new VersionItemModel
                     {
-                        Name = version.Name,
-                        IsLocal = version.IsLocalVersion
+                        Name = version.Name
                     });
                     break;
             }
