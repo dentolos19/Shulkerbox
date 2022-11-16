@@ -1,45 +1,49 @@
 ﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-      xmlns:models="using:CraftMine.Models"
-      x:Class="CraftMine.Pages.SettingsPage"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-      NavigationCacheMode="Enabled">
+      xmlns:m="clr-namespace:Shulkerbox.Models"
+      x:Class="Shulkerbox.Pages.SettingsPage"
+      Loaded="OnLoaded">
     <Page.DataContext>
-        <models:SettingsPageModel/>
+        <m:SettingsPageModel/>
     </Page.DataContext>
-    <StackPanel Spacing="8" Padding="8">
-        <Expander Header="General Preferences"
-                  IsExpanded="True"
-                  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Stretch">
-            <StackPanel Spacing="8">
-                <NumberBox Header="Memory Allocation (MB)"
-                           Value="{Binding MemoryAllocation, Mode=TwoWay}"/>
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <Button Command="{Binding OpenLauncherDirectoryCommand}">
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <SymbolIcon Symbol="Folder"/>
-                            <TextBlock Text="Open Launcher Directory"/>
-                        </StackPanel>
-                    </Button>
-                    <Button Command="{Binding OpenGameDirectoryCommand}">
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <SymbolIcon Symbol="Folder"/>
-                            <TextBlock Text="Open Game Directory"/>
-                        </StackPanel>
-                    </Button>
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" Margin="0,0,0,8">
+            <TabItem Header="General">
+                <StackPanel>
+                    <StackPanel Margin="0,0,0,4">
+                        <TextBlock Text="Memory Allocation (MB)"/>
+                        <TextBox Text="{Binding MemoryAllocation, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <CheckBox Content="Show Snapshots" IsChecked="{Binding ShowSnapshots, Mode=TwoWay}"/>
                 </StackPanel>
-            </StackPanel>
-        </Expander>
-        <Expander Header="About This App"
-                  IsExpanded="True"
-                  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Stretch">
-            <controls:MarkdownTextBlock Text="{Binding AboutText}"
-                                        IsTextSelectionEnabled="False"
-                                        Background="Transparent"
-                                        LinkClicked="OnLinkClicked"/>
-        </Expander>
-    </StackPanel>
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                    Command="{Binding BackCommand}">
+                <Run Style="{StaticResource BackIcon}"/>
+            </Button>
+            <Button Grid.Column="2"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                    Command="{Binding SaveCommand}">
+                <Run Style="{StaticResource SaveIcon}"/>
+            </Button>
+            <Button Grid.Column="3" Margin="4,0,0,0"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                    Command="{Binding RefreshCommand}">
+                <Run Style="{StaticResource RefreshIcon}"/>
+            </Button>
+        </Grid>
+    </Grid>
 </Page>

@@ -3,15 +3,15 @@ using Shulkerbox.Models;
 
 namespace Shulkerbox.Pages;
 
-public partial class SettingsPage
+public partial class MainPage
 {
 
-    private SettingsPageModel Model => (SettingsPageModel)DataContext;
+    private MainPageModel Model => (MainPageModel)DataContext;
 
-    public SettingsPage()
+    public MainPage()
     {
         InitializeComponent();
-        DataContext = App.GetModel<SettingsPageModel>();
+        DataContext = App.GetModel<MainPageModel>();
     }
 
     private void OnLoaded(object sender, RoutedEventArgs args)

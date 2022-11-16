@@ -1,24 +1,21 @@
-﻿using System.ComponentModel;
+﻿using System;
 using System.IO;
 using System.Text.Json;
-using Windows.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CraftMine.Services;
+namespace Shulkerbox.Services;
 
-public partial class SettingsService : ObservableObject
+public class SettingsService : ObservableObject
 {
 
-    private static readonly string FilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "settings.json");
+    private static readonly string FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.json");
 
-    [ObservableProperty] private string[]? _accounts;
-    [ObservableProperty] private int _memoryAllocation = 2048;
-    [ObservableProperty] private string? _lastAccountUsed;
-    [ObservableProperty] private string? _lastVersionUsed;
+    public string? LastUsedName { get; set; }
+    public string? LastUsedVersionName { get; set; }
+    public int MemoryAllocation { get; set; } = 4096;
+    public bool ShowSnapshots { get; set; }
 
-    public static SettingsService Instance => App.GetService<SettingsService>();
-
-    protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+    public void Save()
     {
         var json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
         File.WriteAllText(FilePath, json);

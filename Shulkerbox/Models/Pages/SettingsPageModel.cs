@@ -1,60 +1,54 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.System;
+﻿using AdonisUI.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CraftMine.Services;
+using Shulkerbox.Services;
 
-namespace CraftMine.Models;
+namespace Shulkerbox.Models;
 
 public partial class SettingsPageModel : ObservableObject
 {
 
-    [ObservableProperty] private int _memoryAllocation;
-    [ObservableProperty] private string _aboutText;
+    [ObservableProperty] private string _memoryAllocation;
+    [ObservableProperty] private bool _showSnapshots;
 
-    public SettingsPageModel()
+    private SettingsService Settings => App.GetService<SettingsService>();
+
+    [RelayCommand]
+    private void Save()
     {
-        using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("CraftMine.Resources.Raw.About.md");
-        if (stream is null)
+        var memoryAllocationValid = int.TryParse(MemoryAllocation, out var memoryAllocation);
+        if (!memoryAllocationValid)
         {
-            AboutText = "Unable to load document.";
+            MessageBox.Show(
+                "Your memory allocation is invalid!",
+                "Shulkerbox",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
+            return;
         }
-        else
-        {
-            using var streamReader = new StreamReader(stream);
-            AboutText = streamReader.ReadToEnd();
-        }
-        LoadCommand.Execute(null);
+        Settings.MemoryAllocation = memoryAllocation;
+        Settings.ShowSnapshots = ShowSnapshots;
+        Settings.Save();
+        MessageBox.Show(
+            "Your settings has been saved!",
+            "Shulkerbox",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information
+        );
     }
 
     [RelayCommand]
-    private Task Load()
+    private void Refresh()
     {
-        MemoryAllocation = SettingsService.Instance.MemoryAllocation;
-        return Task.CompletedTask;
+        MemoryAllocation = Settings.MemoryAllocation.ToString();
+        ShowSnapshots = Settings.ShowSnapshots;
     }
 
     [RelayCommand]
-    private Task Save()
+    private void Back()
     {
-        SettingsService.Instance.MemoryAllocation = MemoryAllocation;
-        return Task.CompletedTask;
-    }
-
-    [RelayCommand]
-    private async Task OpenLauncherDirectory()
-    {
-        await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder);
-    }
-
-    [RelayCommand]
-    private async Task OpenGameDirectory()
-    {
-        await Launcher.LaunchFolderPathAsync(GameService.Instance.Launcher.MinecraftPath.BasePath);
+        App.NavigateBack();
     }
 
 }

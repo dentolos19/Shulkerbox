@@ -1,60 +1,68 @@
 ﻿using System;
-using System.Threading.Tasks;
-using CraftMine.Services;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
+using Shulkerbox.Models;
+using Shulkerbox.Services;
+using Shulkerbox.Pages;
 
-namespace CraftMine;
+namespace Shulkerbox;
 
 public partial class App
 {
 
-    public IServiceProvider Services { get; private set; }
-    public MainWindow MainWindow { get; private set; }
+    private static Window _window;
+    private static ServiceProvider _services;
+    private static ServiceProvider _modelServices;
 
     public App()
     {
-        InitializeComponent();
-    }
-
-    protected override void OnLaunched(LaunchActivatedEventArgs args)
-    {
-        Services = ConfigureServices();
-        MainWindow = new MainWindow();
-        MainWindow.Activate();
-    }
-
-    private static IServiceProvider ConfigureServices()
-    {
         var services = new ServiceCollection();
-        services.AddSingleton(SettingsService.Initialize());
+        services.AddSingleton<SettingsService>(SettingsService.Initialize());
         services.AddSingleton<GameService>();
-        return services.BuildServiceProvider();
+        _services = services.BuildServiceProvider();
+        var modelServices = new ServiceCollection();
+        modelServices.AddSingleton<MainPageModel>();
+        modelServices.AddSingleton<SettingsPageModel>();
+        _modelServices = modelServices.BuildServiceProvider();
+    }
+
+    private void OnStartup(object sender, StartupEventArgs args)
+    {
+        _window = new Window
+        {
+            Title = "Shulkerbox",
+            ResizeMode = ResizeMode.CanMinimize,
+            Width = 500,
+            Height = 300,
+            Content = new Frame
+            {
+                NavigationUIVisibility = NavigationUIVisibility.Hidden
+            }
+        };
+        Navigate(nameof(MainPage));
+        _window.Show();
     }
 
     public static TService? GetService<TService>()
     {
-        return (TService?)((App)Current).Services.GetService(typeof(TService));
+        return _services.GetService<TService>();
     }
 
-    public static async Task<ContentDialogResult> AttachDialog(ContentDialog dialog)
+    public static TModel? GetModel<TModel>()
     {
-        dialog.XamlRoot = ((App)Current).MainWindow.Content.XamlRoot;
-        return await dialog.ShowAsync();
+        return _modelServices.GetService<TModel>();
     }
 
-    public static async Task<bool> AttachDialog(string message, string? title = null, bool isOption = false)
+    public static void Navigate(string pageName)
     {
-        var dialog = new ContentDialog { Content = message, CloseButtonText = "Close" };
-        if (!string.IsNullOrEmpty(title))
-            dialog.Title = title;
-        if (isOption)
-        {
-            dialog.PrimaryButtonText = "Yes";
-            dialog.CloseButtonText = "No";
-        }
-        return await AttachDialog(dialog) == ContentDialogResult.Primary;
+        ((Frame)_window.Content).Navigate(new Uri($"Pages/{pageName}.xaml", UriKind.Relative));
+    }
+
+    public static void NavigateBack()
+    {
+        ((Frame)_window.Content).GoBack();
     }
 
 }

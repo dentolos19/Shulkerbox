@@ -2,48 +2,37 @@
 using System.IO;
 using System.Net.Http;
 using System.Text.Json.Nodes;
-using Windows.Storage;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using CmlLib.Core;
-using CmlLib.Core.VersionLoader;
 
-namespace CraftMine.Services;
+namespace Shulkerbox.Services;
 
 public class GameService
 {
 
-    private readonly HttpClient _httpClient;
+    private readonly Regex _nameRegex = new("^[a-zA-Z0-9_]{2,16}$");
+    private readonly HttpClient _httpClient = new();
 
-    public static GameService Instance => App.GetService<GameService>();
+    public CMLauncher Launcher { get; } = new(new MinecraftPath());
 
-    public MinecraftPath LauncherPath { get; }
-    public CMLauncher Launcher { get; }
-
-    public GameService()
+    public bool CheckUsername(string username)
     {
-        _httpClient = new HttpClient();
-        LauncherPath = new MinecraftPath(
-            Path.Combine(ApplicationData.Current.LocalFolder.Path, "game", "instances", "default"),
-            Path.Combine(ApplicationData.Current.LocalFolder.Path, "game", "assets")
-        );
-        Launcher = new CMLauncher(LauncherPath)
-        {
-            VersionLoader = new LocalVersionLoader(LauncherPath)
-        };
+        return _nameRegex.Match(username).Success;
     }
 
-    public Uri GetHeadImageUrl(string username, int size = 128)
+    public async Task<Uri> GetHeadAsync(string username, int size = 128)
     {
-        var headsDirectoryPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "heads");
+        var headsDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "heads");
         if (!Directory.Exists(headsDirectoryPath))
             Directory.CreateDirectory(headsDirectoryPath);
         var headFilePath = Path.Combine(headsDirectoryPath, $"{username}.png");
         if (!File.Exists(headFilePath))
         {
-            var json = _httpClient
-                .GetStringAsync($"https://minecraft-api.com/api/skins/{username}/head/0/0/{size}/json").Result;
+            var json = await _httpClient.GetStringAsync($"https://minecraft-api.com/api/skins/{username}/head/0/0/{size}/json");
             var data = JsonNode.Parse(json)["head"].ToString();
             var bytes = Convert.FromBase64String(data);
-            File.WriteAllBytes(headFilePath, bytes);
+            await File.WriteAllBytesAsync(headFilePath, bytes);
         }
         return new Uri(headFilePath);
     }

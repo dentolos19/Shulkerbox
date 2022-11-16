@@ -1,11 +1,12 @@
 # <img src=".github/icon.png" width="32"/> Shulkerbox
 
-A simple Minecraft Launcher with WinUI!
+A simple Minecraft launcher!
 
 ## Usage
 
 1. Download the latest package from the [releases page](https://github.com/dentolos19/CraftMine/releases) compatible with your system
-3. Follow this [documentation](https://docs.microsoft.com/dotnet/maui/windows/deployment/overview#installing-the-app) for installation
+2. Extract the page and run `Shulkerbox.exe`
+3. Launch the game
 4. Done!
 
 ## Features
@@ -22,4 +23,3 @@ A simple Minecraft Launcher with WinUI!
 
 ![](.github/images/0.png)
 ![](.github/images/1.png)
-![](.github/images/2.png)
