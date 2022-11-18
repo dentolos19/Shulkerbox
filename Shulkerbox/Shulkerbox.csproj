@@ -9,7 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Resource Include="Resources\Images\*"/>
+		<Resource Include="Resources\Assets\*"/>
 		<Resource Include="Resources\Fonts\*"/>
 	</ItemGroup>
 

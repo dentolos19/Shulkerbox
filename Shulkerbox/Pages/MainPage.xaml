@@ -6,53 +6,71 @@
     <Page.DataContext>
         <m:MainPageModel/>
     </Page.DataContext>
-    <Grid Margin="12">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="32"/>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Shulkerbox" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <StackPanel Grid.Row="0" Visibility="{Binding LaunchStatusVisibility}">
-            <ProgressBar Margin="0,0,0,4" Value="{Binding LaunchProgress}" Height="16"/>
-            <TextBlock Text="{Binding LaunchText}" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBox Text="{Binding Name, Mode=TwoWay}"
-                     MinWidth="128"
-                     IsEnabled="{Binding IsNotLaunching}"/>
-            <ComboBox Margin="4,0,0,0"
-                      ItemsSource="{Binding Versions}"
-                      SelectedItem="{Binding Version, Mode=TwoWay}"
-                      IsEnabled="{Binding IsNotLaunching}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate DataType="m:VersionItemModel">
-                        <TextBlock Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <Button Margin="4,0,0,0"
-                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    IsEnabled="{Binding IsNotLaunching}"
-                    Command="{Binding LaunchCommand}">
-                <Run Style="{StaticResource PlayIcon}"/>
-            </Button>
-            <Button Margin="4,0,0,0"
-                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    IsEnabled="{Binding IsNotLaunching}"
-                    Command="{Binding RefreshCommand}">
-                <Run Style="{StaticResource RefreshIcon}"/>
-            </Button>
-            <Button Margin="4,0,0,0"
-                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    Command="{Binding OpenGameDirectoryCommand}">
-                <Run Style="{StaticResource FolderIcon}"/>
-            </Button>
-            <Button Margin="4,0,0,0"
-                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    IsEnabled="{Binding IsNotLaunching}"
-                    Command="{Binding OpenSettingsCommand}">
-                <Run Style="{StaticResource SettingsIcon}"/>
-            </Button>
-        </StackPanel>
+    <Grid>
+        <Grid>
+            <Image Source="{StaticResource BackgroundImage}" Stretch="UniformToFill">
+                <Image.Effect>
+                    <BlurEffect KernelType="Gaussian" Radius="8"/>
+                </Image.Effect>
+            </Image>
+            <Image Source="{StaticResource TitleImage}" Height="96" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image.Effect>
+                    <DropShadowEffect BlurRadius="8"/>
+                </Image.Effect>
+            </Image>
+        </Grid>
+        <Grid Margin="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Visibility="{Binding LaunchStatusVisibility}" VerticalAlignment="Top">
+                <ProgressBar Value="{Binding LaunchProgress}"/>
+                <TextBlock Padding="0,4" Text="{Binding LaunchText}" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center"/>
+            </Grid>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBox Text="{Binding Name, Mode=TwoWay}"
+                         MinWidth="128"
+                         IsEnabled="{Binding IsNotLaunching}"/>
+                <ComboBox Margin="4,0,0,0"
+                          ItemsSource="{Binding Versions}"
+                          SelectedItem="{Binding Version, Mode=TwoWay}"
+                          IsEnabled="{Binding IsNotLaunching}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="m:VersionItemModel">
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button ToolTipService.ToolTip="Launch"
+                        Margin="4,0,0,0"
+                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                        IsEnabled="{Binding IsNotLaunching}"
+                        Command="{Binding LaunchCommand}">
+                    <Run Style="{StaticResource PlayIcon}"/>
+                </Button>
+                <Button ToolTipService.ToolTip="Refresh"
+                        Margin="4,0,0,0"
+                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                        IsEnabled="{Binding IsNotLaunching}"
+                        Command="{Binding RefreshCommand}">
+                    <Run Style="{StaticResource RefreshIcon}"/>
+                </Button>
+                <Button ToolTipService.ToolTip="Game Directory"
+                        Margin="4,0,0,0"
+                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                        Command="{Binding OpenGameDirectoryCommand}">
+                    <Run Style="{StaticResource FolderIcon}"/>
+                </Button>
+                <Button ToolTipService.ToolTip="Settings"
+                        Margin="4,0,0,0"
+                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                        IsEnabled="{Binding IsNotLaunching}"
+                        Command="{Binding OpenSettingsCommand}">
+                    <Run Style="{StaticResource SettingsIcon}"/>
+                </Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

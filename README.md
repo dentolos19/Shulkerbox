@@ -21,5 +21,5 @@ A simple Minecraft launcher!
 
 ## Images
 
-![](.github/images/0.png)
-![](.github/images/1.png)
+![](.github/assets/0.png)
+![](.github/assets/1.png)
