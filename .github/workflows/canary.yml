@@ -44,7 +44,7 @@ jobs:
           path: artifacts
   deploy:
     name: Deploy
-    needs: [windowsBuild, androidBuild]
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifacts
