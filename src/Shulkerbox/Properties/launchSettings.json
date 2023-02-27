@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Shulkerbox (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Shulkerbox (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
