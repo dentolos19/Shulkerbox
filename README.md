@@ -17,3 +17,10 @@ A simple Minecraft launcher with WinUI!
 - [x] Launch any Minecraft version (tested up to 1.19.2)
 - [x] Downloads files from the official Mojang file server
 - [x] Automatically installs the Java runtime
+
+## 📸 Screenshots
+
+![](docs/0.png)
+![](docs/1.png)
+![](docs/2.png)
+![](docs/3.png)

@@ -17,7 +17,7 @@ public partial class SettingsPageModel : ObservableObject
 
     public SettingsPageModel()
     {
-        using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("CraftMine.Resources.Raw.About.md");
+        using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Shulkerbox.Resources.Raw.About.md");
         if (stream is null)
         {
             AboutText = "Unable to load document.";
