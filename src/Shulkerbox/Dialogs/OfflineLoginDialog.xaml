@@ -1,9 +1,0 @@
-﻿<ContentDialog xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               x:Class="Shulkerbox.Dialogs.OfflineLoginDialog"
-               Title="Offline Login"
-               PrimaryButtonText="Save"
-               PrimaryButtonClick="OnPrimaryButtonClicked"
-               CloseButtonText="Cancel">
-    <TextBox x:Name="UsernameBox" PlaceholderText="Username" />
-</ContentDialog>

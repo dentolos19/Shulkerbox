@@ -1,58 +1,44 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Windows;
+using Microsoft.AspNetCore.Components.WebView.Wpf;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
+using MudBlazor;
+using MudBlazor.Services;
 using Shulkerbox.Services;
+using Shulkerbox.Shared;
 
 namespace Shulkerbox;
 
 public partial class App
 {
-    public IServiceProvider Services { get; private set; }
-    public MainWindow MainWindow { get; private set; }
-
-    public App()
-    {
-        InitializeComponent();
-    }
-
-    protected override void OnLaunched(LaunchActivatedEventArgs args)
-    {
-        Services = ConfigureServices();
-        MainWindow = new MainWindow();
-        MainWindow.Activate();
-    }
-
-    private static IServiceProvider ConfigureServices()
+    private void OnStartup(object sender, StartupEventArgs args)
     {
         var services = new ServiceCollection();
+        services.AddWpfBlazorWebView();
+#if DEBUG
+        services.AddBlazorWebViewDeveloperTools();
+#endif
+        services.AddMudServices();
+        services.AddMudMarkdownServices();
+        services.AddSingleton(new LayoutService());
+        services.AddSingleton(new GameService());
         services.AddSingleton(SettingsService.Initialize());
-        services.AddSingleton<GameService>();
-        return services.BuildServiceProvider();
-    }
-
-    public static TService? GetService<TService>()
-    {
-        return (TService?)((App)Current).Services.GetService(typeof(TService));
-    }
-
-    public static async Task<ContentDialogResult> AttachDialog(ContentDialog dialog)
-    {
-        dialog.XamlRoot = ((App)Current).MainWindow.Content.XamlRoot;
-        return await dialog.ShowAsync();
-    }
-
-    public static async Task<bool> AttachDialog(string message, string? title = null, bool isOption = false)
-    {
-        var dialog = new ContentDialog { Content = message, CloseButtonText = "Close" };
-        if (!string.IsNullOrEmpty(title))
-            dialog.Title = title;
-        if (isOption)
+        new Window
         {
-            dialog.PrimaryButtonText = "Yes";
-            dialog.CloseButtonText = "No";
-        }
-        return await AttachDialog(dialog) == ContentDialogResult.Primary;
+            Title = "Shulkerbox",
+            Content = new BlazorWebView
+            {
+                HostPage = "wwwroot/index.html",
+                Services = services.BuildServiceProvider(),
+                RootComponents =
+                {
+                    new RootComponent
+                    {
+                        Selector = "#app",
+                        ComponentType = typeof(Root)
+                    }
+                }
+            }
+        }.Show();
     }
 }

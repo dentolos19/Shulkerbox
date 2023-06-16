@@ -1,0 +1,42 @@
+﻿@page "/"
+
+<MudPaper>
+    <MudToolBar>
+        <MudChipSet ReadOnly="true">
+            @if (CurrentAccount is not null)
+            {
+                <MudChip Icon="@Icons.Material.Filled.Person">@CurrentAccount.Username</MudChip>
+            }
+            else
+            {
+                <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Person">Please select an account!</MudChip>
+            }
+            @if (CurrentVersion is not null)
+            {
+                <MudChip Icon="@Icons.Material.Filled.Apps">@CurrentVersion.Name</MudChip>
+            }
+            else
+            {
+                <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Apps">Please select a version!</MudChip>
+            }
+        </MudChipSet>
+        <MudSpacer />
+        @if (IsLaunching)
+        {
+            <MudText Style="max-width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">@CurrentProgressStatus</MudText>
+            <MudProgressCircular Class="ml-4" Indeterminate="true"/>
+        }
+        else
+        {
+            <MudTooltip Text="Edit Launch Settings">
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="EditLaunchSettings" />
+            </MudTooltip>
+            <MudTooltip Text="Open Game Directory">
+                <MudIconButton Icon="@Icons.Material.Filled.Folder" OnClick="OpenGameDirectory" />
+            </MudTooltip>
+            <MudTooltip Text="Launch">
+                <MudIconButton Icon="@Icons.Material.Filled.PlayArrow" OnClick="LaunchGame" />
+            </MudTooltip>
+        }
+    </MudToolBar>
+</MudPaper>

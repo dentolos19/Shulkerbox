@@ -1,0 +1,37 @@
+﻿@page "/versions"
+
+<style>
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+</style>
+
+<MudPaper>
+    <MudToolBar>
+        <MudSpacer />
+        <MudChipSet Filter="true" Mandatory="true" SelectedChipChanged="chip => ChangeType(chip.Text)">
+            <MudChip Color="Color.Success" Text="Vanilla">Vanilla</MudChip>
+            <MudChip Color="Color.Error" Text="Fabric">Fabric</MudChip>
+            <MudChip Color="Color.Primary" Text="Quilt">Fabric</MudChip>
+            <MudChip Color="Color.Secondary" Text="LiteLoader">LiteLoader</MudChip>
+        </MudChipSet>
+    </MudToolBar>
+</MudPaper>
+
+<MudElement Class="list mt-2">
+    @foreach (var version in GameVersions)
+    {
+        <MudPaper Class="item px-5 py-1">
+            <MudText Typo="Typo.h5">@version.Name</MudText>
+            <MudSpacer />
+            <MudIconButton Icon="@Icons.Material.Filled.Download" OnClick="() => SaveVersion(version)"/>
+        </MudPaper>
+    }
+</MudElement>

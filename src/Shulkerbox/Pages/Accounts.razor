@@ -1,0 +1,56 @@
+﻿@page "/accounts"
+
+<style>
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        overflow: hidden;
+    }
+    .item .image {
+        height: 128px;
+        aspect-ratio: 1 / 1;
+    }
+    .item .image:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        height: 128px;
+        aspect-ratio: 1 / 1;
+        background-image: url(https://mc-heads.net/avatar/MHF_Steve/128);
+    }
+</style>
+
+<MudPaper>
+    <MudToolBar>
+        <MudSpacer />
+        <MudButton Disabled="true">Add Microsoft Account</MudButton>
+        <MudButton OnClick="AddOffline">Add Offline Account</MudButton>
+    </MudToolBar>
+</MudPaper>
+
+<MudElement Class="list mt-2">
+    @foreach (var account in UserAccounts)
+    {
+        <MudPaper Class="item">
+            <MudImage Class="image" Src="@account.HeadImageUrl.ToString()" />
+            <MudElement>
+                <MudText Typo="Typo.h5">@account.Username</MudText>
+                <MudText Typo="Typo.subtitle2">@account.Type</MudText>
+            </MudElement>
+            <MudSpacer/>
+            <MudTooltip Text="Delete Account">
+                <MudIconButton
+                    Class="mr-4"
+                    Icon="@Icons.Material.Filled.DeleteForever"
+                    Size="Size.Medium"
+                    OnClick="() => DeleteAccount(account)"/>
+            </MudTooltip>
+        </MudPaper>
+    }
+</MudElement>
