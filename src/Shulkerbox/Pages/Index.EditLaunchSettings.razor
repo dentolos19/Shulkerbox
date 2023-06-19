@@ -41,14 +41,16 @@
             .Where(version => version.IsLocalVersion)
             .Select(version => new VersionModel(version)).ToList();
         if (!string.IsNullOrEmpty(SettingsService.LastAccountUsed))
-            Account = UserAccounts.FirstOrDefault(account => account.Username == SettingsService.LastAccountUsed);
+            Account = UserAccounts.FirstOrDefault(account => account.Session.Username == SettingsService.LastAccountUsed);
         if (!string.IsNullOrEmpty(SettingsService.LastVersionUsed))
             Version = GameVersions.FirstOrDefault(version => version.Name == SettingsService.LastVersionUsed);
     }
 
     private void Save()
     {
-        Instance.Close(DialogResult.Ok((Username:Account, Version)));
+        if (Account is null || Version is null)
+            return;
+        Instance.Close(DialogResult.Ok((Account, Version)));
     }
 
     private void Cancel()

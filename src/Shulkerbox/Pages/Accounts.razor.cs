@@ -1,4 +1,6 @@
 ﻿using System.Text.RegularExpressions;
+using CmlLib.Core.Auth;
+using CmlLib.Core.Auth.Microsoft.UI.Wpf;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Shulkerbox.Models;
@@ -19,6 +21,18 @@ public partial class Accounts
         UserAccounts = SettingsService.Accounts;
     }
 
+    private async Task AddMicrosoft()
+    {
+        var loginWindow = new MicrosoftLoginWindow();
+        var session = await loginWindow.ShowLoginDialog();
+        if (session is null)
+            return;
+        UserAccounts.Add(new AccountModel(session, "Premium"));
+        Snackbar.Add("Account added!", Severity.Success);
+        SettingsService.Accounts = UserAccounts;
+        SettingsService.Save();
+    }
+
     private async Task AddOffline()
     {
         var dialog = await DialogService.ShowAsync<Accounts_AddOfflineDialog>("Add Offline Account");
@@ -30,12 +44,12 @@ public partial class Accounts
             Snackbar.Add("Invalid username!", Severity.Error);
             return;
         }
-        if (UserAccounts.Any(account => account.Username == username))
+        if (UserAccounts.Any(account => account.Session.Username == username && account.Type == "Offline"))
         {
             Snackbar.Add("Account already exists!", Severity.Error);
             return;
         }
-        UserAccounts.Add(new AccountModel { Username = username, Type = "Offline" });
+        UserAccounts.Add(new AccountModel(MSession.GetOfflineSession(username), "Offline"));
         Snackbar.Add("Account added!", Severity.Success);
         SettingsService.Accounts = UserAccounts;
         SettingsService.Save();

@@ -29,7 +29,7 @@
 <MudPaper>
     <MudToolBar>
         <MudSpacer />
-        <MudButton Disabled="true">Add Microsoft Account</MudButton>
+        <MudButton Disabled="true" OnClick="AddMicrosoft">Add Microsoft Account</MudButton>
         <MudButton OnClick="AddOffline">Add Offline Account</MudButton>
     </MudToolBar>
 </MudPaper>
@@ -40,7 +40,7 @@
         <MudPaper Class="item">
             <MudImage Class="image" Src="@account.HeadImageUrl.ToString()" />
             <MudElement>
-                <MudText Typo="Typo.h5">@account.Username</MudText>
+                <MudText Typo="Typo.h5">@account.Session.Username</MudText>
                 <MudText Typo="Typo.subtitle2">@account.Type</MudText>
             </MudElement>
             <MudSpacer/>

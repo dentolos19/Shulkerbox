@@ -1,5 +1,5 @@
 <h1>
-    <img alt="Icon" src="docs/icon.png" style="height: 1em;"/>
+    <img src="docs/icon.png" style="height: 1em;"/>
     <span>Shulkerbox</span>
 </h1>
 

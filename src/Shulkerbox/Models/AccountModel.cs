@@ -1,18 +1,27 @@
-﻿namespace Shulkerbox.Models;
+﻿using System.Text.Json.Serialization;
+using CmlLib.Core.Auth;
+
+namespace Shulkerbox.Models;
 
 public class AccountModel
 {
-    public string Username { get; init; }
-    public string Type { get; init; }
-    public Uri HeadImageUrl => new($"https://mc-heads.net/avatar/{Username}/128");
+    public string Type { get; }
+    public MSession Session { get; }
+    [JsonIgnore] public Uri HeadImageUrl => new($"https://mc-heads.net/avatar/{Session.Username}/128");
+
+    public AccountModel(MSession session, string type)
+    {
+        Type = type;
+        Session = session;
+    }
 
     public override bool Equals(object? @object)
     {
-        return @object is AccountModel model && Username == model.Username;
+        return @object is AccountModel model && Session.Username == model.Session.Username;
     }
 
     public override string ToString()
     {
-        return Username;
+        return Session.Username;
     }
 }

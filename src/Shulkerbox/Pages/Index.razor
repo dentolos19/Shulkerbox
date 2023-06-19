@@ -5,7 +5,7 @@
         <MudChipSet ReadOnly="true">
             @if (CurrentAccount is not null)
             {
-                <MudChip Icon="@Icons.Material.Filled.Person">@CurrentAccount.Username</MudChip>
+                <MudChip Icon="@Icons.Material.Filled.Person">@CurrentAccount.Session.Username</MudChip>
             }
             else
             {

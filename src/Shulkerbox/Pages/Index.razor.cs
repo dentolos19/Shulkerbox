@@ -37,7 +37,7 @@ public partial class Index
         if (!string.IsNullOrEmpty(SettingsService.LastAccountUsed))
         {
             var accounts = SettingsService.Accounts;
-            CurrentAccount = accounts.FirstOrDefault(account => account.Username == SettingsService.LastAccountUsed);
+            CurrentAccount = accounts.FirstOrDefault(account => account.Session.Username == SettingsService.LastAccountUsed);
         }
         if (!string.IsNullOrEmpty(SettingsService.LastVersionUsed))
         {
@@ -66,7 +66,7 @@ public partial class Index
         var launchOptions = new MLaunchOption
         {
             VersionType = "Shulkerbox",
-            Session = MSession.GetOfflineSession(CurrentAccount.Username),
+            Session = CurrentAccount.Session,
             MaximumRamMb = SettingsService.MemoryAllocation
         };
         GameService.GameProcess = await GameService.Launcher.CreateProcessAsync(CurrentVersion.Name, launchOptions);
@@ -98,7 +98,7 @@ public partial class Index
             return;
         CurrentAccount = account;
         CurrentVersion = version;
-        SettingsService.LastAccountUsed = account.Username;
+        SettingsService.LastAccountUsed = account.Session.Username;
         SettingsService.LastVersionUsed = version.Name;
         SettingsService.Save();
     }
