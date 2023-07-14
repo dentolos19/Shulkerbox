@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
-using MudBlazor;
 using Shulkerbox.Services;
 
 namespace Shulkerbox.Pages;

@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.AspNetCore.Components.WebView.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor;

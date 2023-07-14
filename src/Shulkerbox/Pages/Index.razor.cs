@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using CmlLib.Core;
-using CmlLib.Core.Auth;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Shulkerbox.Models;

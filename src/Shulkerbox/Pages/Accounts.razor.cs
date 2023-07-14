@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using CmlLib.Core.Auth;
-using CmlLib.Core.Auth.Microsoft.UI.Wpf;
+using CmlLib.Core.Auth.Microsoft;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Shulkerbox.Models;
@@ -23,12 +23,9 @@ public partial class Accounts
 
     private async Task AddMicrosoft()
     {
-        var loginWindow = new MicrosoftLoginWindow();
-        var session = await loginWindow.ShowLoginDialog();
-        if (session is null)
-            return;
+        var loginHandler = JELoginHandlerBuilder.BuildDefault();
+        var session = await loginHandler.Authenticate();
         UserAccounts.Add(new AccountModel(session, "Premium"));
-        Snackbar.Add("Account added!", Severity.Success);
         SettingsService.Accounts = UserAccounts;
         SettingsService.Save();
     }
@@ -39,7 +36,7 @@ public partial class Accounts
         var result = await dialog.Result;
         if (result.Canceled)
             return;
-        if (!(result.Data is string username && Regex.IsMatch(username, "^[a-zA-Z0-9_]{2,16}$")))
+        if (result.Data is not string username || !Regex.IsMatch(username, "^[a-zA-Z0-9_]{2,16}$"))
         {
             Snackbar.Add("Invalid username!", Severity.Error);
             return;
@@ -49,7 +46,8 @@ public partial class Accounts
             Snackbar.Add("Account already exists!", Severity.Error);
             return;
         }
-        UserAccounts.Add(new AccountModel(MSession.GetOfflineSession(username), "Offline"));
+        var session = MSession.GetOfflineSession(username);
+        UserAccounts.Add(new AccountModel(session, "Offline"));
         Snackbar.Add("Account added!", Severity.Success);
         SettingsService.Accounts = UserAccounts;
         SettingsService.Save();

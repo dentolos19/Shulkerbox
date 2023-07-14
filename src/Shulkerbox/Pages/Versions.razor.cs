@@ -11,10 +11,10 @@ namespace Shulkerbox.Pages;
 
 public partial class Versions
 {
-    private MojangVersionLoader _vanillaLoader = new();
-    private FabricVersionLoader _fabricLoader = new();
-    private QuiltVersionLoader _quiltLoader = new();
-    private LiteLoaderVersionLoader _liteLoader = new();
+    private readonly MojangVersionLoader _vanillaLoader = new();
+    private readonly FabricVersionLoader _fabricLoader = new();
+    private readonly QuiltVersionLoader _quiltLoader = new();
+    private readonly LiteLoaderVersionLoader _liteLoader = new();
 
     [Inject] private ISnackbar Snackbar { get; init; }
     [Inject] private GameService GameService { get; init; }

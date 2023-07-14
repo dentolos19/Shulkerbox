@@ -1,6 +1,6 @@
 ﻿<MudDialog>
     <DialogContent>
-        <MudTextField Label="Username" @bind-Value="Username"/>
+        <MudTextField Label="Username" @bind-Value="Username" />
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
@@ -10,7 +10,8 @@
 
 @code
 {
-    [CascadingParameter] private MudDialogInstance Instance { get; set; }
+    [CascadingParameter]
+    private MudDialogInstance Instance { get; set; }
 
     private string Username { get; set; }
 

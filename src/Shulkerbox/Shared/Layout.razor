@@ -1,12 +1,12 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider IsDarkMode="true"/>
+<MudThemeProvider IsDarkMode="true" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
     <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Disabled="LayoutService.IsLockdownMode" OnClick="ToggleDrawer"/>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Disabled="LayoutService.IsLockdownMode" OnClick="ToggleDrawer" />
         <MudText Typo="Typo.h5" Class="ml-3">Shulkerbox</MudText>
     </MudAppBar>
     <MudDrawer Elevation="2" ClipMode="DrawerClipMode.Always" @bind-Open="IsDrawerOpened">
