@@ -13,7 +13,7 @@ public partial class Layout
     {
         LayoutService.StateChanged += (_, _) =>
         {
-            if (LayoutService.IsLockdownMode)
+            if (LayoutService.IsLockDownMode)
                 IsDrawerOpened = false;
             StateHasChanged();
         };

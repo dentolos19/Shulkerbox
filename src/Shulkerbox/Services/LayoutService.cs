@@ -2,7 +2,7 @@
 
 public class LayoutService
 {
-    public bool IsLockdownMode { get; set; }
+    public bool IsLockDownMode { get; set; }
     public event EventHandler? StateChanged;
 
     public void TriggerStateChanged()

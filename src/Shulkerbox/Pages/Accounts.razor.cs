@@ -39,17 +39,17 @@ public partial class Accounts
             return;
         if (result.Data is not string username || !Regex.IsMatch(username, "^[a-zA-Z0-9_]{2,16}$"))
         {
-            Snackbar.Add("Invalid username!", Severity.Error);
+            Snackbar.Add("You've entered an invalid username.", Severity.Error);
             return;
         }
         if (UserAccounts.Any(account => account.Session.Username == username && account.Type == "Offline"))
         {
-            Snackbar.Add("Account already exists!", Severity.Error);
+            Snackbar.Add("The account already exists.", Severity.Error);
             return;
         }
         var session = MSession.GetOfflineSession(username);
         UserAccounts.Add(new AccountModel(session, "Offline"));
-        Snackbar.Add("Account added!", Severity.Success);
+        Snackbar.Add("Your new account has been added!", Severity.Success);
         SettingsService.Accounts = UserAccounts;
         SettingsService.Save();
     }
@@ -57,8 +57,8 @@ public partial class Accounts
     private void DeleteAccount(AccountModel account)
     {
         UserAccounts.Remove(account);
-        Snackbar.Add("Account deleted!", Severity.Info);
         SettingsService.Accounts = UserAccounts;
         SettingsService.Save();
+        Snackbar.Add("The account has been deleted.", Severity.Info);
     }
 }

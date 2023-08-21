@@ -5,11 +5,6 @@ namespace Shulkerbox.Services;
 
 public class GameService
 {
-    public CMLauncher Launcher { get; }
+    public CMLauncher Launcher { get; } = new(new MinecraftPath());
     public Process? GameProcess { get; set; }
-
-    public GameService()
-    {
-        Launcher = new CMLauncher(new MinecraftPath());
-    }
 }

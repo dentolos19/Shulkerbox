@@ -17,9 +17,10 @@
     <MudToolBar>
         <MudSpacer />
         <MudChipSet Filter="true" Mandatory="true" SelectedChipChanged="chip => ChangeType(chip.Text)">
+            <MudChip Default="true">Local</MudChip>
             <MudChip Color="Color.Success" Text="Vanilla">Vanilla</MudChip>
             <MudChip Color="Color.Error" Text="Fabric">Fabric</MudChip>
-            <MudChip Color="Color.Primary" Text="Quilt">Fabric</MudChip>
+            <MudChip Color="Color.Primary" Text="Quilt">Quilt</MudChip>
             <MudChip Color="Color.Secondary" Text="LiteLoader">LiteLoader</MudChip>
         </MudChipSet>
     </MudToolBar>
@@ -30,10 +31,17 @@
     {
         @foreach (var version in GameVersions)
         {
-            <MudPaper Class="item px-5 py-1">
+            <MudPaper Class="item px-5 py-2">
                 <MudText Typo="Typo.h5">@version.Name</MudText>
                 <MudSpacer />
-                <MudIconButton Icon="@Icons.Material.Filled.Download" OnClick="() => SaveVersion(version)" />
+                @if (version.Version.IsLocalVersion)
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteVersion(version)" />
+                }
+                else
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.Download" OnClick="() => SaveVersion(version)" />
+                }
             </MudPaper>
         }
     }

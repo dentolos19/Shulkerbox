@@ -1,4 +1,5 @@
-﻿using CmlLib.Core.Installer.FabricMC;
+﻿using System.IO;
+using CmlLib.Core.Installer.FabricMC;
 using CmlLib.Core.Installer.LiteLoader;
 using CmlLib.Core.Installer.QuiltMC;
 using CmlLib.Core.VersionLoader;
@@ -42,12 +43,27 @@ public partial class Versions
                 foreach (var version in await _liteLoader.GetVersionMetadatasAsync())
                     GameVersions.Add(new VersionModel(version));
                 break;
+            default:
+                var versions = (await GameService.Launcher.GetAllVersionsAsync())
+                    .Where(version => version.IsLocalVersion)
+                    .Select(version => new VersionModel(version));
+                foreach (var version in versions)
+                    GameVersions.Add(version);
+                break;
         }
     }
 
     public async Task SaveVersion(VersionModel version)
     {
         await version.Version.SaveAsync(GameService.Launcher.MinecraftPath);
-        Snackbar.Add("Version saved!", Severity.Success);
+        Snackbar.Add("The version has been saved!", Severity.Success);
+    }
+
+    public Task DeleteVersion(VersionModel version)
+    {
+        Directory.Delete(Path.Combine(GameService.Launcher.MinecraftPath.BasePath, "versions", version.Name), true);
+        GameVersions.Remove(version);
+        Snackbar.Add("The version has been deleted.", Severity.Info);
+        return Task.CompletedTask;
     }
 }

@@ -1,13 +1,24 @@
 ﻿@page "/settings"
 
 <MudExpansionPanels>
-    <MudExpansionPanel Text="General Preferences">
+    <MudExpansionPanel Text="Launch Settings">
         <MudNumericField
-            Label="Memory Allocation (MB)"
+            Label="Maximum Memory Allocation (MB)"
             Step="1024"
             Min="1024"
-            Max="8192"
-            @bind-Value="MemoryAllocation" />
+            Max="_totalSystemMemory"
+            @bind-Value="MaximumMemoryAllocation" />
+        <MudNumericField
+            Label="Minimum Memory Allocation (MB)"
+            Step="1024"
+            Min="1024"
+            Max="_totalSystemMemory"
+            @bind-Value="MinimumMemoryAllocation" />
+        <MudCheckBox
+            Color="Color.Primary"
+            Label="Enable Full Screen"
+            @bind-Checked="EnableFullScreen" />
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Save">Save</MudButton>
     </MudExpansionPanel>
     <MudExpansionPanel Text="About This App">
         <MudMarkdown Value="@About" />

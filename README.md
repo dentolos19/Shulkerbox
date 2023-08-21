@@ -3,7 +3,7 @@
     <span>Shulkerbox</span>
 </h1>
 
-A simple Minecraft launcher made with Blazor Hybrid!
+A simple Minecraft launcher built with Blazor Hybrid!
 
 ## ⚙️ Features
 

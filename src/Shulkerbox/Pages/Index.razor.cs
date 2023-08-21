@@ -60,20 +60,22 @@ public partial class Index
             return;
         }
         IsLaunching = true;
-        LayoutService.IsLockdownMode = true;
+        LayoutService.IsLockDownMode = true;
         LayoutService.TriggerStateChanged();
         var launchOptions = new MLaunchOption
         {
             VersionType = "Shulkerbox",
             Session = CurrentAccount.Session,
-            MaximumRamMb = SettingsService.MemoryAllocation
+            MaximumRamMb = SettingsService.MaximumMemoryAllocation,
+            MinimumRamMb = SettingsService.MinimumMemoryAllocation,
+            FullScreen = SettingsService.EnableFullScreen
         };
         GameService.GameProcess = await GameService.Launcher.CreateProcessAsync(CurrentVersion.Name, launchOptions);
 #if !DEBUG
         GameService.GameProcess.Start();
 #endif
         IsLaunching = false;
-        LayoutService.IsLockdownMode = false;
+        LayoutService.IsLockDownMode = false;
         LayoutService.TriggerStateChanged();
     }
 

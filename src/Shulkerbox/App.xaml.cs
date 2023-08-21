@@ -19,7 +19,7 @@ public partial class App
 #endif
         services.AddMudServices(config =>
         {
-            config.SnackbarConfiguration.VisibleStateDuration = 1000;
+            config.SnackbarConfiguration.VisibleStateDuration = 2000;
             config.SnackbarConfiguration.ShowTransitionDuration = 250;
             config.SnackbarConfiguration.HideTransitionDuration = 250;
         });
