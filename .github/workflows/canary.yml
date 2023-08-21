@@ -10,10 +10,9 @@ concurrency:
   cancel-in-progress: true
 env:
   TARGET_FILE: Shulkerbox.sln
-  RELEASE_NAME: Canary
-  RELEASE_TAG: canary
 jobs:
   build:
+    name: Build
     runs-on: windows-latest
     steps:
       - name: Checkout Branch
@@ -23,6 +22,8 @@ jobs:
           submodules: recursive
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
       - name: Publish App
         run: |
           dotnet publish --configuration Release --output build
@@ -35,6 +36,7 @@ jobs:
           name: Output
           path: artifacts
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     needs: build
     permissions:
@@ -48,8 +50,9 @@ jobs:
       - name: Upload Release
         uses: softprops/action-gh-release@master
         with:
+          body: This is a prerelease. Please be warned that this is not a stable release and may contain bugs.
           prerelease: true
           files: artifacts/*
-          name: ${{ env.RELEASE_NAME }}
-          tag_name: ${{ env.RELEASE_TAG }}
+          name: Canary
+          tag_name: canary
           fail_on_unmatched_files: true
