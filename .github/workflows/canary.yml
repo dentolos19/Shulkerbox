@@ -47,6 +47,11 @@ jobs:
         with:
           name: Output
           path: artifacts
+      - name: Delete Preexisiting Release
+        uses: dev-drprasad/delete-tag-and-release@master
+        with:
+          tag_name: canary
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload Release
         uses: softprops/action-gh-release@master
         with:
@@ -55,4 +60,3 @@ jobs:
           files: artifacts/*
           name: Canary
           tag_name: canary
-          fail_on_unmatched_files: true
