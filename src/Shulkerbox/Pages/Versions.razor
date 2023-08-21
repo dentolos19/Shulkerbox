@@ -26,12 +26,19 @@
 </MudPaper>
 
 <MudElement Class="list mt-2">
-    @foreach (var version in GameVersions)
+    @if (GameVersions is { Count: > 0 })
     {
-        <MudPaper Class="item px-5 py-1">
-            <MudText Typo="Typo.h5">@version.Name</MudText>
-            <MudSpacer />
-            <MudIconButton Icon="@Icons.Material.Filled.Download" OnClick="() => SaveVersion(version)" />
-        </MudPaper>
+        @foreach (var version in GameVersions)
+        {
+            <MudPaper Class="item px-5 py-1">
+                <MudText Typo="Typo.h5">@version.Name</MudText>
+                <MudSpacer />
+                <MudIconButton Icon="@Icons.Material.Filled.Download" OnClick="() => SaveVersion(version)" />
+            </MudPaper>
+        }
+    }
+    else
+    {
+        <MudText Class="mt-4" Align="Align.Center">No versions available.</MudText>
     }
 </MudElement>

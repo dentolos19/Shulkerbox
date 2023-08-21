@@ -17,7 +17,12 @@ public partial class App
 #if DEBUG
         services.AddBlazorWebViewDeveloperTools();
 #endif
-        services.AddMudServices();
+        services.AddMudServices(config =>
+        {
+            config.SnackbarConfiguration.VisibleStateDuration = 1000;
+            config.SnackbarConfiguration.ShowTransitionDuration = 250;
+            config.SnackbarConfiguration.HideTransitionDuration = 250;
+        });
         services.AddMudMarkdownServices();
         services.AddSingleton(new LayoutService());
         services.AddSingleton(new GameService());

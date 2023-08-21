@@ -9,11 +9,11 @@ concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
 env:
-  PROJECT_FILE: Shulkerbox.sln
-  RELEASE_TAG: Canary
+  TARGET_FILE: Shulkerbox.sln
+  RELEASE_NAME: Canary
+  RELEASE_TAG: canary
 jobs:
   build:
-    name: Build
     runs-on: windows-latest
     steps:
       - name: Checkout Branch
@@ -22,12 +22,12 @@ jobs:
           lfs: true
           submodules: recursive
       - name: Setup .NET
-        uses: actions/setup-dotnet@v2
-      - name: Publish Project
+        uses: actions/setup-dotnet@v3
+      - name: Publish App
         run: |
-          dotnet publish ${{ env.PROJECT_FILE }} --configuration Release --output build
+          dotnet publish --configuration Release --output build
           $artifacts = (Get-ChildItem -Path build/*).FullName
-          New-Item -Path artifacts -ItemType Directory
+          New-Item -ItemType Directory -Path artifacts
           Compress-Archive -Path $artifacts -DestinationPath artifacts/${{ github.event.repository.name }}.zip
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
@@ -35,9 +35,8 @@ jobs:
           name: Output
           path: artifacts
   deploy:
-    name: Deploy
-    needs: build
     runs-on: ubuntu-latest
+    needs: build
     permissions:
       contents: write
     steps:
@@ -46,15 +45,11 @@ jobs:
         with:
           name: Output
           path: artifacts
-      - name: Delete (Existing) Releases
-        uses: dev-drprasad/delete-tag-and-release@v1.0
+      - name: Upload Release
+        uses: softprops/action-gh-release@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ env.RELEASE_TAG }}
-          delete_release: true
-      - name: Release Artifacts
-        uses: softprops/action-gh-release@v0.1.15
-        with:
-          tag_name: ${{ env.RELEASE_TAG }}
           prerelease: true
           files: artifacts/*
+          name: ${{ env.RELEASE_NAME }}
+          tag_name: ${{ env.RELEASE_TAG }}
+          fail_on_unmatched_files: true

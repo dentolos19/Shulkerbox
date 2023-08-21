@@ -29,28 +29,35 @@
 <MudPaper>
     <MudToolBar>
         <MudSpacer />
-        <MudButton OnClick="AddMicrosoft">Add Microsoft Account</MudButton>
+        <MudButton Disabled="true" OnClick="AddMicrosoft">Add Microsoft Account</MudButton>
         <MudButton OnClick="AddOffline">Add Offline Account</MudButton>
     </MudToolBar>
 </MudPaper>
 
 <MudElement Class="list mt-2">
-    @foreach (var account in UserAccounts)
+    @if (UserAccounts is { Count: > 0 })
     {
-        <MudPaper Class="item">
-            <MudImage Class="image" Src="@account.HeadImageUrl.ToString()" />
-            <MudElement>
-                <MudText Typo="Typo.h5">@account.Session.Username</MudText>
-                <MudText Typo="Typo.subtitle2">@account.Type</MudText>
-            </MudElement>
-            <MudSpacer />
-            <MudTooltip Text="Delete Account">
-                <MudIconButton
-                    Class="mr-4"
-                    Icon="@Icons.Material.Filled.DeleteForever"
-                    Size="Size.Medium"
-                    OnClick="() => DeleteAccount(account)" />
-            </MudTooltip>
-        </MudPaper>
+        @foreach (var account in UserAccounts)
+        {
+            <MudPaper Class="item">
+                <MudImage Class="image" Src="@account.HeadImageUrl.ToString()" />
+                <MudElement>
+                    <MudText Typo="Typo.h5">@account.Session.Username</MudText>
+                    <MudText Typo="Typo.subtitle2">@account.Type</MudText>
+                </MudElement>
+                <MudSpacer />
+                <MudTooltip Text="Delete Account">
+                    <MudIconButton
+                        Class="mr-4"
+                        Icon="@Icons.Material.Filled.DeleteForever"
+                        Size="Size.Medium"
+                        OnClick="() => DeleteAccount(account)" />
+                </MudTooltip>
+            </MudPaper>
+        }
+    }
+    else
+    {
+        <MudText Class="mt-4" Align="Align.Center">No accounts available.</MudText>
     }
 </MudElement>

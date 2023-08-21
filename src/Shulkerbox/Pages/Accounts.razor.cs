@@ -23,6 +23,7 @@ public partial class Accounts
 
     private async Task AddMicrosoft()
     {
+        // TODO: create own auth with Microsoft
         var loginHandler = JELoginHandlerBuilder.BuildDefault();
         var session = await loginHandler.Authenticate();
         UserAccounts.Add(new AccountModel(session, "Premium"));
@@ -56,7 +57,7 @@ public partial class Accounts
     private void DeleteAccount(AccountModel account)
     {
         UserAccounts.Remove(account);
-        Snackbar.Add("Account deleted!", Severity.Success);
+        Snackbar.Add("Account deleted!", Severity.Info);
         SettingsService.Accounts = UserAccounts;
         SettingsService.Save();
     }
