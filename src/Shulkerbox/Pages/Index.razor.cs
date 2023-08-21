@@ -19,7 +19,6 @@ public partial class Index
     private VersionModel? CurrentVersion { get; set; }
     private bool IsLaunching { get; set; }
     private string LaunchStatus { get; set; }
-    private string ConsoleLogs { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

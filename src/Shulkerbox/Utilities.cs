@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Shulkerbox;
 
@@ -12,5 +13,14 @@ public static class Utilities
     {
         GetPhysicallyInstalledSystemMemory(out var memoryKb);
         return (int)(memoryKb / 1024);
+    }
+
+    public static void OpenWebsite(string url)
+    {
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = url,
+            UseShellExecute = true
+        });
     }
 }

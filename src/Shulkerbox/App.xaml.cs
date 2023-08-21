@@ -30,6 +30,10 @@ public partial class App
         new Window
         {
             Title = "Shulkerbox",
+            Width = 800,
+            MinWidth = 800,
+            Height = 500,
+            MinHeight = 500,
             Content = new BlazorWebView
             {
                 HostPage = "wwwroot/index.html",

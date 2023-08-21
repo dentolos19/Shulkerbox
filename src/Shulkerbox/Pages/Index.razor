@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 
 <style>
     .layout {
@@ -55,7 +55,7 @@
                     <MudIconButton Icon="@Icons.Material.Filled.Folder" OnClick="OpenGameDirectory" />
                 </MudTooltip>
                 <MudTooltip Text="Launch">
-                    <MudIconButton Icon="@Icons.Material.Filled.PlayArrow" OnClick="LaunchGame" />
+                    <MudIconButton Color="Color.Success" Icon="@Icons.Material.Filled.PlayArrow" OnClick="LaunchGame" />
                 </MudTooltip>
             }
         </MudToolBar>
@@ -63,5 +63,10 @@
     <MudPaper Class="bottom d-flex flex-column justify-center align-content-center">
         <MudText Typo="Typo.h3" Align="Align.Center">Shulkerbox</MudText>
         <MudText Typo="Typo.caption" Align="Align.Center">Created by Dennise Catolos</MudText>
+        <MudElement Class="d-flex justify-center mt-4">
+            <MudTooltip Text="GitHub">
+                <MudIconButton Icon="@Icons.Custom.Brands.GitHub" OnClick='() => Utilities.OpenWebsite("https://github.com/dentolos19/Shulkerbox")' />
+            </MudTooltip>
+        </MudElement>
     </MudPaper>
 </MudContainer>
