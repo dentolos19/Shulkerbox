@@ -4,7 +4,9 @@
     </Found>
     <NotFound>
         <LayoutView Layout="@typeof(Layout)">
-            <MudText Class="pt-4" Align="Align.Center">Sorry, there's nothing at this page.</MudText>
+            <MudContainer Class="d-flex justify-center align-center" Style="height: 100%">
+                <MudText>Sorry, there's nothing at this page.</MudText>
+            </MudContainer>
         </LayoutView>
     </NotFound>
 </Router>

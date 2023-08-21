@@ -18,13 +18,14 @@ public partial class Index
     private AccountModel? CurrentAccount { get; set; }
     private VersionModel? CurrentVersion { get; set; }
     private bool IsLaunching { get; set; }
-    private string CurrentProgressStatus { get; set; }
+    private string LaunchStatus { get; set; }
+    private string ConsoleLogs { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         GameService.Launcher.FileChanged += args =>
         {
-            CurrentProgressStatus = string.Format(
+            LaunchStatus = string.Format(
                 "[{0}] {1} - {2}/{3}",
                 args.FileKind.ToString(),
                 args.FileName,

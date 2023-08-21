@@ -1,26 +1,30 @@
 ﻿@page "/settings"
 
-<MudExpansionPanels>
-    <MudExpansionPanel Text="Launch Settings">
-        <MudNumericField
-            Label="Maximum Memory Allocation (MB)"
-            Step="1024"
-            Min="1024"
-            Max="_totalSystemMemory"
-            @bind-Value="MaximumMemoryAllocation" />
-        <MudNumericField
-            Label="Minimum Memory Allocation (MB)"
-            Step="1024"
-            Min="1024"
-            Max="_totalSystemMemory"
-            @bind-Value="MinimumMemoryAllocation" />
-        <MudCheckBox
-            Color="Color.Primary"
-            Label="Enable Full Screen"
-            @bind-Checked="EnableFullScreen" />
-        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Save">Save</MudButton>
-    </MudExpansionPanel>
-    <MudExpansionPanel Text="About This App">
-        <MudMarkdown Value="@About" />
-    </MudExpansionPanel>
-</MudExpansionPanels>
+<MudContainer Class="py-4">
+    <MudExpansionPanels>
+        <MudExpansionPanel Text="Launch Settings">
+            <MudElement Class="d-flex flex-column gap-2">
+                <MudNumericField
+                    Label="Maximum Memory Allocation (MB)"
+                    Step="1024"
+                    Min="1024"
+                    Max="_totalSystemMemory"
+                    @bind-Value="MaximumMemoryAllocation" />
+                <MudNumericField
+                    Label="Minimum Memory Allocation (MB)"
+                    Step="1024"
+                    Min="1024"
+                    Max="_totalSystemMemory"
+                    @bind-Value="MinimumMemoryAllocation" />
+                <MudCheckBox
+                    Color="Color.Primary"
+                    Label="Enable Full Screen"
+                    @bind-Checked="EnableFullScreen" />
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Save">Save</MudButton>
+            </MudElement>
+        </MudExpansionPanel>
+        <MudExpansionPanel Text="About This App">
+            <MudMarkdown Value="@About" />
+        </MudExpansionPanel>
+    </MudExpansionPanels>
+</MudContainer>

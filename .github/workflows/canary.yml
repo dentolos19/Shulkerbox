@@ -47,16 +47,11 @@ jobs:
         with:
           name: Output
           path: artifacts
-      - name: Delete Preexisiting Release
-        uses: dev-drprasad/delete-tag-and-release@master
+      - name: Deploy Release
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          tag_name: canary
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload Release
-        uses: softprops/action-gh-release@master
-        with:
-          body: This is a prerelease. Please be warned that this is not a stable release and may contain bugs.
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: true
+          automatic_release_tag: canary
+          title: Canary
           files: artifacts/*
-          name: Canary
-          tag_name: canary

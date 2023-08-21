@@ -1,52 +1,74 @@
 ﻿@page "/versions"
 
 <style>
+    .layout {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .layout .top {
+        flex: 0 0 0;
+    }
+
+    .layout .bottom {
+        flex: 1 0 0;
+        overflow: hidden scroll;
+        scrollbar-gutter: stable both-edges;
+    }
+
     .list {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 0.5rem;
     }
-    .item {
+
+    .list .item {
         display: flex;
+        min-height: 64px;
+        padding: 0.5rem 1rem;
         align-items: center;
-        gap: 12px;
+        overflow: hidden;
     }
 </style>
 
-<MudPaper>
-    <MudToolBar>
-        <MudSpacer />
-        <MudChipSet Filter="true" Mandatory="true" SelectedChipChanged="chip => ChangeType(chip.Text)">
-            <MudChip Default="true">Local</MudChip>
-            <MudChip Color="Color.Success" Text="Vanilla">Vanilla</MudChip>
-            <MudChip Color="Color.Error" Text="Fabric">Fabric</MudChip>
-            <MudChip Color="Color.Primary" Text="Quilt">Quilt</MudChip>
-            <MudChip Color="Color.Secondary" Text="LiteLoader">LiteLoader</MudChip>
-        </MudChipSet>
-    </MudToolBar>
-</MudPaper>
+<MudContainer Class="layout py-4">
+    <MudPaper Class="top">
+        <MudToolBar>
+            <MudSpacer />
+            <MudChipSet Filter="true" Mandatory="true" SelectedChipChanged="chip => ChangeType(chip.Text)">
+                <MudChip Default="true">Local</MudChip>
+                <MudChip Color="Color.Success" Text="Vanilla">Vanilla</MudChip>
+                <MudChip Color="Color.Error" Text="Fabric">Fabric</MudChip>
+                <MudChip Color="Color.Primary" Text="Quilt">Quilt</MudChip>
+                <MudChip Color="Color.Secondary" Text="LiteLoader">LiteLoader</MudChip>
+            </MudChipSet>
+        </MudToolBar>
+    </MudPaper>
 
-<MudElement Class="list mt-2">
-    @if (GameVersions is { Count: > 0 })
-    {
-        @foreach (var version in GameVersions)
+    <MudElement Class="bottom list">
+        @if (GameVersions is { Count: > 0 })
         {
-            <MudPaper Class="item px-5 py-2">
-                <MudText Typo="Typo.h5">@version.Name</MudText>
-                <MudSpacer />
-                @if (version.Version.IsLocalVersion)
-                {
-                    <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteVersion(version)" />
-                }
-                else
-                {
-                    <MudIconButton Icon="@Icons.Material.Filled.Download" OnClick="() => SaveVersion(version)" />
-                }
-            </MudPaper>
+            @foreach (var version in GameVersions)
+            {
+                <MudPaper Class="item">
+                    <MudText Typo="Typo.h5">@version.Name</MudText>
+                    <MudSpacer />
+                    @if (version.Version.IsLocalVersion)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteVersion(version)" />
+                    }
+                    else
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Download" OnClick="() => SaveVersion(version)" />
+                    }
+                </MudPaper>
+            }
         }
-    }
-    else
-    {
-        <MudText Class="mt-4" Align="Align.Center">No versions available.</MudText>
-    }
-</MudElement>
+        else
+        {
+            <MudText Class="mt-4" Align="Align.Center">No versions available.</MudText>
+        }
+    </MudElement>
+</MudContainer>

@@ -16,3 +16,10 @@ A simple Minecraft launcher built with Blazor Hybrid!
 - [x] Launch any Minecraft version (tested up to 1.20.1)
 - [x] Downloads files from Mojang's official CDN
 - [x] Automatically installs the Java runtime
+
+## 📸 Screenshots
+
+![](docs/0.png)
+![](docs/1.png)
+![](docs/2.png)
+![](docs/3.png)
