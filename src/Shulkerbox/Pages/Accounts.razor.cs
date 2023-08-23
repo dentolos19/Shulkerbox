@@ -54,8 +54,15 @@ public partial class Accounts
         SettingsService.Save();
     }
 
-    private void DeleteAccount(AccountModel account)
+    private async Task DeleteAccount(AccountModel account)
     {
+        if (await DialogService.ShowMessageBox(
+                "Delete Account",
+                "Are you sure you want to delete this account?",
+                "Yes",
+                cancelText: "No"
+            ) != true)
+            return;
         UserAccounts.Remove(account);
         SettingsService.Accounts = UserAccounts;
         SettingsService.Save();

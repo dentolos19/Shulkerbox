@@ -5,6 +5,7 @@ using MudBlazor;
 using MudBlazor.Services;
 using Shulkerbox.Services;
 using Shulkerbox.Shared;
+using ResizeMode = System.Windows.ResizeMode;
 
 namespace Shulkerbox;
 
@@ -31,9 +32,8 @@ public partial class App
         {
             Title = "Shulkerbox",
             Width = 800,
-            MinWidth = 800,
             Height = 500,
-            MinHeight = 500,
+            ResizeMode = ResizeMode.CanMinimize,
             Content = new BlazorWebView
             {
                 HostPage = "wwwroot/index.html",

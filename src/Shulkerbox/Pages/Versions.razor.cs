@@ -17,13 +17,16 @@ public partial class Versions
     private readonly QuiltVersionLoader _quiltLoader = new();
     private readonly LiteLoaderVersionLoader _liteLoader = new();
 
+    [Inject] private IDialogService DialogService { get; init; }
     [Inject] private ISnackbar Snackbar { get; init; }
     [Inject] private GameService GameService { get; init; }
 
+    private bool IsLoading { get; set; }
     private IList<VersionModel> GameVersions { get; } = new List<VersionModel>();
 
     private async Task ChangeType(string text)
     {
+        IsLoading = true;
         GameVersions.Clear();
         switch (text)
         {
@@ -51,6 +54,7 @@ public partial class Versions
                     GameVersions.Add(version);
                 break;
         }
+        IsLoading = false;
     }
 
     public async Task SaveVersion(VersionModel version)
@@ -59,11 +63,17 @@ public partial class Versions
         Snackbar.Add("The version has been saved!", Severity.Success);
     }
 
-    public Task DeleteVersion(VersionModel version)
+    public async Task DeleteVersion(VersionModel version)
     {
+        if (await DialogService.ShowMessageBox(
+                "Delete Version",
+                "Are you sure you want to delete this version?",
+                "Yes",
+                cancelText: "No"
+            ) != true)
+            return;
         Directory.Delete(Path.Combine(GameService.Launcher.MinecraftPath.BasePath, "versions", version.Name), true);
         GameVersions.Remove(version);
         Snackbar.Add("The version has been deleted.", Severity.Info);
-        return Task.CompletedTask;
     }
 }

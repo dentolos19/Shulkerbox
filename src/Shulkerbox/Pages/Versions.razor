@@ -48,27 +48,40 @@
     </MudPaper>
 
     <MudElement Class="bottom list">
-        @if (GameVersions is { Count: > 0 })
+        @if (IsLoading)
         {
-            @foreach (var version in GameVersions)
-            {
-                <MudPaper Class="item">
-                    <MudText Typo="Typo.h5">@version.Name</MudText>
-                    <MudSpacer />
-                    @if (version.Version.IsLocalVersion)
-                    {
-                        <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteVersion(version)" />
-                    }
-                    else
-                    {
-                        <MudIconButton Icon="@Icons.Material.Filled.Download" OnClick="() => SaveVersion(version)" />
-                    }
-                </MudPaper>
-            }
+            <MudElement Class="d-flex justify-center">
+                <MudProgressCircular Class="mt-4" Indeterminate="true"/>
+            </MudElement>
         }
         else
         {
-            <MudText Class="mt-4" Align="Align.Center">No versions available.</MudText>
+            @if (GameVersions is { Count: > 0 })
+            {
+                @foreach (var version in GameVersions)
+                {
+                    <MudPaper Class="item">
+                        <MudText Typo="Typo.h5">@version.Name</MudText>
+                        <MudSpacer />
+                        @if (version.Version.IsLocalVersion)
+                        {
+                            <MudTooltip Text="Delete Version">
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteVersion(version)" />
+                            </MudTooltip>
+                        }
+                        else
+                        {
+                            <MudTooltip Text="Save Version">
+                                <MudIconButton Icon="@Icons.Material.Filled.Download" OnClick="() => SaveVersion(version)" />
+                            </MudTooltip>
+                        }
+                    </MudPaper>
+                }
+            }
+            else
+            {
+                <MudText Class="mt-4" Align="Align.Center">No versions available.</MudText>
+            }
         }
     </MudElement>
 </MudContainer>

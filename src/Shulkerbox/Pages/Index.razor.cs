@@ -19,6 +19,7 @@ public partial class Index
     private VersionModel? CurrentVersion { get; set; }
     private bool IsLaunching { get; set; }
     private string LaunchStatus { get; set; }
+    private double? LaunchProgress { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -27,11 +28,15 @@ public partial class Index
             LaunchStatus = string.Format(
                 "[{0}] {1} - {2}/{3}",
                 args.FileKind.ToString(),
-                args.FileName,
+                string.IsNullOrEmpty(args.FileName) ? "Loading" : args.FileName,
                 args.ProgressedFileCount,
                 args.TotalFileCount
             );
             StateHasChanged();
+        };
+        GameService.Launcher.ProgressChanged += (_, args) =>
+        {
+            LaunchProgress = args.ProgressPercentage;
         };
         if (!string.IsNullOrEmpty(SettingsService.LastAccountUsed))
         {
