@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor;
 using MudBlazor.Services;
@@ -15,7 +16,6 @@ public static class Utilities
             .AddMudMarkdownServices()
             .AddSingleton(GameService.Initialize())
             .AddSingleton(LayoutService.Initialize())
-            .AddSingleton(ResourceService.Initialize())
             .AddSingleton(SettingsService.Initialize());
     }
 
@@ -26,5 +26,15 @@ public static class Utilities
             FileName = path,
             UseShellExecute = true
         });
+    }
+
+    public static async Task<string> GetResourceStringAsync(string resourceName)
+    {
+        await using var stream =
+            Assembly
+                .GetExecutingAssembly()
+                .GetManifestResourceStream($"Shulkerbox.Shared.Resources.{resourceName}");
+        using var reader = new StreamReader(stream!);
+        return await reader.ReadToEndAsync();
     }
 }

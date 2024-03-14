@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using CmlLib.Core;
+﻿using CmlLib.Core;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Shulkerbox.Shared.Models;
@@ -41,13 +40,15 @@ public partial class Index
         if (!string.IsNullOrEmpty(SettingsService.LastAccountUsed))
         {
             var accounts = SettingsService.Accounts;
-            CurrentAccount = accounts.FirstOrDefault(account => account.Session.Username == SettingsService.LastAccountUsed);
+            CurrentAccount =
+                accounts.FirstOrDefault(account => account.Session.Username == SettingsService.LastAccountUsed);
         }
         if (!string.IsNullOrEmpty(SettingsService.LastVersionUsed))
         {
             var versions = (await GameService.Launcher.GetAllVersionsAsync())
                 .Where(version => version.IsLocalVersion)
-                .Select(version => new VersionModel(version)).ToList();
+                .Select(version => new VersionModel(version))
+                .ToList();
             CurrentVersion = versions.FirstOrDefault(version => version.Name == SettingsService.LastVersionUsed);
         }
     }

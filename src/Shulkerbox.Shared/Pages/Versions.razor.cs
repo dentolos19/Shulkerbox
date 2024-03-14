@@ -69,7 +69,8 @@ public partial class Versions
                 "Are you sure you want to delete this version?",
                 "Yes",
                 cancelText: "No"
-            ) != true)
+            ) !=
+            true)
             return;
         Directory.Delete(Path.Combine(GameService.Launcher.MinecraftPath.BasePath, "versions", version.Name), true);
         GameVersions.Remove(version);

@@ -23,9 +23,11 @@ public partial class Index_EditLaunchSettings
         UserAccounts = SettingsService.Accounts;
         GameVersions = (await GameService.Launcher.GetAllVersionsAsync())
             .Where(version => version.IsLocalVersion)
-            .Select(version => new VersionModel(version)).ToList();
+            .Select(version => new VersionModel(version))
+            .ToList();
         if (!string.IsNullOrEmpty(SettingsService.LastAccountUsed))
-            Account = UserAccounts.FirstOrDefault(account => account.Session.Username == SettingsService.LastAccountUsed);
+            Account = UserAccounts.FirstOrDefault(
+                account => account.Session.Username == SettingsService.LastAccountUsed);
         if (!string.IsNullOrEmpty(SettingsService.LastVersionUsed))
             Version = GameVersions.FirstOrDefault(version => version.Name == SettingsService.LastVersionUsed);
     }

@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using AvaloniaBlazorWebView;
-using Microsoft.Extensions.DependencyInjection;
 using Shulkerbox.Shared;
 
 namespace Shulkerbox;

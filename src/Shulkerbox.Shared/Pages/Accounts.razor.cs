@@ -60,7 +60,8 @@ public partial class Accounts
                 "Are you sure you want to delete this account?",
                 "Yes",
                 cancelText: "No"
-            ) != true)
+            ) !=
+            true)
             return;
         UserAccounts.Remove(account);
         SettingsService.Accounts = UserAccounts;

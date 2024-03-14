@@ -8,13 +8,11 @@
                     Label="Maximum Memory Allocation (MB)"
                     Step="1024"
                     Min="1024"
-                    Max="_totalSystemMemory"
                     @bind-Value="MaximumMemoryAllocation" />
                 <MudNumericField
                     Label="Minimum Memory Allocation (MB)"
                     Step="1024"
                     Min="1024"
-                    Max="_totalSystemMemory"
                     @bind-Value="MinimumMemoryAllocation" />
                 <MudCheckBox
                     Color="Color.Primary"
@@ -24,7 +22,7 @@
             </MudElement>
         </MudExpansionPanel>
         <MudExpansionPanel Text="About This App">
-            <MudMarkdown Value="@About" />
+            <MudMarkdown Value="@AboutText" />
         </MudExpansionPanel>
     </MudExpansionPanels>
 </MudContainer>
