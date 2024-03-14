@@ -1,9 +1,14 @@
 <h1>
-    <img src="docs/icon.png" style="height: 1em;"/>
+    <img src="public/icon.png" alt="Icon" height="30">
     <span>Shulkerbox</span>
 </h1>
 
 A simple Minecraft launcher built with Blazor Hybrid!
+
+![](public/0.png)
+![](public/1.png)
+![](public/2.png)
+![](public/3.png)
 
 ## ⚙️ Features
 
@@ -17,9 +22,6 @@ A simple Minecraft launcher built with Blazor Hybrid!
 - [x] Downloads files from Mojang's official CDN
 - [x] Automatically installs the Java runtime
 
-## 📸 Screenshots
+# 📜 License
 
-![](docs/0.png)
-![](docs/1.png)
-![](docs/2.png)
-![](docs/3.png)
+Distributed under the MIT License. See [LICENSE](./LICENSE) for more information.

@@ -1,0 +1,80 @@
+@page "/"
+
+<style>
+    .layout {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .layout .top {
+        flex: 0 0 0;
+    }
+
+    .layout .bottom {
+        flex: 1 0 0;
+        overflow: hidden scroll;
+        scrollbar-gutter: stable both-edges;
+    }
+</style>
+
+<MudContainer Class="layout py-4">
+    <MudPaper Class="top">
+        <MudToolBar>
+            <MudChipSet ReadOnly="true">
+                @if (CurrentAccount is not null)
+                {
+                    <MudChip Icon="@Icons.Material.Filled.Person">@CurrentAccount.Session.Username</MudChip>
+                }
+                else
+                {
+                    <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Person">Please select an account!</MudChip>
+                }
+                @if (CurrentVersion is not null)
+                {
+                    <MudChip Icon="@Icons.Material.Filled.Apps">@CurrentVersion.Name</MudChip>
+                }
+                else
+                {
+                    <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Apps">Please select a version!</MudChip>
+                }
+            </MudChipSet>
+            <MudSpacer />
+            @if (IsLaunching)
+            {
+                <MudText Style="max-width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">@LaunchStatus</MudText>
+                @if (LaunchProgress is not null)
+                {
+                    <MudProgressCircular Class="ml-4" Color="Color.Primary" Value="(double)LaunchProgress" />
+                }
+                else
+                {
+                    <MudProgressCircular Class="ml-4" Color="Color.Primary" Indeterminate="true" />
+                }
+            }
+            else
+            {
+                <MudTooltip Text="Edit Launch Settings">
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="EditLaunchSettings" />
+                </MudTooltip>
+                <MudTooltip Text="Open Game Directory">
+                    <MudIconButton Icon="@Icons.Material.Filled.Folder" OnClick="OpenGameDirectory" />
+                </MudTooltip>
+                <MudTooltip Text="Launch">
+                    <MudIconButton Color="Color.Success" Icon="@Icons.Material.Filled.PlayArrow" OnClick="LaunchGame" />
+                </MudTooltip>
+            }
+        </MudToolBar>
+    </MudPaper>
+    <MudPaper Class="bottom d-flex flex-column justify-center align-content-center">
+        <MudText Typo="Typo.h3" Align="Align.Center">Shulkerbox</MudText>
+        <MudText Typo="Typo.caption" Align="Align.Center">Created by Dennise Catolos</MudText>
+        <MudElement Class="d-flex justify-center mt-4">
+            <MudTooltip Text="View GitHub Repository">
+                <!-- TODO: Fix open URL -->
+                <MudIconButton Icon="@Icons.Custom.Brands.GitHub" OnClick="OpenGitHub"/>
+            </MudTooltip>
+        </MudElement>
+    </MudPaper>
+</MudContainer>
