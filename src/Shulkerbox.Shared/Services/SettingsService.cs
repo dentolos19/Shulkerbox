@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Text.Json;
-using Shulkerbox.Shared.Models;
+using Shulkerbox.Shared.Objects;
 
 namespace Shulkerbox.Shared.Services;
 
@@ -21,7 +21,7 @@ public sealed class SettingsService
     public int MaximumMemoryAllocation { get; set; } = 1024 * 4;
     public int MinimumMemoryAllocation { get; set; } = 1024;
     public bool EnableFullScreen { get; set; }
-    public IList<AccountModel> Accounts { get; set; } = new List<AccountModel>();
+    public IList<MinecraftAccount> Accounts { get; set; } = new List<MinecraftAccount>();
     public string? LastAccountUsed { get; set; }
     public string? LastVersionUsed { get; set; }
 

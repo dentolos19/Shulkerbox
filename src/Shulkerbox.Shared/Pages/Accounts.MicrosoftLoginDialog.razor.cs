@@ -1,8 +1,6 @@
-﻿using CmlLib.Core.Auth.Microsoft;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Shulkerbox.Shared.Services;
-using XboxAuthNet.Game.Msal;
 
 namespace Shulkerbox.Shared.Pages;
 

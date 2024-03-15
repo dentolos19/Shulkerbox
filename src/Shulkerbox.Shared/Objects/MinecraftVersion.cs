@@ -1,8 +1,8 @@
 ﻿using CmlLib.Core.VersionMetadata;
 
-namespace Shulkerbox.Shared.Models;
+namespace Shulkerbox.Shared.Objects;
 
-public class VersionModel(MVersionMetadata version)
+public class MinecraftVersion(MVersionMetadata version)
 {
     public string Name { get; } = version.Name;
     public MVersionMetadata Version { get; } = version;
@@ -10,7 +10,7 @@ public class VersionModel(MVersionMetadata version)
     public override bool Equals(object? obj)
     {
         return
-            obj is VersionModel model &&
+            obj is MinecraftVersion model &&
             Name == model.Name;
     }
 

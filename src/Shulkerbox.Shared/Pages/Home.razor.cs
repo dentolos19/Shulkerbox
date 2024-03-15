@@ -1,7 +1,7 @@
 ﻿using CmlLib.Core;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Shulkerbox.Shared.Models;
+using Shulkerbox.Shared.Objects;
 using Shulkerbox.Shared.Services;
 
 namespace Shulkerbox.Shared.Pages;
@@ -14,8 +14,8 @@ public partial class Home
     [Inject] private GameService GameService { get; init; }
     [Inject] private SettingsService SettingsService { get; init; }
 
-    private AccountModel? CurrentAccount { get; set; }
-    private VersionModel? CurrentVersion { get; set; }
+    private MinecraftAccount? CurrentAccount { get; set; }
+    private MinecraftVersion? CurrentVersion { get; set; }
     private bool IsLaunching { get; set; }
     private string LaunchStatus { get; set; }
     private double? LaunchProgress { get; set; }
@@ -47,7 +47,7 @@ public partial class Home
         {
             var versions = (await GameService.Launcher.GetAllVersionsAsync())
                 .Where(version => version.IsLocalVersion)
-                .Select(version => new VersionModel(version))
+                .Select(version => new MinecraftVersion(version))
                 .ToList();
             CurrentVersion = versions.FirstOrDefault(version => version.Name == SettingsService.LastVersionUsed);
         }
@@ -91,7 +91,7 @@ public partial class Home
         var result = await dialog.Result;
         if (result.Canceled)
             return;
-        if (result.Data is not ValueTuple<AccountModel?, VersionModel?>(var account, var version))
+        if (result.Data is not ValueTuple<MinecraftAccount?, MinecraftVersion?>(var account, var version))
             return;
         CurrentAccount = account;
         CurrentVersion = version;

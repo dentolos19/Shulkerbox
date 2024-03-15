@@ -25,11 +25,14 @@ public sealed class AuthenticationService
         var app = await MsalClientHelper.BuildApplicationWithCache(_appClientId);
         var loginHandler = JELoginHandlerBuilder.BuildDefault();
         var authenticator = loginHandler.CreateAuthenticatorWithNewAccount();
-        authenticator.AddMsalOAuth(app, msal => msal.DeviceCode(deviceCode =>
-        {
-            callback(deviceCode);
-            return Task.CompletedTask;
-        }));
+        authenticator.AddMsalOAuth(
+            app,
+            msal => msal.DeviceCode(deviceCode =>
+            {
+                callback(deviceCode);
+                return Task.CompletedTask;
+            })
+        );
         authenticator.AddXboxAuthForJE(xbox => xbox.Basic());
         authenticator.AddJEAuthenticator();
         return await authenticator.ExecuteForLauncherAsync();

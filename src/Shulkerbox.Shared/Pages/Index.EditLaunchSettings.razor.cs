@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Shulkerbox.Shared.Models;
+using Shulkerbox.Shared.Objects;
 using Shulkerbox.Shared.Services;
 
 namespace Shulkerbox.Shared.Pages;
@@ -12,18 +12,18 @@ public partial class Index_EditLaunchSettings
 
     [CascadingParameter] private MudDialogInstance Instance { get; set; }
 
-    private IList<AccountModel> UserAccounts { get; set; } = new List<AccountModel>();
-    private IList<VersionModel> GameVersions { get; set; } = new List<VersionModel>();
+    private IList<MinecraftAccount> UserAccounts { get; set; } = new List<MinecraftAccount>();
+    private IList<MinecraftVersion> GameVersions { get; set; } = new List<MinecraftVersion>();
 
-    private AccountModel? Account { get; set; }
-    private VersionModel? Version { get; set; }
+    private MinecraftAccount? Account { get; set; }
+    private MinecraftVersion? Version { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         UserAccounts = SettingsService.Accounts;
         GameVersions = (await GameService.Launcher.GetAllVersionsAsync())
             .Where(version => version.IsLocalVersion)
-            .Select(version => new VersionModel(version))
+            .Select(version => new MinecraftVersion(version))
             .ToList();
         if (!string.IsNullOrEmpty(SettingsService.LastAccountUsed))
             Account = UserAccounts.FirstOrDefault(

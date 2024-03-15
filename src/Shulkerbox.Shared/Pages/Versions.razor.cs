@@ -4,7 +4,7 @@ using CmlLib.Core.Installer.QuiltMC;
 using CmlLib.Core.VersionLoader;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Shulkerbox.Shared.Models;
+using Shulkerbox.Shared.Objects;
 using Shulkerbox.Shared.Services;
 
 namespace Shulkerbox.Shared.Pages;
@@ -21,7 +21,7 @@ public partial class Versions
     [Inject] private GameService GameService { get; init; }
 
     private bool IsLoading { get; set; }
-    private IList<VersionModel> GameVersions { get; } = new List<VersionModel>();
+    private IList<MinecraftVersion> GameVersions { get; } = new List<MinecraftVersion>();
 
     private async Task ChangeType(string text)
     {
@@ -31,24 +31,24 @@ public partial class Versions
         {
             case "Vanilla":
                 foreach (var version in await _vanillaLoader.GetVersionMetadatasAsync())
-                    GameVersions.Add(new VersionModel(version));
+                    GameVersions.Add(new MinecraftVersion(version));
                 break;
             case "Fabric":
                 foreach (var version in await _fabricLoader.GetVersionMetadatasAsync())
-                    GameVersions.Add(new VersionModel(version));
+                    GameVersions.Add(new MinecraftVersion(version));
                 break;
             case "Quilt":
                 foreach (var version in await _quiltLoader.GetVersionMetadatasAsync())
-                    GameVersions.Add(new VersionModel(version));
+                    GameVersions.Add(new MinecraftVersion(version));
                 break;
             case "LiteLoader":
                 foreach (var version in await _liteLoader.GetVersionMetadatasAsync())
-                    GameVersions.Add(new VersionModel(version));
+                    GameVersions.Add(new MinecraftVersion(version));
                 break;
             default:
                 var versions = (await GameService.Launcher.GetAllVersionsAsync())
                     .Where(version => version.IsLocalVersion)
-                    .Select(version => new VersionModel(version));
+                    .Select(version => new MinecraftVersion(version));
                 foreach (var version in versions)
                     GameVersions.Add(version);
                 break;
@@ -56,13 +56,13 @@ public partial class Versions
         IsLoading = false;
     }
 
-    public async Task SaveVersion(VersionModel version)
+    public async Task SaveVersion(MinecraftVersion version)
     {
         await version.Version.SaveAsync(GameService.Launcher.MinecraftPath);
         Snackbar.Add("The version has been saved!", Severity.Success);
     }
 
-    public async Task DeleteVersion(VersionModel version)
+    public async Task DeleteVersion(MinecraftVersion version)
     {
         if (await DialogService.ShowMessageBox(
                 "Delete Version",

@@ -12,7 +12,7 @@
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <AvaloniaResource Include="Resources\**" />
     </ItemGroup>

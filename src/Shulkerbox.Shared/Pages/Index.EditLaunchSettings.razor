@@ -1,14 +1,14 @@
-@using Shulkerbox.Shared.Models
+@using Shulkerbox.Shared.Objects
 <MudDialog>
     <DialogContent>
         <MudElement Class="d-flex flex-column gap-2">
-            <MudSelect T="AccountModel" Label="Account" @bind-Value="Account">
+            <MudSelect T="MinecraftAccount" Label="Account" @bind-Value="Account">
                 @foreach (var account in UserAccounts)
                 {
                     <MudSelectItem Value="account" />
                 }
             </MudSelect>
-            <MudSelect T="VersionModel" Label="Version" @bind-Value="Version">
+            <MudSelect T="MinecraftVersion" Label="Version" @bind-Value="Version">
                 @foreach (var version in GameVersions)
                 {
                     <MudSelectItem Value="version" />

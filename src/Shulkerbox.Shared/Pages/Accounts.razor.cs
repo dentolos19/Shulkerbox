@@ -1,11 +1,8 @@
 ﻿using System.Text.RegularExpressions;
-using CmlLib.Core.Auth;
-using CmlLib.Core.Auth.Microsoft;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Shulkerbox.Shared.Models;
+using Shulkerbox.Shared.Objects;
 using Shulkerbox.Shared.Services;
-using XboxAuthNet.Game.Msal;
 
 namespace Shulkerbox.Shared.Pages;
 
@@ -16,7 +13,7 @@ public partial class Accounts
     [Inject] private AuthenticationService AuthenticationService { get; init; }
     [Inject] private SettingsService SettingsService { get; init; }
 
-    private IList<AccountModel> UserAccounts { get; set; } = new List<AccountModel>();
+    private IList<MinecraftAccount> UserAccounts { get; set; } = new List<MinecraftAccount>();
 
     protected override void OnInitialized()
     {
@@ -43,19 +40,22 @@ public partial class Accounts
             Snackbar.Add("You've entered an invalid username.", Severity.Error);
             return;
         }
-        if (UserAccounts.Any(account => account.Session.Username == username && account.Type == "Offline"))
+        if (UserAccounts.Any(account =>
+                account.Session.Username == username &&
+                account.Type == MinecraftAccountType.Offline
+            ))
         {
             Snackbar.Add("The account already exists.", Severity.Error);
             return;
         }
         var session = AuthenticationService.CreateOfflineAccount(username);
-        UserAccounts.Add(new AccountModel(session, "Offline"));
+        UserAccounts.Add(new MinecraftAccount(session, MinecraftAccountType.Offline));
         Snackbar.Add("Your new account has been added!", Severity.Success);
         SettingsService.Accounts = UserAccounts;
         SettingsService.Save();
     }
 
-    private async Task DeleteAccount(AccountModel account)
+    private async Task DeleteAccount(MinecraftAccount account)
     {
         if (await DialogService.ShowMessageBox(
                 "Delete Account",
