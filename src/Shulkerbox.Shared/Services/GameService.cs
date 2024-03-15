@@ -3,7 +3,7 @@ using CmlLib.Core;
 
 namespace Shulkerbox.Shared.Services;
 
-public sealed class GameService
+public class GameService
 {
     public CMLauncher Launcher { get; } = new(new MinecraftPath());
     public Process? GameProcess { get; set; }

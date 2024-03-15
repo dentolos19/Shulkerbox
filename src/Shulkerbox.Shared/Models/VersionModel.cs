@@ -2,20 +2,21 @@
 
 namespace Shulkerbox.Shared.Models;
 
-public class VersionModel
+public class VersionModel(MVersionMetadata version)
 {
-    public string Name { get; }
-    public MVersionMetadata Version { get; }
+    public string Name { get; } = version.Name;
+    public MVersionMetadata Version { get; } = version;
 
-    public VersionModel(MVersionMetadata version)
+    public override bool Equals(object? obj)
     {
-        Name = version.Name;
-        Version = version;
+        return
+            obj is VersionModel model &&
+            Name == model.Name;
     }
 
-    public override bool Equals(object? @object)
+    public override int GetHashCode()
     {
-        return @object is VersionModel model && Name == model.Name;
+        return HashCode.Combine(Name);
     }
 
     public override string ToString()

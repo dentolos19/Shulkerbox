@@ -1,9 +1,11 @@
 ﻿using System.Text.RegularExpressions;
 using CmlLib.Core.Auth;
+using CmlLib.Core.Auth.Microsoft;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Shulkerbox.Shared.Models;
 using Shulkerbox.Shared.Services;
+using XboxAuthNet.Game.Msal;
 
 namespace Shulkerbox.Shared.Pages;
 
@@ -22,12 +24,11 @@ public partial class Accounts
 
     private async Task AddMicrosoft()
     {
-        // TODO: create own auth with Microsoft
-        // var loginHandler = JELoginHandlerBuilder.BuildDefault();
-        // var session = await loginHandler.Authenticate();
-        // UserAccounts.Add(new AccountModel(session, "Premium"));
-        // SettingsService.Accounts = UserAccounts;
-        // SettingsService.Save();
+        var dialog = await DialogService.ShowAsync<Accounts_MicrosoftLoginDialog>("Add Microsoft Account");
+        var result = await dialog.Result;
+        if (result.Canceled)
+            return;
+        // TODO
     }
 
     private async Task AddOffline()

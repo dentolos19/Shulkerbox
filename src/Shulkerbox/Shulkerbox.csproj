@@ -8,8 +8,8 @@
 
     <PropertyGroup>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-        <ApplicationManifest>Properties/app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <ApplicationManifest>Properties/app.manifest</ApplicationManifest>
     </PropertyGroup>
 
     <ItemGroup>
@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Shulkerbox.Shared\Shulkerbox.Shared.csproj" />
+        <ProjectReference Include="..\Shulkerbox.Shared\Shulkerbox.Shared.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,7 +1,8 @@
 ﻿namespace Shulkerbox.Shared.Services;
 
-public sealed class LayoutService
+public class LayoutService
 {
+    public bool IsDebugMode { get; set; }
     public bool IsLockDownMode { get; set; }
     public event EventHandler? StateChanged;
 
@@ -12,6 +13,10 @@ public sealed class LayoutService
 
     public static LayoutService Initialize()
     {
-        return new LayoutService();
+        var service = new LayoutService();
+#if DEBUG
+        service.IsDebugMode = true;
+#endif
+        return service;
     }
 }

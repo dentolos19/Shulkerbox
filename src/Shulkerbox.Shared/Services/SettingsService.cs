@@ -4,12 +4,19 @@ using Shulkerbox.Shared.Models;
 
 namespace Shulkerbox.Shared.Services;
 
-public sealed class SettingsService
+public class SettingsService
 {
-    private static readonly string FilePath = Path.Combine(
-        AppDomain.CurrentDomain.BaseDirectory,
-        $"{Assembly.GetExecutingAssembly().GetName().Name}.settings.json"
-    );
+    private static readonly string FilePath =
+        Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            $"{Assembly.GetExecutingAssembly().GetName().Name}.settings.json"
+        );
+
+    private static readonly JsonSerializerOptions SerializerOptions =
+        new()
+        {
+            WriteIndented = true
+        };
 
     public int MaximumMemoryAllocation { get; set; } = 1024 * 4;
     public int MinimumMemoryAllocation { get; set; } = 1024;
@@ -20,7 +27,7 @@ public sealed class SettingsService
 
     public void Save()
     {
-        var json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+        var json = JsonSerializer.Serialize(this, SerializerOptions);
         File.WriteAllText(FilePath, json);
     }
 

@@ -6,7 +6,7 @@ using Shulkerbox.Shared.Services;
 
 namespace Shulkerbox.Shared.Pages;
 
-public partial class Index
+public partial class Home
 {
     [Inject] private IDialogService DialogService { get; init; }
     [Inject] private ISnackbar Snackbar { get; init; }

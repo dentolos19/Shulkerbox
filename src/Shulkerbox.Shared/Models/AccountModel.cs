@@ -3,21 +3,22 @@ using CmlLib.Core.Auth;
 
 namespace Shulkerbox.Shared.Models;
 
-public class AccountModel
+public class AccountModel(MSession session, string type)
 {
-    public string Type { get; }
-    public MSession Session { get; }
+    public string Type { get; } = type;
+    public MSession Session { get; } = session;
     [JsonIgnore] public Uri HeadImageUrl => new($"https://mc-heads.net/avatar/{Session.Username}/128");
 
-    public AccountModel(MSession session, string type)
+    public override bool Equals(object? obj)
     {
-        Type = type;
-        Session = session;
+        return
+            obj is AccountModel model &&
+            Session.Username == model.Session.Username;
     }
 
-    public override bool Equals(object? @object)
+    public override int GetHashCode()
     {
-        return @object is AccountModel model && Session.Username == model.Session.Username;
+        return HashCode.Combine(Type, Session.Username);
     }
 
     public override string ToString()

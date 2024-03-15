@@ -1,12 +1,12 @@
 ﻿<Router AppAssembly="@typeof(Root).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(Layout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
-        <PageTitle>Not Found</PageTitle>
         <LayoutView Layout="@typeof(Layout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
+            <MudContainer Class="d-flex justify-center align-center" Style="height: 100%">
+                <MudText>Sorry, there's nothing at this page.</MudText>
+            </MudContainer>
         </LayoutView>
     </NotFound>
 </Router>
