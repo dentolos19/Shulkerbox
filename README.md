@@ -15,13 +15,18 @@ Go check out [the wiki](https://github.com/dentolos19/Shulkerbox/wiki) to learn 
 
 > **Note**: Most of this feature set has been made possible with [CmlLib.Core](https://github.com/CmlLib/CmlLib.Core)!
 
-- [ ] Supports Microsoft authentication (coming soon!)
+- [x] Supports Windows and Linux
 - [x] Supports offline authentication
 - [x] Easily manage your accounts
 - [x] Easily download Fabric, Quilt and LiteLoader versions
 - [x] Launch any Minecraft version (tested up to 1.20.1)
 - [x] Downloads files from Mojang's official CDN
 - [x] Automatically installs the Java runtime
+
+### Roadmap
+
+- [ ] Support macOS
+- [ ] Supports Microsoft authentication (coming soon!)
 
 # 📜 License
 
