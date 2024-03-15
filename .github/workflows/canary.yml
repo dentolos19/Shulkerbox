@@ -10,6 +10,7 @@ concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
 env:
+  PROJECT_FILE: src/Shulkerbox/Shulkerbox.csproj
   RELEASE_TAG: canary
   RELEASE_TITLE: Canary Build
 jobs:
@@ -40,13 +41,9 @@ jobs:
         with:
           path: artifacts
           merge-multiple: true
-      - uses: dev-drprasad/delete-tag-and-release@v1.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ env.RELEASE_TAG }}
-          delete_release: true
-      - uses: softprops/action-gh-release@v2
+      - uses: marvinpinto/action-automatic-releases@latest
         with:
           files: artifacts/*
-          name: ${{ env.RELEASE_TITLE }}
-          tag_name: ${{ env.RELEASE_TAG }}
+          title: ${{ env.RELEASE_TITLE }}
+          automatic_release_tag: ${{ env.RELEASE_TAG }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
