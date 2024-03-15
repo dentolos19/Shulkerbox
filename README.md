@@ -1,14 +1,15 @@
 <h1>
-    <img src="public/icon.png" alt="Icon" height="30">
+    <img src="docs/icon.png" alt="Icon" height="30">
     <span>Shulkerbox</span>
 </h1>
 
 A simple Minecraft launcher built with Avalonia UI and Blazor Hybrid!
 
-![](public/0.png)
-![](public/1.png)
-![](public/2.png)
-![](public/3.png)
+![Demo](docs/demo.gif)
+
+## ⚒️ Usage
+
+Go check out [the wiki](https://github.com/dentolos19/Shulkerbox/wiki) to learn how to install this app!
 
 ## ⚙️ Features
 
