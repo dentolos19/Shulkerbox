@@ -7,7 +7,7 @@ Do you know that Shulkerbox supports Windows and Linux? This is thanks to [Avalo
 ### Windows
 
 1. Make sure you have installed the prerequisites...
-    - [.NET 8.0 Runtime](https://dotnet.microsoft.com): `winget install Microsoft.DotNet.Runtime.8`
+    - [.NET 8 Runtime](https://dotnet.microsoft.com): `winget install Microsoft.DotNet.Runtime.8`
     - [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2): `winget install Microsoft.EdgeWebView2Runtime`
 2. Download the latest version of the app via the [releases page](https://github.com/dentolos19/Shulkerbox/releases/latest).
 3. Extract the downloaded zip file somewhere that does not require admin privileges.
@@ -16,6 +16,7 @@ Do you know that Shulkerbox supports Windows and Linux? This is thanks to [Avalo
 ### Linux
 
 1. Make sure you have installed the prerequisites...
+    - [.NET 8 Runtime](https://dotnet.microsoft.com): `sudo apt install dotnet8`
     - [WebKitGTK](https://packages.ubuntu.com/focal/libwebkit2gtk-4.0-37): `sudo apt install libwebkit2gtk-4-37`
 2. Download the latest version of the app via the [releases page](https://github.com/dentolos19/Shulkerbox/releases/latest).
 3. Extract the downloaded zip file somewhere that does not require superuser privileges.

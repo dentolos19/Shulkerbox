@@ -26,7 +26,7 @@ Go check out [the wiki](https://github.com/dentolos19/Shulkerbox/wiki) to learn 
 ### Roadmap
 
 - [ ] Support macOS
-- [ ] Supports Microsoft authentication (coming soon!)
+- [ ] Support Microsoft authentication
 
 # 📜 License
 
