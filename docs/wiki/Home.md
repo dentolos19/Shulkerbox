@@ -20,4 +20,4 @@ Do you know that Shulkerbox supports Windows and Linux? This is thanks to [Avalo
 2. Download the latest version of the app via the [releases page](https://github.com/dentolos19/Shulkerbox/releases/latest).
 3. Extract the downloaded zip file somewhere that does not require superuser privileges.
 4. Make sure that the executable file has permissions: `chmod +rwx ./Shulkerbox`
-5. Run the file `Shulkerbox`
+5. Run the file `Shulkerbox`.

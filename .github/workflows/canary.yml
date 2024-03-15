@@ -1,5 +1,5 @@
 name: Deploy Canary Build
-run-name: "${{ github.workflow }} #${{ github.run_number }}"
+run-name: ${{ github.workflow }} #${{ github.run_number }}
 on:
   push:
     branches: main
@@ -10,9 +10,9 @@ concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
 env:
-  PROJECT_FILE: src/Shulkerbox/Shulkerbox.csproj
-  RELEASE_TAG: canary
+  PROJECT_FILE: Shulkerbox.sln
   RELEASE_TITLE: Canary Build
+  RELEASE_TAG: canary
 jobs:
   build:
     runs-on: windows-latest
