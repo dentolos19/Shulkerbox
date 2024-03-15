@@ -1,6 +1,6 @@
 ﻿namespace Shulkerbox.Shared.Services;
 
-public class LayoutService
+public sealed class LayoutService
 {
     public bool IsDebugMode { get; set; }
     public bool IsLockDownMode { get; set; }

@@ -13,6 +13,7 @@ public partial class Accounts
 {
     [Inject] private IDialogService DialogService { get; init; }
     [Inject] private ISnackbar Snackbar { get; init; }
+    [Inject] private AuthenticationService AuthenticationService { get; init; }
     [Inject] private SettingsService SettingsService { get; init; }
 
     private IList<AccountModel> UserAccounts { get; set; } = new List<AccountModel>();
@@ -47,7 +48,7 @@ public partial class Accounts
             Snackbar.Add("The account already exists.", Severity.Error);
             return;
         }
-        var session = MSession.GetOfflineSession(username);
+        var session = AuthenticationService.CreateOfflineAccount(username);
         UserAccounts.Add(new AccountModel(session, "Offline"));
         Snackbar.Add("Your new account has been added!", Severity.Success);
         SettingsService.Accounts = UserAccounts;

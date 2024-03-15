@@ -4,7 +4,7 @@ using Shulkerbox.Shared.Models;
 
 namespace Shulkerbox.Shared.Services;
 
-public class SettingsService
+public sealed class SettingsService
 {
     private static readonly string FilePath =
         Path.Combine(

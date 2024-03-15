@@ -14,6 +14,7 @@ public static class Utilities
         return services
             .AddMudServices()
             .AddMudMarkdownServices()
+            .AddSingleton(AuthenticationService.Initialize())
             .AddSingleton(GameService.Initialize())
             .AddSingleton(LayoutService.Initialize())
             .AddSingleton(SettingsService.Initialize());
