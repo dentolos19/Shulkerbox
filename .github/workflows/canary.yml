@@ -28,18 +28,18 @@ jobs:
           Compress-Archive -Path $artifacts -DestinationPath artifacts/${{ github.event.repository.name }}_${{ matrix.platform }}.zip
       - uses: actions/upload-artifact@v4
         with:
-          name: Output
-          path: artifacts
+          name: ${{ matrix.platform }}
+          path: artifacts/*
   deploy:
     runs-on: ubuntu-latest
     needs: build
     permissions:
       contents: write
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
-          name: Output
           path: artifacts
+          merge-multiple: true
       - uses: dev-drprasad/delete-tag-and-release@v1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
