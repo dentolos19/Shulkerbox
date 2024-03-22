@@ -3,7 +3,7 @@
     <span>Shulkerbox</span>
 </h1>
 
-A simple Minecraft launcher built with Avalonia UI and Blazor Hybrid!
+A simple Minecraft launcher built on Blazor Hybrid!
 
 ![Demo](docs/demo.gif)
 

@@ -1,0 +1,59 @@
+﻿@page "/"
+
+<MudContainer Class="py-4 d-flex flex-column gap-2" Style="height: 100%">
+    <MudPaper Class="flex-1 d-flex flex-column justify-center align-center">
+        @if (_isLaunching)
+        {
+            <MudText Typo="Typo.h3">Starting...</MudText>
+            <MudElement Class="my-4" Style="width: 60%">
+                @if (_launchProgress is not null)
+                {
+                    <MudProgressLinear Color="Color.Primary" Value="@((double)_launchProgress)" />
+                }
+                else
+                {
+                    <MudProgressLinear Color="Color.Primary" Indeterminate="true" />
+                }
+            </MudElement>
+            <MudText Typo="Typo.subtitle2">@(_launchStatus ?? "Launching")</MudText>
+        }
+        else
+        {
+            <MudText Typo="Typo.h3">Welcome!</MudText>
+        }
+    </MudPaper>
+
+    <MudPaper Class="flex-none">
+        <MudToolBar>
+            <MudChipSet>
+                <MudChip
+                    Class="cursor-pointer"
+                    Icon="@Icons.Material.Filled.Person"
+                    Text="@(_currentSession?.Username ?? "Select An Account")"
+                    Color="@(_currentSession is null ? Color.Error : Color.Primary)"
+                    Disabled="_isLaunching"
+                    OnClick="ShowAccounts" />
+                <MudChip
+                    Class="cursor-pointer"
+                    Icon="@Icons.Material.Filled.Apps"
+                    Text="@(_currentVersion?.Id ?? "Select A Version")"
+                    Color="@(_currentVersion is null ? Color.Error : Color.Primary)"
+                    Disabled="_isLaunching"
+                    OnClick="ShowVersions" />
+            </MudChipSet>
+            <MudSpacer />
+            <MudIconButton
+                Icon="@Icons.Material.Filled.Settings"
+                Disabled="_isLaunching"
+                OnClick="OpenLauncherSettings" />
+            <MudIconButton
+                Icon="@Icons.Material.Filled.Folder"
+                Disabled="_isLaunching"
+                OnClick="OpenGameDirectory" />
+            <MudIconButton
+                Icon="@Icons.Material.Filled.PlayArrow"
+                Disabled="_isLaunching"
+                OnClick="LaunchGame" />
+        </MudToolBar>
+    </MudPaper>
+</MudContainer>

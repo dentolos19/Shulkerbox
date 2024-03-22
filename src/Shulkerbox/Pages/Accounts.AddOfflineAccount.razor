@@ -1,0 +1,26 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudTextField Label="Username" @bind-Value="Username" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Add">Add</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code
+{
+    [CascadingParameter] private MudDialogInstance Instance { get; set; }
+
+    private string Username { get; set; }
+
+    private void Add()
+    {
+        Instance.Close(DialogResult.Ok(Username));
+    }
+
+    private void Cancel()
+    {
+        Instance.Cancel();
+    }
+}

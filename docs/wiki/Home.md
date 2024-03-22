@@ -11,7 +11,7 @@ Do you know that Shulkerbox supports Windows and Linux? This is thanks to [Avalo
     - [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2): `winget install Microsoft.EdgeWebView2Runtime`
 2. Download the latest version of the app via the [releases page](https://github.com/dentolos19/Shulkerbox/releases/latest).
 3. Extract the downloaded zip file somewhere that does not require admin privileges.
-4. Run the file `Shulkerbox.exe`.
+4. Run the file `Shulkerbox.Desktop.exe`.
 
 ### Linux
 
@@ -20,5 +20,5 @@ Do you know that Shulkerbox supports Windows and Linux? This is thanks to [Avalo
     - [WebKitGTK](https://packages.ubuntu.com/focal/libwebkit2gtk-4.0-37): `sudo apt install libwebkit2gtk-4-37`
 2. Download the latest version of the app via the [releases page](https://github.com/dentolos19/Shulkerbox/releases/latest).
 3. Extract the downloaded zip file somewhere that does not require superuser privileges.
-4. Make sure that the executable file has permissions: `chmod +rwx ./Shulkerbox`
-5. Run the file `Shulkerbox`.
+4. Make sure that the executable file has permissions: `chmod +rwx ./Shulkerbox.Desktop`
+5. Run the file `Shulkerbox.Desktop`.

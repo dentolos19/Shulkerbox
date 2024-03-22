@@ -1,0 +1,36 @@
+﻿@page "/accounts"
+
+<MudContainer Class="py-4 d-flex flex-column gap-2" Style="height: 100%">
+    <MudPaper Class="flex-none">
+        <MudToolBar>
+            <MudButton
+                StartIcon="@Icons.Custom.Brands.Microsoft"
+                OnClick="LoginMicrosoftAccount">
+                Login With Microsoft
+            </MudButton>
+            <MudSpacer />
+            <MudButton
+                StartIcon="@Icons.Material.Filled.Add"
+                OnClick="AddOfflineAccount">
+                Add Offline Account
+            </MudButton>
+        </MudToolBar>
+    </MudPaper>
+    <MudElement Class="flex-1 d-flex flex-column gap-2">
+        @foreach (var account in Data)
+        {
+            <MudPaper Class="d-flex align-center overflow-hidden">
+                <MudImage Src="@account.GetHeadUrl()" />
+                <MudElement Class="ml-4">
+                    <MudText Typo="Typo.h5">@account.Username</MudText>
+                    <MudText Typo="Typo.subtitle2">@account.Type</MudText>
+                </MudElement>
+                <MudSpacer />
+                <MudElement Class="mx-4 mr-2">
+                    <MudIconButton Icon="@Icons.Material.Filled.Check" OnClick="() => SelectAccount(account)" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteAccount(account)" />
+                </MudElement>
+            </MudPaper>
+        }
+    </MudElement>
+</MudContainer>

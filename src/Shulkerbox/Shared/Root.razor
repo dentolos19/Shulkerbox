@@ -1,0 +1,12 @@
+﻿<Router AppAssembly="@typeof(Root).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(Layout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(Layout)">
+            <MudElement Class="d-flex justify-center align-center" Style="height: 100%">
+                <MudText Typo="Typo.h3">404</MudText>
+            </MudElement>
+        </LayoutView>
+    </NotFound>
+</Router>

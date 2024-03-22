@@ -1,0 +1,24 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode="true" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout Style="height: 100vh">
+    <MudAppBar>
+        <MudIconButton
+            Color="Color.Inherit"
+            Icon="@Icons.Material.Filled.ArrowBack"
+            OnClick="NavigateBack" />
+        <MudSpacer />
+        <MudText Typo="Typo.h5">Shulkerbox</MudText>
+        <MudSpacer />
+        <MudIconButton
+            Color="Color.Inherit"
+            Icon="@Icons.Custom.Brands.GitHub"
+            OnClick="OpenGitHub"/>
+    </MudAppBar>
+    <MudMainContent Style="height: 100%">
+        @Body
+    </MudMainContent>
+</MudLayout>

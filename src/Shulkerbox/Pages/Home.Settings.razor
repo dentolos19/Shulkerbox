@@ -1,0 +1,26 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudText>Coming soon!</MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Save">Save</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code
+{
+    [CascadingParameter] private MudDialogInstance Instance { get; set; }
+
+    private Task Save()
+    {
+        Instance.Close(DialogResult.Ok(string.Empty));
+        return Task.CompletedTask;
+    }
+
+    private Task Cancel()
+    {
+        Instance.Cancel();
+        return Task.CompletedTask;
+    }
+}

@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shulkerbox.Shared", "src\Shulkerbox.Shared\Shulkerbox.Shared.csproj", "{651BEC54-A428-4E43-BEBB-4AEA76DDA6EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shulkerbox", "src\Shulkerbox\Shulkerbox.csproj", "{716A6456-5535-4199-A994-549283D43530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shulkerbox", "src\Shulkerbox\Shulkerbox.csproj", "{B2F67461-5278-43A7-AE9F-5DCE53BA9C6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shulkerbox.Desktop", "src\Shulkerbox.Desktop\Shulkerbox.Desktop.csproj", "{2AEDAAAD-AC38-4FAC-9E29-71717B2498B6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Repository Files", "{2CADC067-BC0A-408F-944C-373F1ECC30B6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Repository Files", "{AF676110-F33A-48CF-B72A-6A8AEFD5A53B}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
 		README.md = README.md
@@ -16,13 +16,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{651BEC54-A428-4E43-BEBB-4AEA76DDA6EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{651BEC54-A428-4E43-BEBB-4AEA76DDA6EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{651BEC54-A428-4E43-BEBB-4AEA76DDA6EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{651BEC54-A428-4E43-BEBB-4AEA76DDA6EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2F67461-5278-43A7-AE9F-5DCE53BA9C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2F67461-5278-43A7-AE9F-5DCE53BA9C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2F67461-5278-43A7-AE9F-5DCE53BA9C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2F67461-5278-43A7-AE9F-5DCE53BA9C6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{716A6456-5535-4199-A994-549283D43530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{716A6456-5535-4199-A994-549283D43530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{716A6456-5535-4199-A994-549283D43530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{716A6456-5535-4199-A994-549283D43530}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AEDAAAD-AC38-4FAC-9E29-71717B2498B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AEDAAAD-AC38-4FAC-9E29-71717B2498B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AEDAAAD-AC38-4FAC-9E29-71717B2498B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AEDAAAD-AC38-4FAC-9E29-71717B2498B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
