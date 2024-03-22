@@ -1,6 +1,15 @@
 ﻿<MudDialog>
     <DialogContent>
-        <MudText>Coming soon!</MudText>
+        <MudNumericField
+            Label="Maximum Memory Allocation"
+            Step="1024"
+            Min="1024"
+            @bind-Value="MaximumMemoryAllocation" />
+        <MudNumericField
+            Label="Minimum Memory Allocation"
+            Step="1024"
+            Min="1024"
+            @bind-Value="MinimumMemoryAllocation" />
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
@@ -10,11 +19,25 @@
 
 @code
 {
+    [Inject] private ShulkSettings Settings { get; set; }
+
     [CascadingParameter] private MudDialogInstance Instance { get; set; }
+
+    private int MaximumMemoryAllocation { get; set; }
+    private int MinimumMemoryAllocation { get; set; }
+
+    protected override void OnInitialized()
+    {
+        MaximumMemoryAllocation = Settings.MaximumMemoryAllocation;
+        MinimumMemoryAllocation = Settings.MinimumMemoryAllocation;
+    }
 
     private Task Save()
     {
-        Instance.Close(DialogResult.Ok(string.Empty));
+        Settings.MaximumMemoryAllocation = MaximumMemoryAllocation;
+        Settings.MinimumMemoryAllocation = MinimumMemoryAllocation;
+        Settings.Save();
+        Instance.Close();
         return Task.CompletedTask;
     }
 

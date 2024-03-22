@@ -8,7 +8,7 @@ public class ShulkAccount
     public string Username { get; init; }
     public ShulkAccountType Type { get; init; }
 
-    public string GetHeadUrl(int size = 100)
+    public string GetHeadUrl(int size = 128)
     {
         return $"https://mc-heads.net/avatar/{Username}/{size}";
     }

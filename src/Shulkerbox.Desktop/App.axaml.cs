@@ -19,7 +19,6 @@ public class App : Application
         AvaloniaBlazorWebViewBuilder.Initialize(
             config =>
             {
-                // TODO: Add your configuration here...
 #if !DEBUG
                 config.AreDevToolEnabled = false;
 #endif
@@ -32,7 +31,6 @@ public class App : Application
             },
             services =>
             {
-                // TODO: Add your services here...
                 services.AddBlazorServices();
             }
         );

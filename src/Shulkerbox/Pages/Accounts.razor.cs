@@ -29,7 +29,7 @@ public partial class Accounts
         var result = await dialog.Result;
         if (result.Canceled)
             return;
-        // TODO
+        // TODO: Implement Microsoft authentication here...
     }
 
     private async Task AddOfflineAccount()

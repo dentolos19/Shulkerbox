@@ -44,13 +44,11 @@ public class ShulkLauncher
         };
     }
 
-    public async Task<Process> StartAsync(MSession session, MVersion version)
+    public async Task<Process> StartAsync(MSession session, MVersion version, MLaunchOption? options = null)
     {
-        var options = new MLaunchOption
-        {
-            Session = session,
-            VersionType = "Shulkerbox"
-        };
+        options ??= new MLaunchOption();
+        options.VersionType = "Shulkerbox";
+        options.Session = session;
         var process = await _launcher.CreateProcessAsync(version.Id, options);
         process.StartInfo.RedirectStandardOutput = true;
         process.StartInfo.RedirectStandardError = true;

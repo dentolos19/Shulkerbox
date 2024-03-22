@@ -6,17 +6,21 @@
 
 <MudLayout Style="height: 100vh">
     <MudAppBar>
-        <MudIconButton
-            Color="Color.Inherit"
-            Icon="@Icons.Material.Filled.ArrowBack"
-            OnClick="NavigateBack" />
+        <MudTooltip Text="Navigate Back" Placement="Placement.Right">
+            <MudIconButton
+                Color="Color.Inherit"
+                Icon="@Icons.Material.Filled.ArrowBack"
+                OnClick="NavigateBack" />
+        </MudTooltip>
         <MudSpacer />
         <MudText Typo="Typo.h5">Shulkerbox</MudText>
         <MudSpacer />
-        <MudIconButton
-            Color="Color.Inherit"
-            Icon="@Icons.Custom.Brands.GitHub"
-            OnClick="OpenGitHub"/>
+        <MudTooltip Text="Open GitHub Repository" Placement="Placement.Left">
+            <MudIconButton
+                Color="Color.Inherit"
+                Icon="@Icons.Custom.Brands.GitHub"
+                OnClick="OpenGitHub"/>
+        </MudTooltip>
     </MudAppBar>
     <MudMainContent Style="height: 100%">
         @Body

@@ -10,7 +10,15 @@ public partial class Versions
     [Inject] private ShulkLauncher Launcher { get; init; }
     [Inject] private ShulkSettings Settings { get; init; }
 
+    private string SearchTerm { get; set; }
     private IList<MVersionMetadata> Data { get; } = new List<MVersionMetadata>();
+
+    private IList<MVersionMetadata> FilteredData => Data.Where(version =>
+    {
+        if (string.IsNullOrWhiteSpace(SearchTerm))
+            return true;
+        return version.Name.Contains(SearchTerm, StringComparison.InvariantCultureIgnoreCase);
+    }).ToList();
 
     private async Task UpdateVersions(MudChip chip)
     {
