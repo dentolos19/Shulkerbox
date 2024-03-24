@@ -28,6 +28,6 @@ Go check out [the wiki](https://github.com/dentolos19/Shulkerbox/wiki) to learn 
 - [ ] Support Microsoft authentication
 - [ ] Support macOS
 
-# 📜 License
+## 📜 License
 
 Distributed under the MIT License. See [LICENSE](./LICENSE) for more information.

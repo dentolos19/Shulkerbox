@@ -10,18 +10,22 @@ public partial class Versions
     [Inject] private ShulkLauncher Launcher { get; init; }
     [Inject] private ShulkSettings Settings { get; init; }
 
-    private string SearchTerm { get; set; }
+    private bool IsLoading { get; set; }
+    private string SearchQuery { get; set; }
     private IList<MVersionMetadata> Data { get; } = new List<MVersionMetadata>();
 
     private IList<MVersionMetadata> FilteredData => Data.Where(version =>
     {
-        if (string.IsNullOrWhiteSpace(SearchTerm))
+        if (string.IsNullOrWhiteSpace(SearchQuery))
             return true;
-        return version.Name.Contains(SearchTerm, StringComparison.InvariantCultureIgnoreCase);
+        return version.Name.Contains(SearchQuery, StringComparison.InvariantCultureIgnoreCase);
     }).ToList();
 
     private async Task UpdateVersions(MudChip chip)
     {
+        if (IsLoading)
+            return;
+        IsLoading = true;
         Data.Clear();
         switch (chip.Text)
         {
@@ -46,6 +50,7 @@ public partial class Versions
                     Data.Add(version);
                 break;
         }
+        IsLoading = false;
     }
 
     private Task SelectVersion(MVersionMetadata version)

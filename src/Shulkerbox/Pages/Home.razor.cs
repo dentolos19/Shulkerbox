@@ -14,12 +14,11 @@ public partial class Home
     [Inject] private ShulkLauncher Launcher { get; init; }
     [Inject] private ShulkSettings Settings { get; init; }
 
-    private MSession? CurrentSession { get; set; }
-    private MVersion? CurrentVersion { get; set; }
     private bool IsLaunching { get; set; }
     private int? LaunchProgress { get; set; }
     private string? LaunchStatus { get; set; }
-
+    private MSession? CurrentSession { get; set; }
+    private MVersion? CurrentVersion { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

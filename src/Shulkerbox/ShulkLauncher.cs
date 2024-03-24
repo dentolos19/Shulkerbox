@@ -2,6 +2,7 @@
 using CmlLib.Core;
 using CmlLib.Core.Auth;
 using CmlLib.Core.Installer.FabricMC;
+using CmlLib.Core.Installer.Forge.Versions;
 using CmlLib.Core.Installer.LiteLoader;
 using CmlLib.Core.Installer.QuiltMC;
 using CmlLib.Core.Version;
@@ -14,6 +15,7 @@ public class ShulkLauncher
 {
     private readonly CMLauncher _launcher = new(new MinecraftPath());
     private readonly MojangVersionLoader _vanillaLoader = new();
+    private readonly ForgeVersionLoader _forgeLoader = new(new HttpClient());
     private readonly FabricVersionLoader _fabricLoader = new();
     private readonly QuiltVersionLoader _quiltLoader = new();
     private readonly LiteLoaderVersionLoader _liteLoader = new();
@@ -79,6 +81,11 @@ public class ShulkLauncher
     public async Task<MVersionCollection> GetVanillaVersionsAsync()
     {
         return await _vanillaLoader.GetVersionMetadatasAsync();
+    }
+
+    public async Task<ForgeVersion[]> GetForgeVersionsAsync(string versionName)
+    {
+        return (await _forgeLoader.GetForgeVersions(versionName)).ToArray();
     }
 
     public async Task<MVersionCollection> GetFabricVersionsAsync()
