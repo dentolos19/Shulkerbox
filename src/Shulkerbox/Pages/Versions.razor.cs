@@ -1,4 +1,4 @@
-﻿using CmlLib.Core.VersionMetadata;
+using CmlLib.Core.VersionMetadata;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -21,13 +21,13 @@ public partial class Versions
         return version.Name.Contains(SearchQuery, StringComparison.InvariantCultureIgnoreCase);
     }).ToList();
 
-    private async Task UpdateVersions(MudChip chip)
+    private async Task UpdateVersions(string? name = null)
     {
         if (IsLoading)
             return;
         IsLoading = true;
         Data.Clear();
-        switch (chip.Text)
+        switch (name)
         {
             case "Vanilla":
                 foreach (var version in await Launcher.GetVanillaVersionsAsync())
@@ -61,5 +61,15 @@ public partial class Versions
         Settings.Save();
         NavigationManager.NavigateTo("/");
         return Task.CompletedTask;
+    }
+
+    private async Task DeleteVersion(MVersionMetadata version)
+    {
+        if (!version.IsLocalVersion || string.IsNullOrEmpty(version.Path))
+            return;
+        var path = Path.GetDirectoryName(version.Path);
+        if (Directory.Exists(path))
+            Directory.Delete(path, true);
+        await UpdateVersions();
     }
 }

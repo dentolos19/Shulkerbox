@@ -12,7 +12,7 @@
             <MudChipSet
                 Mandatory="true"
                 Filter="true"
-                SelectedChipChanged="UpdateVersions">
+                SelectedChipChanged="chip => UpdateVersions(chip.Text)">
                 <MudChip Text="Local" Default="true" />
                 <MudChip Text="Vanilla" Color="Color.Primary" />
                 <MudChip Text="Fabric" Color="Color.Error" />
@@ -40,6 +40,12 @@
                       <MudTooltip Text="Select Version">
                           <MudIconButton Icon="@Icons.Material.Filled.Check" OnClick="() => SelectVersion(version)" />
                       </MudTooltip>
+                      @if (version.IsLocalVersion)
+                      {
+                          <MudTooltip Text="Delete Version">
+                              <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteVersion(version)" />
+                          </MudTooltip>
+                      }
                   </MudPaper>
               }
           }

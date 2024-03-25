@@ -7,6 +7,7 @@ public partial class Accounts
 {
     [Inject] private NavigationManager NavigationManager { get; init; }
     [Inject] private IDialogService DialogService { get; init; }
+    [Inject] private ISnackbar Snackbar { get; init; }
     [Inject] private ShulkSettings Settings { get; init; }
 
     private IList<ShulkAccount> Data { get; } = new List<ShulkAccount>();
@@ -36,10 +37,13 @@ public partial class Accounts
     {
         var dialog = await DialogService.ShowAsync<Accounts_AddOfflineAccount>("Add Offline Account");
         var result = await dialog.Result;
-        if (result.Canceled)
+        if (result.Canceled || result.Data is not string username)
             return;
-        if (result.Data is not string username)
+        if (!ShulkAuthenticator.ValidateUsername(username))
+        {
+            Snackbar.Add("Your username is invalid.", Severity.Error);
             return;
+        }
         Settings.Accounts.Add(new ShulkAccount
         {
             Username = username,
