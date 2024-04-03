@@ -94,6 +94,10 @@ public partial class Home
 
     private async Task OpenLauncherSettings()
     {
-        await DialogService.ShowAsync<Home_Settings>("Settings");
+        await DialogService.ShowAsync<Home_Settings>("Settings", new DialogOptions
+        {
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true
+        });
     }
 }

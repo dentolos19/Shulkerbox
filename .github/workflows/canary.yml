@@ -14,11 +14,11 @@ jobs:
     uses: dentolos19/dentolos19/.github/workflows/build-dotnet.yml@main
     strategy:
       matrix:
-        runtime-platform: [win-x64, linux-x64]
+        runtime_platform: [win-x64, linux-x64]
     with:
       project_name: Shulkerbox
       project_file: Shulkerbox.sln
-      runtime_platform: ${{ matrix.runtime-platform }}
+      runtime_platform: ${{ matrix.runtime_platform }}
       executable_file: Shulkerbox.Desktop.exe
   deploy:
     needs: build
