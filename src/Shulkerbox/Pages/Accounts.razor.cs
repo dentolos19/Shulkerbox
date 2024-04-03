@@ -61,11 +61,18 @@ public partial class Accounts
         return Task.CompletedTask;
     }
 
-    private Task DeleteAccount(ShulkAccount account)
+    private async Task DeleteAccount(ShulkAccount account)
     {
+        var actionConfirmed = await DialogService.ShowMessageBox(
+            "Delete Account",
+            "Are you sure you want to delete this account?",
+            yesText: "Yes",
+            cancelText: "No"
+        );
+        if (actionConfirmed != true)
+            return;
         Settings.Accounts.Remove(account);
         Settings.Save();
         ReloadAccounts();
-        return Task.CompletedTask;
     }
 }

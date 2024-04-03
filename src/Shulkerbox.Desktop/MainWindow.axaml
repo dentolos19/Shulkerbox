@@ -4,6 +4,8 @@
     xmlns:local="clr-namespace:Shulkerbox.Desktop"
     x:Class="Shulkerbox.Desktop.MainWindow"
     Title="Shulkerbox"
-    Icon="Resources/Icon.ico">
+    Icon="Resources/Icon.ico"
+    Width="800"
+    Height="500">
     <local:MainView />
 </Window>

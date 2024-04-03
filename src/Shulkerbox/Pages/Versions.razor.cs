@@ -7,6 +7,7 @@ namespace Shulkerbox.Pages;
 public partial class Versions
 {
     [Inject] private NavigationManager NavigationManager { get; init; }
+    [Inject] private IDialogService DialogService { get; init; }
     [Inject] private ShulkLauncher Launcher { get; init; }
     [Inject] private ShulkSettings Settings { get; init; }
 
@@ -66,6 +67,14 @@ public partial class Versions
     private async Task DeleteVersion(MVersionMetadata version)
     {
         if (!version.IsLocalVersion || string.IsNullOrEmpty(version.Path))
+            return;
+        var actionConfirmed = await DialogService.ShowMessageBox(
+            "Delete Version",
+            "Are you sure you want to delete this version?",
+            yesText: "Yes",
+            cancelText: "No"
+        );
+        if (actionConfirmed != true)
             return;
         var path = Path.GetDirectoryName(version.Path);
         if (Directory.Exists(path))
